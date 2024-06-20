@@ -1,9 +1,6 @@
 ## **`Cuspot`**
 
-![](https://img.shields.io/github/languages/code-size/phanison898/facebook-clone?style=flat-square)
-![](https://img.shields.io/github/last-commit/phanison898/facebook-clone?style=flat-square)
-![](https://img.shields.io/github/languages/top/phanison898/facebook-clone?style=flat-square)
-![](https://img.shields.io/github/license/phanison898/facebook-clone?style=flat-square)
+
 
 ---
 
@@ -17,12 +14,6 @@ Building facebook application clone using **`React`** and **`Firebase`**. This b
 
 ### 🎥 Preview
 
-- 🖥 **Desktop view** : <p align="center">
-  <img width="100%" src="https://media.giphy.com/media/ZBrjiNNMqqoiZFGTyV/giphy.gif" />
-  </p>
-- 📱 **Mobile view** : <p align="center">
-  <img width="35%" src="https://media.giphy.com/media/yfUdyCuCT98sgURKBu/giphy.gif" />
-  </p>
 
 ---
 
@@ -82,7 +73,4 @@ Building facebook application clone using **`React`** and **`Firebase`**. This b
 
 ### ☎ Feel free to reach out to me
 
-[![Linkedin](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/phanison225/)
-[![Instagram](https://img.shields.io/badge/-Instagram-ff69bf?style=flat-square&logo=Instagram&logoColor=white)](https://www.instagram.com/phanison225/)
-[![Twitter](https://img.shields.io/badge/-Twitter-blue?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/phanison225)
-[![Youtube](https://img.shields.io/badge/-Youtube-red?style=flat-square&logo=Youtube&logoColor=white)](https://youtube.com/channel/UC4FAldAo2Ow_2F447yggcqA/)
+
