@@ -1,4 +1,4 @@
-## **`Facebook-Clone`**
+## **`Cuspot`**
 
 ![](https://img.shields.io/github/languages/code-size/phanison898/facebook-clone?style=flat-square)
 ![](https://img.shields.io/github/last-commit/phanison898/facebook-clone?style=flat-square)
