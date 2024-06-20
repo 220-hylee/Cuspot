@@ -3,6 +3,7 @@ import "firebase/auth";
 import "firebase/storage";
 import "firebase/firestore";
 
+// 또 연습중입니다.
 // initialize firebaseApp with firebase-config values
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
