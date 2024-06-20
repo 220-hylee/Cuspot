@@ -4,6 +4,7 @@ import store from "./store";
 import App from "./App";
 import "./style.css";
 
+// test
 ReactDOM.render(
   <Provider store={store}>
     <App />
