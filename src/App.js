@@ -14,6 +14,7 @@ import { auth } from "./firebase";
 import { lightPrimary } from "./assets/Colors";
 import Style from "./Style";
 
+// hello everyone
 
 const App = () => {
   const dispatch = useDispatch();
