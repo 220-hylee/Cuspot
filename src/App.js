@@ -15,8 +15,10 @@ import { lightPrimary } from "./assets/Colors";
 import Style from "./Style";
 
 // hello everyone
+
 // 현민이 힘내라!
 // 화이팅!
+
 const App = () => {
   const dispatch = useDispatch();
 
