@@ -6,7 +6,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import Logo from "./../../assets/images/fb_text.png";
+import Logo from "./../../assets/images/cpLogo.png";
 import Style from "./Style";
 
 const Login = () => {
@@ -21,7 +21,7 @@ const Login = () => {
     <div className={classes.login__container}>
       <Paper elevation={3} className={classes.login}>
         <div className={classes.logo}>
-          <img src={Logo} alt="linked-in-logo" />
+          <img src={Logo} style={{width : '200px', height :'150px'}} alt="linked-in-logo" />
           <h4>Clone</h4>
         </div>
         <form className={classes.form} onSubmit={(e) => e.preventDefault()}>

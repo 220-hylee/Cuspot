@@ -13,7 +13,7 @@ import ArrowDropDownRoundedIcon from "@material-ui/icons/ArrowDropDownRounded";
 import AddIcon from "@material-ui/icons/Add";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import Zoom from "@material-ui/core/Zoom";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/cpAppLogo.png";
 import { ToggleTheme } from "../../store/actions/util";
 import { auth } from "../../firebase";
 import Style from "./Style";
@@ -42,7 +42,7 @@ const Header = () => {
             <Hidden smDown>
               <div className={classes.logo__search}>
                 <SearchIcon />
-                <input placeholder="Search facebook ..." />
+                <input placeholder="김현민 짱짱맨!" />
               </div>
             </Hidden>
           </Grid>
