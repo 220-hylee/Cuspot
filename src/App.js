@@ -16,7 +16,7 @@ import Style from "./Style";
 
 // hello everyone
 // 현민이 힘내라!
-
+// 커밋테스트 합니다.
 const App = () => {
   const dispatch = useDispatch();
 
