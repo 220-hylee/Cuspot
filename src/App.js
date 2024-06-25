@@ -16,7 +16,12 @@ import Style from "./Style";
 
 // hello everyone
 // 현민이 힘내라!
+<<<<<<< HEAD
 // 커밋테스트 합니다.
+=======
+// 변경을 해보도록 하겠습니다.
+
+>>>>>>> a2cbe74c6829742c00459a67ea431e71cd7b82b5
 const App = () => {
   const dispatch = useDispatch();
 
