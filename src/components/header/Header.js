@@ -16,6 +16,7 @@ import Zoom from "@material-ui/core/Zoom";
 import logo from "../../assets/images/cpAppLogo.png";
 import { ToggleTheme } from "../../store/actions/util";
 import { auth } from "../../firebase";
+import { useNavigate } from 'react-router-dom';
 import Style from "./Style";
 
 const Header = () => {
@@ -31,18 +32,29 @@ const Header = () => {
   const logout = () => {
     auth.signOut();
   };
+  const navigate = useNavigate();
+
+  const handleMapClick = () => {
+    navigate('/about');  // 클릭하면 '/about' 페이지로 이동
+  };
+  const handleHomeClick = () => {
+    navigate('/');  // 클릭하면 '/about' 페이지로 이동
+  };
+  const handleGroupChatClick = () => {
+    navigate('/chat');  // 클릭하면 '/about' 페이지로 이동
+  };
 
   return (
-    <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%" }}>
+    <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%"}}>
       <Grid container className={classes.header}>
         {/*----Logo & Search icon--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__logo} sm={2} md={3}>
-            <img className={classes.logo__image} src={logo} alt="facebook-logo" />
+            <img className={classes.logo__image} src={logo} alt="cuspot-logo" />
             <Hidden smDown>
               <div className={classes.logo__search}>
                 <SearchIcon />
-                <input placeholder="김현민 짱짱맨!" />
+                <input placeholder="search ... " />
               </div>
             </Hidden>
           </Grid>
@@ -50,19 +62,19 @@ const Header = () => {
         {/*----Nav-Bar--------*/}
         <Grid item className={classes.header__nav} xs={12} sm={8} md={6}>
           <div className={`${classes.nav__links} ${classes.nav__links__specail}`}>
-            <Avatar src={logo} />
+            <Avatar src={logo} />  
           </div>
-          <div className={classes.nav__links}>
+          <div className={classes.nav__links} onClick={handleHomeClick}>
             <HomeOutlined />
           </div>
-          <div className={classes.nav__links}>
+          <div className={classes.nav__links} onClick={handleMapClick}>
             <PlayCircleFilledWhiteOutlined />
           </div>
           <Hidden xsDown>
-            <div className={classes.nav__links}>
+            {/* <div className={classes.nav__links}>
               <StoreMallDirectoryOutlined />
-            </div>
-            <div className={classes.nav__links}>
+            </div> */}
+            <div className={classes.nav__links} onClick={handleGroupChatClick}>
               <SupervisedUserCircleOutlined />
             </div>
           </Hidden>
