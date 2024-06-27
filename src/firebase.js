@@ -5,13 +5,13 @@ import "firebase/firestore";
 
 // initialize firebaseApp with firebase-config values
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_APP_ID,
-  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+  apiKey: "AIzaSyCa_fAbesNxeRXBUINdlCRdOkm4Iuj71_M",
+  authDomain: "cuspot-c33ef.firebaseapp.com",
+  projectId: "cuspot-c33ef",
+  storageBucket: "cuspot-c33ef.appspot.com",
+  messagingSenderId: "952066253953",
+  appId: "1:952066253953:web:ed003da01ce18c7ab95980",
+  measurementId: "G-50F4968PD4"
 };
 
 let app;
@@ -34,6 +34,6 @@ const auth = firebase.auth();
 // firebase -Auth Provider (Google)
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export { storage, auth, provider };
+export { storage, auth, provider,db };
 
 export default db;

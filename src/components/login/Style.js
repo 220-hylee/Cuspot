@@ -73,6 +73,18 @@ export default makeStyles((theme) => ({
     },
   },
 
+  // 회원가입 버튼
+  button: {
+    width:250,  
+    height: 30,
+      border: "1px solid lightgrey",
+      borderRadius: 4,
+      color: "white",
+      fontSize: 14,
+      fontWeight: 600,
+      backgroundColor: FacebookBlue,
+    },
+
   google: {
     width: "100%",
     display: "flex",
