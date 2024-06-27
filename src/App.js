@@ -18,6 +18,7 @@ import { LoginAction, LogoutAction } from "./store/actions/auth";
 import { auth } from "./firebase";
 import { lightPrimary } from "./assets/Colors";
 import Style from "./Style";
+import Register from "./components/login/Register";
 
 const MainContent = () => {
   const classes = Style();
@@ -87,7 +88,10 @@ const App = () => {
           style={{ backgroundColor: !mode && lightPrimary }}
         >
           {!displayName ? (
-            <Login />
+            <Routes>
+            <Route path="/" element={<Login />}/>
+           <Route path="/register" element={<Register />}/>
+      </Routes>
           ) : (
             <Routes>
               <Route path="/" element={<MainContent />} />
