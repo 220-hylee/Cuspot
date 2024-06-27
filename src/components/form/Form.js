@@ -27,7 +27,8 @@ const Form = () => {
 
   const [progress, setProgress] = useState("");
 
-  const uploadToFirebaseDB = (fileData) => {
+  const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수. 
+    // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
     // uploading to collection called posts
     db.collection("posts")
       .add({
@@ -82,7 +83,8 @@ const Form = () => {
   };
 
   // if file name is too long.. compress it
-  const fileNameCompressor = (str, limit) => {
+  const fileNameCompressor = (str, limit) => { // 파일명 압축 함수.
+    // 파일명이 너무 길 경우, 지정한 길이로 압축하여 반환합니다.
     let fileName = str;
     const arr = str.split(".");
     const name = arr[0];
@@ -94,7 +96,7 @@ const Form = () => {
     return fileName;
   };
 
-  const imageUploadHandler = async (e, type) => {
+  const imageUploadHandler = async (e, type) => { // 파일 업로드 핸들러
     const inputFile = e.target.files[0];
     const _inputFile = inputFile.type.split("/");
     const inputFileType = _inputFile[0];
@@ -103,8 +105,8 @@ const Form = () => {
 
     const fileSize = inputFile.size / (1024 * 1024);
 
-    const acceptedImageFormats = ["png", "jpg", "jpeg", "gif"];
-    const acceptedVideoFormats = ["mp4", "mkv", "3gp", "avi", "webm"];
+    const acceptedImageFormats = ["png", "jpg", "jpeg", "gif"]; // 이미지 업로드 가능한 포맷
+    const acceptedVideoFormats = ["mp4", "mkv", "3gp", "avi", "webm"]; // 동영상 업로드 가능한 포맷
 
     switch (type) {
       case "video":
@@ -141,7 +143,7 @@ const Form = () => {
     if (inputFileType === "image") {
       //compression algorithm
       const compressionOptions = {
-        maxSizeMB: 1,
+        maxSizeMB: 10,
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       };
@@ -174,7 +176,8 @@ const Form = () => {
     e.target.value = "";
   };
 
-  const resetState = () => {
+  const resetState = () => { // 상태 초기화 함수
+    // 업로드 데이터와 진행률을 초기화 합니다.
     setUploadData({
       description: "",
       file: {
@@ -186,16 +189,17 @@ const Form = () => {
     setProgress("");
   };
 
-  return (
+  return ( // jsx 반환
     <Paper className={classes.upload}>
       <div className={classes.upload__header}>
         <Avatar src={photoURL} />
         <form className={classes.header__form} onSubmit={handleSubmitButton}>
           <input
-            placeholder={`What's on your mind, ${displayName}?`}
+            placeholder={`오늘은 어떤 내용을 공유할까요, ${displayName}님?`}
             value={uploadData.description}
             onChange={(e) => setUploadData({ ...uploadData, description: e.target.value })}
-          />
+          /> 
+          {/* 위 input은 피드 TEXT입력 부분 */}
           <input
             id="upload-image"
             type="file"
@@ -203,14 +207,17 @@ const Form = () => {
             hidden
             onChange={(e) => imageUploadHandler(e, "image")}
           />
+          {/* 위 input은 피드 이미지 업로드 부분, 아래 라벨의 htmlFor와 id값이 일치해야 업로드 내용이 나옴. */}
           <input
-            id="upload-video"
+            id="upload-video" 
             type="file"
             accept="video/*"
             hidden
             onChange={(e) => imageUploadHandler(e, "video")}
           />
-          <button type="submit">Post</button>
+          {/* 위 input은 피드 동영상 업로드 부분 */}
+          <button type="submit">올리기</button>
+          {/* POST버튼 */}
         </form>
       </div>
       {uploadData.file.name && !progress && (

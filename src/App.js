@@ -12,7 +12,8 @@ import Stories from "./components/stories/Stories";
 import Form from "./components/form/Form";
 import Posts from "./components/posts/Posts";
 import CusMap from "./components/map/CusMap"; // 맵 컴포넌트
-import Chat from "./components/chat/GroupChat"
+import Chat from "./components/chat/GroupChat";
+import Friends from "./components/friends/Friends";
 import { LoginAction, LogoutAction } from "./store/actions/auth";
 import { auth } from "./firebase";
 import { lightPrimary } from "./assets/Colors";
@@ -29,13 +30,14 @@ const MainContent = () => {
       <Grid item container className={classes.app__body}>
         <Hidden smDown>
           <Grid item container className={classes.body__left} md={3}>
-            <Sidebar />
+            {/* <Sidebar /> */}
+            <Contacts />
           </Grid>
         </Hidden>
         <Grid item container className={classes.body__feed} xs={12} sm={8} md={6}>
-          <Grid item container className={classes.feed__stories}>
+          {/* <Grid item container className={classes.feed__stories}>
             <Stories />
-          </Grid>
+          </Grid> */}
           <Grid item container className={classes.feed__form}>
             <Form />
           </Grid>
@@ -43,11 +45,11 @@ const MainContent = () => {
             <Posts />
           </Grid>
         </Grid>
-        <Hidden smDown>
+        {/* <Hidden smDown>
           <Grid item container className={classes.body__right} md={3}>
             <Contacts />
           </Grid>
-        </Hidden>
+        </Hidden> */}
       </Grid>
     </Grid>
   );
@@ -91,6 +93,7 @@ const App = () => {
               <Route path="/" element={<MainContent />} />
               <Route path="/about" element={<CusMap />} />
               <Route path="/chat" element={<Chat />} />
+              <Route path="/friends" element={<Friends />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           )}

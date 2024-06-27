@@ -18,8 +18,17 @@ export default makeStyles((theme) => ({
     overflow: "hidden",
   },
   body__left: {
+    position: 'fixed',
+    left: 0,
     width: "100%",
     height: "100%",
+  },
+  body__friend: {
+    position: 'fixed',
+    
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
   },
   body__feed: {
     width: "100%",

@@ -43,6 +43,9 @@ const Header = () => {
   const handleGroupChatClick = () => {
     navigate('/chat');  // 클릭하면 '/about' 페이지로 이동
   };
+  const handleFriendsClick = () => {
+    navigate('/friends');  // 클릭하면 '/about' 페이지로 이동
+  };
 
   return (
     <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%"}}>
@@ -51,12 +54,12 @@ const Header = () => {
         <Hidden xsDown>
           <Grid item className={classes.header__logo} sm={2} md={3}>
             <img className={classes.logo__image} src={logo} alt="cuspot-logo" />
-            <Hidden smDown>
+            {/* <Hidden smDown>
               <div className={classes.logo__search}>
                 <SearchIcon />
                 <input placeholder="search ... " />
               </div>
-            </Hidden>
+            </Hidden> */}
           </Grid>
         </Hidden>
         {/*----Nav-Bar--------*/}
@@ -78,9 +81,12 @@ const Header = () => {
               <SupervisedUserCircleOutlined />
             </div>
           </Hidden>
-          <div className={classes.nav__links} onClick={changeTheme}>
+            <div className={classes.nav__links} onClick={handleFriendsClick}>
+              <TelegramIcon />
+            </div>
+          {/* <div className={classes.nav__links} onClick={changeTheme}>
             {mode ? <Brightness4Icon /> : <BrightnessHighIcon />}
-          </div>
+          </div> */}
           <div className={`${classes.nav__links} ${classes.nav__links__specail}`}>
             <Avatar src={photoURL} onClick={logout} />
           </div>
