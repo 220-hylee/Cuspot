@@ -23,14 +23,14 @@ const Contacts = () => {
   return (
     <Paper elevation={0} className={classes.contacts}>
       <Scrollbars autoHide autoHideDuration={200}>
-        <Divider />
+        {/* <Divider />
         <div className={classes.contacts__tab}>
           <h4>Your Pages</h4>
           <MoreHorizIcon />
-        </div>
+        </div> */}
         <Divider />
         <div className={classes.contacts__tab}>
-          <h4>Contacts</h4>
+          <h4>친구</h4>
           <SearchIcon />
           <MoreHorizIcon />
         </div>
