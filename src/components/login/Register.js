@@ -18,6 +18,7 @@ const Register = () => {
     e.preventDefault();
     try {
       // Firebase Auth에 이메일/비밀번호로 회원가입
+      // 봄동에 auth에 이메일 비밀번호 데이터를 저장
       const userCredential = await auth.createUserWithEmailAndPassword(
         email,
         password

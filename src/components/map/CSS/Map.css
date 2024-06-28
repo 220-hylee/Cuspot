@@ -69,6 +69,15 @@
 }
 
 /* 지도 */
+.map_wrap {
+  height: 100%; 
+  width: 100%; 
+}
+html, body {
+  height: 100%; /* HTML과 body 요소의 높이를 100%로 설정 */
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+}
 
 
 .keyword-button {
@@ -120,14 +129,9 @@
 }
 
 /* 검색 */
-.map_wrap * {
-  margin: 0;
-  padding: 0;
-  font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-  font-size: 14px;
-}
 
 
+/* 검색 창 */
 #menu_wrap {
   position: absolute;
   padding: 10px;
@@ -136,20 +140,23 @@
   z-index: 1000;
   background: #fff;
   width: 440px;
-  max-width: 100%; /* 최대 너비 설정 */
+  max-width: 100%;
   border: 1px solid #d4d4d4;
   border-radius: 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column; /* 세로 방향으로 요소들을 나열 */
-  align-items: flex-start; /* 왼쪽 정렬 */
+  flex-direction: column; 
+  align-items: flex-start; 
+  font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+  font-size: 13px;
 }
 
+/* 검색바 */
 .search-form {
   display: flex;
-  flex-direction: row; /* 가로 방향으로 요소들을 나열 */
+  flex-direction: row; 
   align-items: center;
-  justify-content: space-between; /* 요소들 사이의 간격을 동일하게 설정 */
+  justify-content: space-between; 
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
   border-radius: 5px;
@@ -199,14 +206,11 @@
   margin-top: 10px;
 }
 
-.options-container label {
-  font-size: 14px;
-  margin-right: 10px;
-}
-
+.options-container label,
 .options-container select {
   padding: 6px;
   font-size: 14px;
+  margin-right: 2px; 
 }
 
 .auto-complete-container {
@@ -268,4 +272,14 @@
   font-weight: bold;
   cursor: default;
   color: #777;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  font-weight: bold;
 }

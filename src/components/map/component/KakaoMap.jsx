@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import SearchForm from './SearchForm';
 import PlaceList from './PlaceList';
 import MapService from '../services/MapService';
@@ -6,32 +6,57 @@ import '../CSS/Map.css';
 
 const KakaoMap = () => {
   const mapRef = useRef(null);
-  const [keyword, setKeyword] = useState("");
-  const [userPosition, setUserPosition] = useState(null);
-  const [places, setPlaces] = useState([]);
-  const [mapService, setMapService] = useState(null);
-  const [showPlaceList, setShowPlaceList] = useState(false); // 결과창을 보이게 할지 여부
-  const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 8; // 페이지 당 결과 수
 
+  // 검색어 상태 관리
+  const [keyword, setKeyword] = useState("");
+
+  // 사용자 위치 상태 관리
+  const [userPosition, setUserPosition] = useState(null);
+
+  // 장소 목록 상태 관리
+  const [places, setPlaces] = useState([]);
+
+  // MapService 인스턴스 상태 관리
+  const [mapService, setMapService] = useState(null);
+
+  // 장소 목록 표시 여부 상태 관리
+  const [showPlaceList, setShowPlaceList] = useState(false);
+
+  // 현재 페이지 상태 관리
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // 페이지당 결과 수
+  const resultsPerPage = 5;
+
+  // 현재 위치 가져오기 함수
+  const getCurrentPosition = useCallback(() => {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      } else {
+        reject(new Error('브라우저 내에서 GPS 받아오기에 실패하였습니다.'));
+      }
+    });
+  }, []);
+
+  // 컴포넌트가 마운트될 때 사용자 위치 초기화
   useEffect(() => {
     const initializeUserPosition = async () => {
       try {
         const position = await getCurrentPosition();
-        const newPosition = {
+        setUserPosition({
           lat: position.coords.latitude,
           lng: position.coords.longitude
-        };
-        setUserPosition(newPosition);
+        });
       } catch (error) {
         console.error(error);
         alert('사용자 위치를 가져올 수 없습니다.');
       }
     };
-
     initializeUserPosition();
-  }, []);
+  }, [getCurrentPosition]);
 
+  // 사용자 위치가 변경될 때마다 지도 초기화
   useEffect(() => {
     if (mapRef.current && userPosition) {
       const mapServiceInstance = new MapService(mapRef.current, userPosition, setPlaces);
@@ -40,81 +65,70 @@ const KakaoMap = () => {
     }
   }, [userPosition]);
 
+  // 키워드 검색 시 장소 검색
   useEffect(() => {
     if (mapService && keyword) {
       mapService.searchPlaces(keyword);
-      setCurrentPage(1); // 검색 시 첫 번째 페이지로 초기화
-      setShowPlaceList(true); // 검색어가 있을 때만 결과창 보이기
+      setCurrentPage(1); // 페이지 초기화
+      setShowPlaceList(true); // 장소 목록 표시
     } else {
-      setShowPlaceList(false); // 검색어가 없으면 결과창 숨기기
+      setShowPlaceList(false); // 장소 목록 숨기기
     }
   }, [keyword, mapService]);
 
-  const handleSetUserPosition = async () => {
+  // 사용자 위치 설정 버튼 클릭 시 처리
+  const handleSetUserPosition = useCallback(async () => {
     try {
       const position = await getCurrentPosition();
       const newPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      setUserPosition(newPosition);
+      setUserPosition(newPosition); // 사용자 위치 업데이트
       if (mapService) {
-        mapService.updateUserPosition(newPosition);
+        mapService.updateUserPosition(newPosition); // 지도의 사용자 위치 업데이트
       }
-      setKeyword(""); // 사용자 위치 초기화 후 키워드 초기화
-      setShowPlaceList(false); // 결과창 숨기기
+      setKeyword(""); // 검색어 초기화
+      setShowPlaceList(false); // 장소 목록 숨기기
     } catch (error) {
       console.error(error);
       alert('사용자 위치를 가져올 수 없습니다.');
     }
-  };
+  }, [getCurrentPosition, mapService]);
 
-  const getCurrentPosition = () => {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      } else {
-        reject(new Error('브라우저 내에서 GPS 받아오기에 실패하였습니다.'));
-      }
-    });
-  };
+  // 검색어 제출 처리 함수
+  const handleSearchSubmit = useCallback((searchKeyword) => {
+    setKeyword(searchKeyword); // 검색어 설정
+    setShowPlaceList(true); // 장소 목록 표시
+  }, []);
 
-  const handleSearchSubmit = (searchKeyword) => {
-    setKeyword(searchKeyword);
-    setShowPlaceList(true); // 검색어가 있을 때 결과창 보이기
-  };
+  // 옵션 버튼 클릭 처리 함수
+  const handleOptionButtonClick = useCallback((keyword) => {
+    handleSearchSubmit(keyword); // 검색어 제출 처리
+  }, [handleSearchSubmit]);
 
-  const handleOptionButtonClick = (keyword) => {
-    handleSearchSubmit(keyword);
-  };
-
-  const changePage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    // 여기서 필요에 따라 검색 결과를 다시 가져오거나, 이미 가져온 결과를 페이지에 맞게 자를 수 있습니다.
-  };
+  // 페이지 변경 처리 함수
+  const changePage = useCallback((pageNumber) => {
+    setCurrentPage(pageNumber); // 현재 페이지 설정
+  }, []);
 
   return (
     <div className="map_wrap">
-      <div className='map-controls1'>
-        <button className="keyword-button1" onClick={() => handleOptionButtonClick("배드민턴")}>배드민턴</button>
-      </div>
-
-      <div className='map-controls2'>
-        <button className="keyword-button2" onClick={() => handleOptionButtonClick("축구")}>축구</button>
-      </div>
-
-      <div className='map-controls3'>
-        <button className="keyword-button3" onClick={() => handleOptionButtonClick("야구")}>야구</button>
-      </div>
-
-      <div className='map-controls4'>
-        <button className="keyword-button4" onClick={() => handleOptionButtonClick("풋볼")}>풋볼</button>
-      </div>
-
+      {/* 검색 옵션 버튼들 */}
+      {["배드민턴", "축구", "야구", "풋볼"].map((keyword, index) => (
+        <div key={index} className={`map-controls${index + 1}`}>
+          <button className={`keyword-button${index + 1}`} onClick={() => handleOptionButtonClick(keyword)}>
+            {keyword}
+          </button>
+        </div>
+      ))}
+      {/* 지도 컨테이너 */}
       <div id="map" ref={mapRef} style={{ width: '100%', height: '1000px', position: 'relative', overflow: 'hidden' }}></div>
+      {/* 검색 폼과 장소 목록 */}
       <div id="menu_wrap" className="bg_white">
         <SearchForm handleSearchSubmit={handleSearchSubmit} />
         <hr />
+        {/* 장소 목록 표시 */}
         {showPlaceList && (
           <>
             <PlaceList
@@ -123,7 +137,7 @@ const KakaoMap = () => {
               resultsPerPage={resultsPerPage}
               changePage={changePage}
             />
-            {/* 페이지네이션 UI */}
+            {/* 페이지네이션 */}
             <div className="pagination">
               {Array.from({ length: Math.ceil(places.length / resultsPerPage) }, (_, index) => (
                 <button

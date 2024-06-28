@@ -17,8 +17,10 @@ import { Link, Navigate } from "react-router-dom";
 const Login = () => {
   const classes = Style();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); //  초기 이메일
+  const [password, setPassword] = useState(""); // 초기 비밀번호
+  
+  // 구글 로그인시 작동
   const uiConfig = {
     signInFlow: "popup",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
@@ -52,7 +54,9 @@ const Login = () => {
           />
           <h4>Clone</h4>
         </div>
+        {/* 일반 로그인  */}
         <form className={classes.form} onSubmit={handleSubmit}>
+          {/* 이메일 입력 */}
           <input
             type="email"
             placeholder="Email"
@@ -60,6 +64,7 @@ const Login = () => {
             onChange={handleEmailChange}
             required
           />
+          {/* 비밀번호 입력 */}
           <input
             type="password"
             placeholder="Password"
@@ -67,6 +72,7 @@ const Login = () => {
             onChange={handlePasswordChange}
             required
           />
+          {/* 로그인 버튼 */}
           <button type="submit">Log In</button>
         </form>
           {/* 회원가입 링크 */}

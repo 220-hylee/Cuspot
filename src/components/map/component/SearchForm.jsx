@@ -3,37 +3,43 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
-  const [input, setInput] = useState("");
-  const [showOptions, setShowOptions] = useState(false); // 검색 옵션을 보여줄지 여부를 관리하는 상태
-  const [selectedRadius, setSelectedRadius] = useState("1000"); // 선택된 검색 반경을 상태로 관리
-  const [selectedOptions, setSelectedOptions] = useState([]); // 선택된 옵션을 관리하는 상태
+  // State 정의
+  const [input, setInput] = useState(""); // 검색어 입력 상태 관리
+  const [showOptions, setShowOptions] = useState(false); // 옵션 펼침 상태 관리
+  const [selectedRadius, setSelectedRadius] = useState("1000"); // 선택된 검색 반경 관리
+  const [selectedOptions, setSelectedOptions] = useState([]); // 선택된 옵션들 관리
 
+  // 검색어 제출 시 처리
   const onSubmit = (e) => {
     e.preventDefault();
-    handleSearchSubmit(input, selectedOptions); // 선택된 옵션과 함께 검색어를 전달
+    handleSearchSubmit(input, selectedOptions); // 검색어와 선택된 옵션들 전달
   };
 
+  // 옵션 펼침/접기 토글
   const toggleOptions = () => {
-    setShowOptions(!showOptions); // 검색 옵션 보이기/감추기 토글
+    setShowOptions(!showOptions);
   };
 
+  // 검색 반경 변경 시 처리
   const onRadiusChange = (e) => {
     const radius = e.target.value;
-    setSelectedRadius(radius); // 선택된 반경을 업데이트
+    setSelectedRadius(radius);
     handleRadiusChange(radius);
   };
 
-  const handleOptionButtonClick = (option) => {
+  // 옵션 체크박스 클릭 처리
+  const handleCheckboxChange = (option) => {
     if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter(item => item !== option)); // 이미 선택된 옵션을 해제
+      setSelectedOptions(prevOptions => prevOptions.filter(item => item !== option));
     } else {
-      setSelectedOptions([...selectedOptions, option]); // 선택되지 않은 옵션을 추가
+      setSelectedOptions(prevOptions => [...prevOptions, option]);
     }
   };
 
   return (
-    <form onSubmit={onSubmit} className="search-form">
-      <div className="search-bar">
+    <div className="search-form">
+      {/* 검색어 입력 폼 */}
+      <form onSubmit={onSubmit} className="search-bar">
         <input 
           type="text" 
           value={input} 
@@ -41,19 +47,23 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
           placeholder="검색어를 입력하세요" 
           className="search-input"
         />
-        <button className="search-button" type="submit">검색</button>
-      </div>
+        {/* 검색 버튼 및 옵션 토글 버튼 */}
+        <div className="search-buttons">
+          <button className="search-button" type="submit">검색</button>
+          <button 
+            className="toggle-options" 
+            type="button" 
+            onClick={toggleOptions}
+          >
+            옵션
+          </button>
+        </div>
+      </form>
 
-      <button 
-        className="toggle-options" 
-        type="button" 
-        onClick={toggleOptions}
-      >
-        옵션
-      </button>
-
+      {/* 옵션 펼침 상태일 때 옵션 컨테이너 표시 */}
       {showOptions && (
         <div className="options-container">
+          {/* 검색 반경 선택 */}
           <label>
             검색 반경:
             <select value={selectedRadius} onChange={onRadiusChange}>
@@ -64,28 +74,24 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
             </select>
           </label>
 
+          {/* 옵션 체크박스들 */}
           <div>
-            체크박스:
-            <FormControlLabel
-              control={<Checkbox checked={selectedOptions.includes("배드민턴")} onChange={() => handleOptionButtonClick("배드민턴")} />}
-              label="배드민턴"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={selectedOptions.includes("축구")} onChange={() => handleOptionButtonClick("축구")} />}
-              label="축구"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={selectedOptions.includes("야구")} onChange={() => handleOptionButtonClick("야구")} />}
-              label="야구"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={selectedOptions.includes("풋볼")} onChange={() => handleOptionButtonClick("풋볼")} />}
-              label="풋볼"
-            />
+            {["배드민턴", "축구", "야구", "풋볼"].map((option, index) => (
+              <FormControlLabel
+                key={index}
+                control={
+                  <Checkbox 
+                    checked={selectedOptions.includes(option)} 
+                    onChange={() => handleCheckboxChange(option)} 
+                  />
+                }
+                label={option}
+              />
+            ))}
           </div>
         </div>
       )}
-    </form>
+    </div>
   );
 };
 
