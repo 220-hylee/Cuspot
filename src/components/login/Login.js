@@ -29,13 +29,17 @@ const Login = () => {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
+  // 로그인 버튼을 눌렀을때 작동됨
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const userCredential = await firebase
         .auth()
+        // 봄동에 auth에 로그인 정보 확인
+        // .signInWithEmailAndPassword는 일반로그인시  사용합니다.
         .signInWithEmailAndPassword(email, password);
       const user = userCredential.user;
+      // 로그인이 됬을때 dispatch로  user 값이 변환된것을 알려줍니다.
       dispatch(LoginAction(user));
     } catch (error) {
       console.error("Error logging in with email and password", error);

@@ -10,6 +10,7 @@ const KakaoMap = () => {
   // 검색어 상태 관리
   const [keyword, setKeyword] = useState("");
 
+
   // 사용자 위치 상태 관리
   const [userPosition, setUserPosition] = useState(null);
 
@@ -65,68 +66,43 @@ const KakaoMap = () => {
     }
   }, [userPosition]);
 
-  // 키워드 검색 시 장소 검색
+  // 검색어 변경 시 장소 검색
   useEffect(() => {
     if (mapService && keyword) {
-      mapService.searchPlaces(keyword);
+      mapService.searchPlaces(keyword, []); // 초기에는 선택된 옵션이 없음
       setCurrentPage(1); // 페이지 초기화
       setShowPlaceList(true); // 장소 목록 표시
     } else {
       setShowPlaceList(false); // 장소 목록 숨기기
     }
-  }, [keyword, mapService]);
-
-  // 사용자 위치 설정 버튼 클릭 시 처리
-  const handleSetUserPosition = useCallback(async () => {
-    try {
-      const position = await getCurrentPosition();
-      const newPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      setUserPosition(newPosition); // 사용자 위치 업데이트
-      if (mapService) {
-        mapService.updateUserPosition(newPosition); // 지도의 사용자 위치 업데이트
-      }
-      setKeyword(""); // 검색어 초기화
-      setShowPlaceList(false); // 장소 목록 숨기기
-    } catch (error) {
-      console.error(error);
-      alert('사용자 위치를 가져올 수 없습니다.');
-    }
-  }, [getCurrentPosition, mapService]);
+  }, [mapService, keyword]);
 
   // 검색어 제출 처리 함수
-  const handleSearchSubmit = useCallback((searchKeyword) => {
+  const handleSearchSubmit = useCallback((searchKeyword, selectedOptions) => {
     setKeyword(searchKeyword); // 검색어 설정
-    setShowPlaceList(true); // 장소 목록 표시
-  }, []);
-
-  // 옵션 버튼 클릭 처리 함수
-  const handleOptionButtonClick = useCallback((keyword) => {
-    handleSearchSubmit(keyword); // 검색어 제출 처리
-  }, [handleSearchSubmit]);
+    mapService.searchPlaces(searchKeyword, selectedOptions); // 장소 검색 요청
+  }, [mapService]);
 
   // 페이지 변경 처리 함수
   const changePage = useCallback((pageNumber) => {
     setCurrentPage(pageNumber); // 현재 페이지 설정
   }, []);
 
+  // 검색 반경 변경 처리 함수
+  const handleRadiusChange = useCallback((radius) => {
+    if (mapService) {
+      mapService.setRadius(radius); // 검색 반경 설정
+      mapService.searchPlaces(keyword, []); // 장소 검색 요청 (선택된 옵션 초기화)
+    }
+  }, [mapService, keyword]);
+
   return (
     <div className="map_wrap">
-      {/* 검색 옵션 버튼들 */}
-      {["배드민턴", "축구", "야구", "풋볼"].map((keyword, index) => (
-        <div key={index} className={`map-controls${index + 1}`}>
-          <button className={`keyword-button${index + 1}`} onClick={() => handleOptionButtonClick(keyword)}>
-            {keyword}
-          </button>
-        </div>
-      ))}
       {/* 지도 컨테이너 */}
-      <div id="map" ref={mapRef} style={{ width: '100%', height: '1000px', position: 'relative', overflow: 'hidden' }}></div>
+      <div id="map" ref={mapRef} style={{ width: '100%', height: '100%', position: '', overflow: '' }}></div>
       {/* 검색 폼과 장소 목록 */}
       <div id="menu_wrap" className="bg_white">
-        <SearchForm handleSearchSubmit={handleSearchSubmit} />
+        <SearchForm handleSearchSubmit={handleSearchSubmit} handleRadiusChange={handleRadiusChange} />
         <hr />
         {/* 장소 목록 표시 */}
         {showPlaceList && (

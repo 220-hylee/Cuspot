@@ -37,6 +37,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
   };
 
   return (
+    
     <div className="search-form">
       {/* 검색어 입력 폼 */}
       <form onSubmit={onSubmit} className="search-bar">
@@ -55,7 +56,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
             type="button" 
             onClick={toggleOptions}
           >
-            옵션
+            {showOptions ? "옵션 닫기" : "옵션 열기"}
           </button>
         </div>
       </form>
@@ -67,6 +68,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
           <label>
             검색 반경:
             <select value={selectedRadius} onChange={onRadiusChange}>
+            <option value="">전체</option>
               <option value="500">500m</option>
               <option value="1000">1km</option>
               <option value="1500">1.5km</option>
@@ -75,7 +77,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
           </label>
 
           {/* 옵션 체크박스들 */}
-          <div>
+          <div className="checkbox-options">
             {["배드민턴", "축구", "야구", "풋볼"].map((option, index) => (
               <FormControlLabel
                 key={index}
@@ -83,6 +85,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
                   <Checkbox 
                     checked={selectedOptions.includes(option)} 
                     onChange={() => handleCheckboxChange(option)} 
+                    color="primary"
                   />
                 }
                 label={option}
