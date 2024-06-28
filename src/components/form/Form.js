@@ -14,7 +14,10 @@ import swal from "@sweetalert/with-react";
 
 const Form = () => {
   const classes = Styles();
-  const { displayName, photoURL } = useSelector((state) => state.user);
+  const { displayName, photoURL, email } = useSelector((state) => state.user);
+  const[ Like, setLike] = useState(0); // 좋아요 
+  const currentDate = new Date(); // 현재 날짜
+  const[category,setCategory] = useState(""); // 카테고리 
 
   const [uploadData, setUploadData] = useState({
     description: "",
@@ -27,11 +30,20 @@ const Form = () => {
 
   const [progress, setProgress] = useState("");
 
+
+
+
   const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수. 
     // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
     // uploading to collection called posts
+    
+   
+//-----------------------------------------------------------------------------------------
+    
+    // 봄동에 게시글 데이터 보내기
     db.collection("posts")
       .add({
+        email: email,
         profile: photoURL,
         username: displayName,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -39,12 +51,53 @@ const Form = () => {
         fileType: uploadData.file.type,
         fileName: uploadData.file.name,
         fileData: fileData,
+        Like : Like,
+        category : category
       })
       .then(() => resetState());
-  };
-
+  
+  
+      
+  
+       // Spring boot board에 게시글 데이터 보내기
+       fetch("http://localhost:8080/api/createboard", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+          email: email,
+          username: displayName,
+          content: uploadData.description,
+          profile: photoURL,
+          fileData: fileData,
+          fileName: uploadData.file.name,
+          fileType: uploadData.file.type,
+          timestamp: currentDate,
+          Likes : Like,
+          category : category
+        }),
+    })
+        .then(response => {
+            console.log(`response`, response);   
+            // 201은 성공  실패하면 null return
+            if (response.status === 201) {
+                return response.json();     
+            } else {
+                return null;
+            }
+           
+        })
+  
+  
+  
+    };
+  
   const handleSubmitButton = (e) => {
     e.preventDefault();
+
+    
+
 
     // verify atleast one of the input fields are not empyt
     if (uploadData.description || uploadData.file.data) {
@@ -58,6 +111,7 @@ const Form = () => {
             const value = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
             setProgress(value);
           },
+          
 
           (error) => {
             alert(error);
