@@ -5,6 +5,7 @@ import { LoginAction } from "../../store/actions/auth";
 import Style from "./Style";
 import { Paper } from "@material-ui/core";
 import Logo from "./../../assets/images/logo_width.png";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -105,8 +106,11 @@ const Register = () => {
         <br/>
         
         <button type="submit" style={{backgroundColor:'#2050B2'}}>회원가입</button>
-        <br/><br/>
+          
       </form>
+      <Link to="/">
+      <button className={classes.button}>뒤로가기</button>
+      </Link>
     </div>
     </Paper>
   </div>
