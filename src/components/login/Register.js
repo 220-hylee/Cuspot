@@ -3,24 +3,29 @@ import { useDispatch } from "react-redux";
 import { auth, db } from "../../firebase";
 import { LoginAction } from "../../store/actions/auth";
 import Style from "./Style";
+import { Link } from "react-router-dom";
+
+
 const Register = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
-  const [address, setAddress] = useState("");
-
+  const [email, setEmail] = useState(""); // 이메일
+  const [domain, setDomain] = useState("@naver.com"); // 도메인
+  const [password, setPassword] = useState(""); // 비밀번호
+  const [displayName, setDisplayName] = useState(""); // 이름
+  const [photoURL, setPhotoURL] = useState(""); // 프로필 이미지
+  const [address, setAddress] = useState(""); // 주소
 
   const classes = Style();
 
+  // 회원가입 버튼 눌렀을시 작동
   const handleSignup = async (e) => {
     e.preventDefault();
+    const fullEmail = email + domain; // 이메일과 도메인 결합
+
     try {
       // Firebase Auth에 이메일/비밀번호로 회원가입
-      // 봄동에 auth에 이메일 비밀번호 데이터를 저장
       const userCredential = await auth.createUserWithEmailAndPassword(
-        email,
+        fullEmail,
         password
       );
 
@@ -32,18 +37,18 @@ const Register = () => {
 
       // Firestore에 추가 정보 저장
       await db.collection("users").doc(userCredential.user.uid).set({
-        email: email,
+        email: fullEmail,
         displayName: displayName,
         photoURL: photoURL,
         date: new Date(),
-        addres: address,
+        address: address, 
       });
 
       // Redux에 사용자 정보 저장
       dispatch(
         LoginAction({
           displayName: displayName,
-          email: email,
+          email: fullEmail,
           photoURL: photoURL,
         })
       );
@@ -51,49 +56,80 @@ const Register = () => {
       // 회원가입 후 추가 작업 또는 페이지 이동
 
     } catch (error) {
-      console.error("Error signing up:", error.message);
       // 사용자에게 오류 메시지 표시 등
+      if (error.code ==='auth/email-already-in-use') {
+         alert("이메일이 존재합니다");
+      }
+      else if (error.code === 'auth/weak-password') {
+        alert("비밀번호는 영문과 숫자를 포함한 6자리 이상이어야 합니다.");
+      }else {
+        console.error("Error signing up:", error.message);
+      }
+      
     }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleDomainChange = (e) => {
+    setDomain(e.target.value);
   };
 
   return (
     <div className={classes.login__container}>
-    <div>
-      <h2>회원가입</h2>
-      <form onSubmit={handleSignup} className={classes.form}>
-        <input
-          type="text"
-          placeholder="이름"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="이메일"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-           <input
-          type="text"
-          placeholder="주소"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          required
-        />
-        
-        <button type="submit">회원가입</button>
-      </form>
+      <div>
+        <h2>회원가입</h2>
+        <form onSubmit={handleSignup} className={classes.form}>
+          {/* 이름 입력 칸 */}
+          <input
+            type="text"
+            placeholder="이름"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            required
+          />
+            
+          {/* 이메일 입력 칸 */}
+          <input
+            type="text"
+            placeholder="이메일"
+            value={email}
+            onChange={handleEmailChange}
+            required
+      />
+           @
+           {/* 도메인 입력 칸 */}
+            <select value={domain} onChange={handleDomainChange}>
+              <option value="@naver.com">naver.com</option>
+              <option value="@google.com">google.com</option>
+              <option value="@daum.net">daum.net</option>
+            </select>
+           {/* 비밀번호 입력 칸 */}
+          <input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+           {/* 주소 입력 칸 */}
+          <input
+            type="text"
+            placeholder="주소"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
+          {/* 회원가입 버튼 */}
+          <button type="submit">회원가입</button>
+        </form>
+        <Link to="/">
+            <button  className={classes.button}>뒤로가기</button>
+          </Link>
+      </div>
     </div>
-  </div>
   );
 };
 

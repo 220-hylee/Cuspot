@@ -71,11 +71,9 @@ class MapService {
   setRadius(radius) {
     if (radius > 0) {
       this.currentRadius = radius;
-    }else if(radius == null){
-      this.currentRadius = radius;
     }
     else {
-      console.warn('유효하지 않은 검색 반경입니다.');
+      this.currentRadius =  null;
     }
   }
 
@@ -89,7 +87,7 @@ class MapService {
   
     const options = {
       location: new this.kakao.maps.LatLng(this.userPosition.lat, this.userPosition.lng),
-      radius: selectedOptions.useRadius ? parseInt(this.currentRadius) : null
+      radius: this.currentRadius
     };
   
     // 체크박스 옵션에 따라 필터 추가
@@ -161,13 +159,14 @@ class MapService {
   // 마커를 추가하고 반환하는 메서드
   addMarker(position, index) {
     let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
+    // 마커 사이즈 --------------------------------------
     let imageSize = new this.kakao.maps.Size(36, 37);
     let imgOptions = {
       spriteSize: new this.kakao.maps.Size(36, 691),
       spriteOrigin: new this.kakao.maps.Point(0, (index * 46) + 10),
       offset: new this.kakao.maps.Point(13, 37)
     };
-    
+    // --------------------------------------------------
     
     // 검색이 축구 일 경우
     if(this.keyword.match("축구")){
