@@ -160,12 +160,8 @@ class MapService {
   addMarker(position, index) {
     let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
     // 마커 사이즈 --------------------------------------
-    let imageSize = new this.kakao.maps.Size(36, 37);
-    let imgOptions = {
-      spriteSize: new this.kakao.maps.Size(36, 691),
-      spriteOrigin: new this.kakao.maps.Point(0, (index * 46) + 10),
-      offset: new this.kakao.maps.Point(13, 37)
-    };
+    let imageSize = new this.kakao.maps.Size(34, 35);
+    let imgOptions = {offset: new this.kakao.maps.Point(27, 69)};
     // --------------------------------------------------
     
     // 검색이 축구 일 경우
