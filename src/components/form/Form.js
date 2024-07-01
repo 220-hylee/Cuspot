@@ -14,7 +14,10 @@ import swal from "@sweetalert/with-react";
 
 const Form = () => {
   const classes = Styles();
-  const { displayName, photoURL } = useSelector((state) => state.user);
+  const { displayName, photoURL, email } = useSelector((state) => state.user);
+  const[ Like, setLike] = useState(0); // 좋아요 
+  const currentDate = new Date(); // 현재 날짜
+  const[category,setCategory] = useState(""); // 카테고리 
 
   const [uploadData, setUploadData] = useState({
     description: "",
@@ -27,6 +30,7 @@ const Form = () => {
 
   const [progress, setProgress] = useState("");
 
+<<<<<<< HEAD
 // 깃플챗 form에서만 작동할 수 있도록 추가
   // Gitplechat 스크립트를 컴포넌트가 마운트 될 때 추가하고 언마운트 될 때 제거하는 useEffect 추가
   useEffect(() => {
@@ -69,12 +73,23 @@ const Form = () => {
       document.body.removeChild(script);
     };
   }, []);
+=======
+
+  const Categorys = (e) => {
+    setCategory(e.target.value); 
+};
+>>>>>>> 1256e82a89c688f30ceae1e2abf89ed8e3542e52
 
   const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수. 
     // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
     // uploading to collection called posts
+    
+  
+    
+    // 봄동에 게시글 데이터 보내기
     db.collection("posts")
       .add({
+        email: email,
         profile: photoURL,
         username: displayName,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -82,12 +97,52 @@ const Form = () => {
         fileType: uploadData.file.type,
         fileName: uploadData.file.name,
         fileData: fileData,
+        Like : Like,
+        category : category
       })
       .then(() => resetState());
-  };
-
+  
+  //-----------------------------------------------------------------------------------------
+  
+       // Spring boot board에 게시글 데이터 보내기
+       fetch("http://localhost:8080/api/createboard", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+          email: email,
+          username: displayName,
+          content: uploadData.description,
+          profile: photoURL,
+          fileData: fileData,
+          fileName: uploadData.file.name,
+          fileType: uploadData.file.type,
+          timestamp: currentDate,
+          Likes : Like,
+          category : category
+        }),
+    })
+        .then(response => {
+            console.log(`response`, response);   
+            // 201은 성공  실패하면 null return
+            if (response.status === 201) {
+                return response.json();     
+            } else {
+                return null;
+            }
+           
+        })
+  
+  
+  
+    };
+  
   const handleSubmitButton = (e) => {
     e.preventDefault();
+
+    
+
 
     // verify atleast one of the input fields are not empyt
     if (uploadData.description || uploadData.file.data) {
@@ -101,6 +156,7 @@ const Form = () => {
             const value = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
             setProgress(value);
           },
+          
 
           (error) => {
             alert(error);
@@ -258,6 +314,13 @@ const Form = () => {
             hidden
             onChange={(e) => imageUploadHandler(e, "video")}
           />
+            <select value= {category} onChange={Categorys}>
+                <option value="축구">축구</option>
+                <option value="농구">농구</option>
+                <option value="풋살">풋살</option>
+                <option value="배드민턴">배드민턴</option>
+            </select>
+          
           {/* 위 input은 피드 동영상 업로드 부분 */}
           <button type="submit" >올리기</button>
           {/* POST버튼 */}

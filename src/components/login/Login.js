@@ -18,8 +18,10 @@ import { Link, Navigate } from "react-router-dom";
 const Login = () => {
   const classes = Style();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); //  초기 이메일
+  const [password, setPassword] = useState(""); // 초기 비밀번호
+  
+  // 구글 로그인시 작동
   const uiConfig = {
     signInFlow: "popup",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
@@ -28,17 +30,21 @@ const Login = () => {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
+  // 로그인 버튼을 눌렀을때 작동됨
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const userCredential = await firebase
         .auth()
+        // 봄동에 auth에 로그인 정보 확인
+        // .signInWithEmailAndPassword는 일반로그인시  사용합니다.
         .signInWithEmailAndPassword(email, password);
       const user = userCredential.user;
+      // 로그인이 됬을때 dispatch로  user 값이 변환된것을 알려줍니다.
       dispatch(LoginAction(user));
     } catch (error) {
       console.error("Error logging in with email and password", error);
-      alert("Failed to log in. Please check your email and password.");
+      alert("이메일 또는 비밀번호가 잘못 입력되었습니다.");
     }
   };
 
@@ -53,7 +59,9 @@ const Login = () => {
           />
           <h4>Clone</h4>
         </div>
+        {/* 일반 로그인  */}
         <form className={classes.form} onSubmit={handleSubmit}>
+          {/* 이메일 입력 */}
           <input
             type="email"
             placeholder="Email"
@@ -61,6 +69,7 @@ const Login = () => {
             onChange={handleEmailChange}
             required
           />
+          {/* 비밀번호 입력 */}
           <input
             type="password"
             placeholder="Password"
