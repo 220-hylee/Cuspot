@@ -29,12 +29,12 @@ const MainContent = () => {
         <Header />
       </Grid>
       <Grid item container className={classes.app__body}>
-        {/* <Hidden smDown>
+        { <Hidden smDown>
           <Grid item container className={classes.body__left} md={3}>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Contacts />
           </Grid>
-        </Hidden> */}
+        </Hidden> }
         <Grid item container className={classes.body__feed} xs={12} sm={8} md={6}>
           {/* <Grid item container className={classes.feed__stories}>
             <Stories />

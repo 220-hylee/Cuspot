@@ -71,10 +71,11 @@ export default makeStyles((theme) => ({
   body__image: {
     width: "100%",
     display: "flex",
+    // justifyContent: 'center',
     alignItems: "center",
     overflow: "hidden",
     "& > img": {
-      width: "100%",
+      width: "auto",
       height: "auto",
       objectFit: "contain",
       transition: "all 0.5s ease",
