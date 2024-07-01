@@ -8,6 +8,13 @@ import { StoreMallDirectoryOutlined } from "@material-ui/icons";
 import { SupervisedUserCircleOutlined } from "@material-ui/icons";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
+//아이콘 변경 1) 피드 2)맵 3) 챗 4) 사용자 정보
+import WindowRoundedIcon from '@mui/icons-material/WindowRounded';
+// import CottageRoundedIcon from '@mui/icons-material/CottageRounded';
+
+import FmdGoodRoundedIcon from '@mui/icons-material/FmdGoodRounded'; //맵
+
+
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import ArrowDropDownRoundedIcon from "@material-ui/icons/ArrowDropDownRounded";
 import AddIcon from "@material-ui/icons/Add";
@@ -68,10 +75,10 @@ const Header = () => {
             <Avatar src={logo} />  
           </div>
           <div className={classes.nav__links} onClick={handleHomeClick}>
-            <HomeOutlined />
+            <WindowRoundedIcon />
           </div>
           <div className={classes.nav__links} onClick={handleMapClick}>
-            <PlayCircleFilledWhiteOutlined />
+            <FmdGoodRoundedIcon />
           </div>
           <Hidden xsDown>
             {/* <div className={classes.nav__links}>
