@@ -1,24 +1,21 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Hidden, Avatar, Tooltip, Paper, Badge } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import { HomeOutlined } from "@material-ui/icons";
-import { PlayCircleFilledWhiteOutlined } from "@material-ui/icons";
-import { StoreMallDirectoryOutlined } from "@material-ui/icons";
-import { SupervisedUserCircleOutlined } from "@material-ui/icons";
-import Brightness4Icon from "@material-ui/icons/Brightness4";
-import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
-//아이콘 변경 1) 피드 2)맵 3) 챗 4) 사용자 정보
-import WindowRoundedIcon from '@mui/icons-material/WindowRounded';
-// import CottageRoundedIcon from '@mui/icons-material/CottageRounded';
-
-import FmdGoodRoundedIcon from '@mui/icons-material/FmdGoodRounded'; //맵
+// import SearchIcon from "@material-ui/icons/Search";
 
 
+import { HomeRounded } from "@material-ui/icons"; // 메인화면
+import { PlayCircleFilledWhiteRounded } from "@material-ui/icons"; // 맵
+import { SupervisedUserCircleRounded } from "@material-ui/icons"; // 챗
+import TelegramIcon from "@material-ui/icons/Telegram"; // 친구
+
+
+// import { StoreMallDirectoryOutlined } from "@material-ui/icons";
+// import Brightness4Icon from "@material-ui/icons/Brightness4";
+// import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import ArrowDropDownRoundedIcon from "@material-ui/icons/ArrowDropDownRounded";
 import AddIcon from "@material-ui/icons/Add";
-import TelegramIcon from "@material-ui/icons/Telegram";
 import Zoom from "@material-ui/core/Zoom";
 import logo from "../../assets/images/cpLogo_r.png";
 import { ToggleTheme } from "../../store/actions/util";
@@ -54,6 +51,10 @@ const Header = () => {
     navigate('/friends');  // 클릭하면 '/about' 페이지로 이동
   };
 
+  const handleAddClick = () => {
+    navigate('/gptResult');  // 클릭하면 '/about' 페이지로 이동
+  };
+
   return (
     <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%"}}>
       <Grid container className={classes.header}>
@@ -75,17 +76,17 @@ const Header = () => {
             <Avatar src={logo} />  
           </div>
           <div className={classes.nav__links} onClick={handleHomeClick}>
-            <WindowRoundedIcon />
+            <HomeRounded />
           </div>
           <div className={classes.nav__links} onClick={handleMapClick}>
-            <FmdGoodRoundedIcon />
+            <PlayCircleFilledWhiteRounded />
           </div>
           <Hidden xsDown>
             {/* <div className={classes.nav__links}>
               <StoreMallDirectoryOutlined />
             </div> */}
             <div className={classes.nav__links} onClick={handleGroupChatClick}>
-              <SupervisedUserCircleOutlined />
+              <SupervisedUserCircleRounded />
             </div>
           </Hidden>
             <div className={classes.nav__links} onClick={handleFriendsClick}>
@@ -98,6 +99,8 @@ const Header = () => {
             <Avatar src={photoURL} onClick={logout} />
           </div>
         </Grid>
+
+
         {/*----Userinfo and options--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__userinfo} sm={2} md={3}>
@@ -112,10 +115,9 @@ const Header = () => {
             </Tooltip>
             <Hidden smDown>
               <div className={classes.userinfo__options}>
-                <AddIcon />
+                <AddIcon  onClick={handleAddClick}/>
                 <TelegramIcon />
                 <Badge badgeContent={10} max={9} {...defaultProps} />
-
                 <ArrowDropDownRoundedIcon />
               </div>
             </Hidden>

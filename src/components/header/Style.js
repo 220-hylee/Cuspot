@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     height: "100%",
     // backgroundColor: theme.palette.type === "dark" && darkPrimary,
     // 헤더 백그라운드 변경
-    backgroundColor: theme.palette.type === "dark" ? darkPrimary : "#ffffff",
+    backgroundColor: theme.palette.type === "dark" ? darkPrimary : "#1C1209",
   },
   header__logo: {
     height: "100%",

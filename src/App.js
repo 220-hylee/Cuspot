@@ -4,6 +4,7 @@ import { Grid, Hidden, Paper } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
+import GptResult from "./components/gptResult/GptResult";
 import Login from "./components/login/Login";
 import Header from "./components/header/Header";
 import Sidebar from "./components/sidebar/Sidebar";
@@ -91,6 +92,9 @@ const App = () => {
             <Routes>
             <Route path="/" element={<Login />}/>
            <Route path="/register" element={<Register />}/>
+           <Route path="/GptResult" element={<GptResult />}/>
+
+
       </Routes>
           ) : (
             <Routes>
@@ -100,7 +104,6 @@ const App = () => {
               <Route path="/friends" element={<Friends />} />
               <Route path="*" element={<Navigate to="/" />} />
               
-              <Route path="gitplechat" element={<useGoogleSheet />} />
             </Routes>
           )}
         </Paper>
