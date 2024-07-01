@@ -269,12 +269,12 @@ const Form = () => {
             hidden
             onChange={(e) => imageUploadHandler(e, "video")}
           />
-            <select value= {category} onChange={Categorys}>
+            {/* <select value= {category} onChange={Categorys}>
                 <option value="축구">축구</option>
                 <option value="농구">농구</option>
                 <option value="풋살">풋살</option>
                 <option value="배드민턴">배드민턴</option>
-            </select>
+            </select> */}
           
           {/* 위 input은 피드 동영상 업로드 부분 */}
           <button type="submit" >올리기</button>
