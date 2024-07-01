@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Chip, Paper, Divider, LinearProgress } from "@material-ui/core";
 import imageCompression from "browser-image-compression";
@@ -26,6 +26,49 @@ const Form = () => {
   });
 
   const [progress, setProgress] = useState("");
+
+// 깃플챗 form에서만 작동할 수 있도록 추가
+  // Gitplechat 스크립트를 컴포넌트가 마운트 될 때 추가하고 언마운트 될 때 제거하는 useEffect 추가
+  useEffect(() => {
+    // Gitplechat 스크립트 추가
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.innerHTML = `
+      window.GitpleConfig = {"appCode":"G7qJfFaCWBYX7XEOPExHBV7QRs6g13"};
+      !function(){
+        function e(){
+          function e(){
+            var e=t.contentDocument,
+                a=e.createElement("script");
+            a.type="text/javascript", a.async=!0, a.src=window[n]&&window[n].url?window[n].url+"/inapp-web/gitple-loader.js":"https://app.gitple.io/inapp-web/gitple-loader.js", a.charset="UTF-8", e.head&&e.head.appendChild(a)
+          }
+          var t=document.getElementById(a);
+          t||((t=document.createElement("iframe")).id=a, t.style.display="none", t.style.width="0", t.style.height="0", t.addEventListener?t.addEventListener("load", e, !1):t.attachEvent?t.attachEvent("onload", e):t.onload=e, document.body.appendChild(t))
+        }
+        var t=window,
+            n="GitpleConfig",
+            a="gitple-loader-frame";
+        if(!window.Gitple){
+          document;
+          var i=function(){
+            i.ex&&i.ex(arguments)
+          };
+          i.q=[], i.ex=function(e){
+            i.processApi?i.processApi.apply(void 0, e):i.q&&i.q.push(e)
+          }, window.Gitple=i, t.attachEvent?t.attachEvent("onload", e):t.addEventListener("load", e, !1)
+        }
+      }();
+      Gitple('boot');
+    `;
+
+    document.body.appendChild(script);
+
+    return () => {
+      // Gitplechat 스크립트 제거
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수. 
     // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
@@ -216,7 +259,7 @@ const Form = () => {
             onChange={(e) => imageUploadHandler(e, "video")}
           />
           {/* 위 input은 피드 동영상 업로드 부분 */}
-          <button type="submit">올리기</button>
+          <button type="submit" >올리기</button>
           {/* POST버튼 */}
         </form>
       </div>

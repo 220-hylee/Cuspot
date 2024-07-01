@@ -99,6 +99,8 @@ const App = () => {
               <Route path="/chat" element={<Chat />} />
               <Route path="/friends" element={<Friends />} />
               <Route path="*" element={<Navigate to="/" />} />
+              
+              <Route path="gitplechat" element={<useGoogleSheet />} />
             </Routes>
           )}
         </Paper>

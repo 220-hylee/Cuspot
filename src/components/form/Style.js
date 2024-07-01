@@ -29,7 +29,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     marginLeft: 10,
     borderRadius: 999,
-    backgroundColor: theme.palette.type === "dark" ? darkSecondary : "lightgrey",
+    backgroundColor: theme.palette.type === "dark" ? darkSecondary : "#FAFAFA",
     overflow: "hidden",
     [theme.palette.type === "light"]: {},
     "& > input": {

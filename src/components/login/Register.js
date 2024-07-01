@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { auth, db } from "../../firebase";
 import { LoginAction } from "../../store/actions/auth";
 import Style from "./Style";
+import { Paper } from "@material-ui/core";
+import Logo from "./../../assets/images/logo_width.png";
+
 const Register = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -55,17 +58,28 @@ const Register = () => {
     }
   };
 
+
+  // css
   return (
     <div className={classes.login__container}>
-    <div>
-      <h2>회원가입</h2>
-      <form onSubmit={handleSignup} className={classes.form}>
+      <Paper elevation={3} className={classes.login}>
+        <div className={classes.logo}>
+              <img
+                src={Logo}
+                style={{ width: "300px", height: "150px" }}
+                alt="linked-in-logo"
+                />
+           </div>
+      <div>
+                <h2>회 원 가 입 </h2><br/>
+      <form className={classes.form} onSubmit={handleSignup} >
         <input
           type="text"
           placeholder="이름"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
+          
         />
         <input
           type="email"
@@ -81,19 +95,24 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-           <input
+          <input
           type="text"
           placeholder="주소"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
         />
+        <br/>
         
-        <button type="submit">회원가입</button>
+        <button type="submit" style={{backgroundColor:'#2050B2'}}>회원가입</button>
+        <br/><br/>
       </form>
     </div>
+    </Paper>
   </div>
   );
+
+  
 };
 
 export default Register;

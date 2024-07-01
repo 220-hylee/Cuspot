@@ -3,19 +3,23 @@ import { FacebookBlue, darkSecondary, darkPrimary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   login__container: {
-    width: "100vw",
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    padding: theme.spacing(2),
   },
   login: {
     minWidth: 400,
     maxWidth: 400,
     height: 500,
-    [theme.breakpoints.down("xs")]: {
-      paddingTop: 20,
-      paddingBottom: 5,
+    padding: theme.spacing(4), // 위아래 여백을 동일하게 설정
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+    // [theme.breakpoints.down("xs")]: {
+    //   padding: theme.spacing(4), // 위아래 여백을 동일하게 설정
+    //   // paddingTop: 20,
+      // paddingBottom: 5,
       width: "100%",
       height: "100%",
       borderRadius: 0,
@@ -48,12 +52,15 @@ export default makeStyles((theme) => ({
       marginLeft: 10,
     },
   },
+  h2 : {
+    textAlign: "center",
 
+  },
   form: {
     width: 250,
     height: 200,
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column", //가로
     justifyContent: "space-evenly",
     "& > input": {
       outlineWidth: 0,
@@ -62,6 +69,7 @@ export default makeStyles((theme) => ({
       borderRadius: 2,
       padding: "0 10px",
     },
+    //로그인 버튼
     "& > button": {
       height: 30,
       border: "1px solid lightgrey",
@@ -77,45 +85,46 @@ export default makeStyles((theme) => ({
   button: {
     width:250,  
     height: 30,
-      border: "1px solid lightgrey",
-      borderRadius: 4,
-      color: "white",
-      fontSize: 14,
-      fontWeight: 600,
-      backgroundColor: FacebookBlue,
+    border: "1px solid lightgrey",
+    borderRadius: 4,
+    color: "white",
+    fontSize: 14,
+    fontWeight: 600,
+    backgroundColor: FacebookBlue,
     },
 
-  google: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    "& > section": {
+    google: {
       width: "100%",
       display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      padding: "0 10px",
-      "& > div": {
-        flex: 1,
-        height: 1,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "lightgrey",
-        opacity: 0.5,
-      },
-      "& > p": {
+      "& > section": {
+        width: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         padding: "0 10px",
-        fontSize: 12,
-        color: "grey",
+        "& > div": {
+          flex: 1,
+          height: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "lightgrey",
+          opacity: 0.5,
+        },
+        "& > p": {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "0 10px",
+          fontSize: 12,
+          color: "grey",
+        },
       },
     },
-  },
+  
 
   about: {
     width: "100%",

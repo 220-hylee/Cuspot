@@ -8,6 +8,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
+//로그인 화면 로고 사진 파일
 import Logo from "./../../assets/images/cpLogo.png";
 import Style from "./Style";
 import { useDispatch } from "react-redux";
@@ -47,7 +48,7 @@ const Login = () => {
         <div className={classes.logo}>
           <img
             src={Logo}
-            style={{ width: "200px", height: "150px" }}
+            style={{ width: "300px", height: "180px" }}
             alt="linked-in-logo"
           />
           <h4>Clone</h4>
@@ -67,13 +68,14 @@ const Login = () => {
             onChange={handlePasswordChange}
             required
           />
+          {/* 로그인 버튼 */}
           <button type="submit">Log In</button>
-        </form>
           {/* 회원가입 링크 */}
           <Link to="/register">
-            <button  className={classes.button}>회원가입</button>
+            <button className={classes.button}>회원가입</button>
           </Link>
-          
+        </form>
+
         <div className={classes.google}>
           <section>
             <div></div>
