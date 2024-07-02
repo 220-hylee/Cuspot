@@ -132,5 +132,4 @@ const defaultProps = {
   color: "secondary",
   children: <NotificationsNoneOutlinedIcon />,
 };
-
 export default Header;

@@ -80,6 +80,7 @@ export default makeStyles((theme) => ({
       objectFit: "contain",
       transition: "all 0.5s ease",
       marginLeft: "5px",
+      
       "&:hover": {
         transform: "scale(1.1)",
         [theme.breakpoints.down("xs")]: {

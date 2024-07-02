@@ -90,18 +90,18 @@ const App = () => {
         >
           {!displayName ? (
             <Routes>
-            <Route path="/" element={<Login />}/>
-           <Route path="/register" element={<Register />}/>
-           <Route path="/GptResult" element={<GptResult />}/>
+              <Route path="/" element={<Login />}/>
+              <Route path="/register" element={<Register />}/>
 
 
-      </Routes>
+             </Routes>
           ) : (
             <Routes>
               <Route path="/" element={<MainContent />} />
               <Route path="/about" element={<CusMap />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/friends" element={<Friends />} />
+              <Route path="/GptResult" element={<GptResult />}/>
               <Route path="*" element={<Navigate to="/" />} />
               
             </Routes>
