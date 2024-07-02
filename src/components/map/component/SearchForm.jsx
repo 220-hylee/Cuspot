@@ -1,14 +1,40 @@
 import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { TextField, InputAdornment, IconButton } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import { makeStyles } from "@material-ui/core/styles";
+import MoreIcon from '@material-ui/icons/MoreVert';
+
+const useStyles = makeStyles((theme) => ({
+
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  toolbar: {
+    minHeight: 128,
+    alignItems: 'flex-start',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
+  },
+  searchBar: {
+    width: '100%',
+}  
+}));
+
+
 
 const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
+  const classes = useStyles();
+  
   // State 정의
   const [input, setInput] = useState(""); // 검색어 입력 상태 관리
   const [showOptions, setShowOptions] = useState(false); // 옵션 펼침 상태 관리
   const [selectedRadius, setSelectedRadius] = useState("1000"); // 선택된 검색 반경 관리
   const [selectedOptions, setSelectedOptions] = useState([]); // 선택된 옵션들 관리
 
+
+  
   // 검색어 제출 시 처리
   const onSubmit = (e) => {
     e.preventDefault();
@@ -38,27 +64,22 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
 
   return (
     
-    <div className="search-form">
-      {/* 검색어 입력 폼 */}
+    <div>
+       {/* 검색어 입력 폼 */}   
       <form onSubmit={onSubmit} className="search-bar">
-        <input 
-          type="text" 
-          value={input} 
-          onChange={(e) => setInput(e.target.value)} 
-          placeholder="검색어를 입력하세요" 
-          className="search-input"
+        <TextField
+            className={classes.searchBar}
+            placeholder="검색을 입력하세요"
+            variant="outlined"
+            onChange={(e) => setInput(e.target.value)}
         />
         {/* 검색 버튼 및 옵션 토글 버튼 */}
-        <div className="search-buttons">
-          <button className="search-button" type="submit">검색</button>
-          <button 
-            className="toggle-options" 
-            type="button" 
-            onClick={toggleOptions}
-          >
-            {showOptions ? "옵션 닫기" : "옵션 열기"}
-          </button>
-        </div>
+          <IconButton aria-label="search" color="inherit" type='submit'>
+            <SearchIcon />
+          </IconButton>
+          <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={toggleOptions}>
+            <MoreIcon />
+          </IconButton>
       </form>
 
       {/* 옵션 펼침 상태일 때 옵션 컨테이너 표시 */}
