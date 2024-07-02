@@ -114,8 +114,5 @@ const KakaoMap = () => {
     </div>
   );
 };
-<<<<<<< HEAD
-=======
 
->>>>>>> eda1d5ce464cacd494c658ee8e6c007ecd7189f2
 export default KakaoMap;

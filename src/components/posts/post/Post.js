@@ -2,30 +2,32 @@ import React, { forwardRef, useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
-import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
-import ReplyOutlinedIcon from "@material-ui/icons/ReplyOutlined";
+//아이콘 수정(전)
+// import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
+// import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
+// import ReplyOutlinedIcon from "@material-ui/icons/ReplyOutlined";
+//아이콘 수정(후)
+import ThumbUpRoundedIcon from '@material-ui/icons/ThumbUpRounded';
+import TextsmsRoundedIcon from '@material-ui/icons/TextsmsRounded';
+import ShareRoundedIcon from '@material-ui/icons/ShareRounded';
 import Like from "../../../assets/images/like.png";
 import Love from "../../../assets/images/love.png";
 import Care from "../../../assets/images/care.png";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import CommentIcon from '@material-ui/icons/Comment';
-import ShareIcon from '@material-ui/icons/Share';
-
+// import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+// import CommentIcon from '@material-ui/icons/Comment';
+// import ShareIcon from '@material-ui/icons/Share';
 const Post = forwardRef(
   ({ profile, username, timestamp, description, fileType, fileData }, ref) => {
     const classes = Style();
-
     const [likesCount, setLikesCount] = useState(1);
     const [commentsCount, setCommentsCount] = useState(1);
     const [sharesCount, setSharesCount] = useState(1);
     const [likeIconOrder, setLikeIconOrder] = useState(1);
     const [loveIconOrder, setLoveIconOrder] = useState(1);
     const [careIconOrder, setCareIconOrder] = useState(1);
-
     useEffect(() => {
       setLikesCount(Math.floor(Math.random() * 1000) + 1);
       setCommentsCount(Math.floor(Math.random() * 100) + 1);
@@ -34,7 +36,6 @@ const Post = forwardRef(
       setLoveIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
       setCareIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
     }, []);
-
     const Reactions = () => {
       return (
         <div className={classes.footer__stats}>
@@ -44,25 +45,10 @@ const Post = forwardRef(
             <img src={Care} style={{ order: `${careIconOrder} ` }} alt="care-icon" />
           </div>
           <div>
-      <h4>
-        <ThumbUpIcon className="icon-small" />
-        {likesCount}
-      </h4>
-      <section>
-        <h4>
-          <CommentIcon className="icon-small" />
-          {commentsCount} Comments
-        </h4>
-        <h4>
-          <ShareIcon className="icon-small" />
-          {sharesCount} Shares
-        </h4>
-      </section>
     </div>
         </div>
       );
     };
-
     return (
       <Paper ref={ref} className={classes.post}>
         <div className={classes.post__header}>
@@ -93,15 +79,18 @@ const Post = forwardRef(
           <Reactions />
           <div className={classes.footer__actions}>
             <div className={classes.action__icons}>
-              <ThumbUpAltOutlinedIcon />
+              {/* <ThumbUpAltOutlinedIcon /> */}
+              <ThumbUpRoundedIcon className="icon-small"/>
               <h4>Like</h4>
             </div>
             <div className={classes.action__icons}>
-              <ChatBubbleOutlineOutlinedIcon />
+              {/* <ChatBubbleOutlineOutlinedIcon /> */}
+              <TextsmsRoundedIcon className="icon-small"/>
               <h4>Comment</h4>
             </div>
             <div className={classes.action__icons}>
-              <ReplyOutlinedIcon style={{ transform: "scaleX(-1)" }} />
+              {/* <ReplyOutlinedIcon style={{ transform: "scaleX(-1)" }} /> */}
+              <ShareRoundedIcon className="icon-small" style={{ transform: "scaleX(-1)" }} />
               <h4>Share</h4>
             </div>
           </div>
@@ -110,5 +99,4 @@ const Post = forwardRef(
     );
   }
 );
-
 export default Post;

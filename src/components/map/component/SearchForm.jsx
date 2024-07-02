@@ -6,8 +6,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/core/styles";
 import MoreIcon from '@material-ui/icons/MoreVert';
 
-const useStyles = makeStyles((theme) => ({
 
+// 검색 버튼 css 
+const useStyles = makeStyles((theme) => ({
+  
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -19,7 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
   searchBar: {
     width: '100%',
-}  
+    '& .MuiInputBase-input': {
+      color: 'white', // 입력 텍스트 색상
+    }
+  }  
 }));
 
 
@@ -70,7 +75,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
         <TextField
             className={classes.searchBar}
             placeholder="검색을 입력하세요"
-            variant="outlined"
+            variant="filled"
             onChange={(e) => setInput(e.target.value)}
         />
         {/* 검색 버튼 및 옵션 토글 버튼 */}
