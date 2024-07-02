@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { darkPrimary, darkSecondary, FacebookBlue, textDark } from "../../assets/Colors";
+import { darkPrimary, darkSecondary, cuspotBlue, textDark } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   upload: {
@@ -59,7 +59,7 @@ export default makeStyles((theme) => ({
       padding: "0 10px",
       border: 0,
       outlineWidth: 0,
-      backgroundColor: FacebookBlue,
+      backgroundColor: cuspotBlue,
       color: "white",
       cursor: "pointer",
       // fontWeight: 600,
@@ -90,7 +90,7 @@ export default makeStyles((theme) => ({
     borderRadius: 10,
     backgroundColor: theme.palette.type === "dark" ? darkSecondary : "lightgrey",
     "& > *": {
-      backgroundColor: FacebookBlue,
+      backgroundColor: cuspotBlue,
     },
   },
   upload__media: {

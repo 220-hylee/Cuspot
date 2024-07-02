@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { FacebookBlue, darkSecondary, darkPrimary } from "../../assets/Colors";
+import { cuspotBlue, darkSecondary, darkPrimary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   login__container: {
@@ -77,7 +77,7 @@ export default makeStyles((theme) => ({
       color: "white",
       fontSize: 14,
       fontWeight: 600,
-      backgroundColor: FacebookBlue,
+      backgroundColor: cuspotBlue,
     },
   },
 
@@ -90,7 +90,7 @@ export default makeStyles((theme) => ({
     color: "white",
     fontSize: 14,
     fontWeight: 600,
-    backgroundColor: FacebookBlue,
+    backgroundColor: cuspotBlue,
     },
 
     google: {

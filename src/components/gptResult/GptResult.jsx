@@ -32,11 +32,11 @@ function GptResult() {
   return (
     <div className="GptResult">
       <Header />
-      <Paper className={classes.root}>
+      <Paper elevation={3} className={classes.root} >
         <div className={classes.logo}>
                 <img
                   src={Logo}
-                  style={{ width: "300px", height: "150px", alignContent: "center" }}
+                  style={{ width: "300px", height: "100px", alignContent: "center" }}
                   alt="linked-in-logo"
                   />
             </div>
@@ -51,13 +51,16 @@ function GptResult() {
           ) : (
             data.length > 0 ? (
               <TableContainer component={Paper} className={classes.tableContainer}>
+                <div className={classes.divtable}>
                 <Table className={classes.table}>
                   <TableHead>
                     <TableRow className={classes.tr}>
-                      <TableCell className={classes.th}>Data</TableCell>
+                      <TableCell className={classes.th}>
+                        <h2>Result</h2>
+                        </TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  <TableBody className={classes.tablebody}>
                     {data.map((row, rowIndex) => (
                       <TableRow key={rowIndex} className={classes.tr}>
                         {row.map((cell, cellIndex) => (
@@ -67,6 +70,7 @@ function GptResult() {
                     ))}
                   </TableBody>
                 </Table>
+              </div>
               </TableContainer>
             ) : (
               <Typography variant="body1" color="textSecondary">
@@ -75,6 +79,7 @@ function GptResult() {
             )
           )}
         </div>
+        <button className={classes.button}>메인으로</button>
       </Paper>
     </div>
   );
