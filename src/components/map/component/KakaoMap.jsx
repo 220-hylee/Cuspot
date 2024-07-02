@@ -84,9 +84,8 @@ const KakaoMap = () => {
       {/* 지도 컨테이너 */}
       <div id="map" ref={mapRef} style={{ width: '100%', height: '100%', position: '', overflow: '' }}></div>
       {/* 검색 폼과 장소 목록 */}
-      <div id="menu_wrap" className="bg_white">
-        
-        {/* <SearchForm handleSearchSubmit={handleSearchSubmit} handleRadiusChange={handleRadiusChange} /> */}
+      <div id="menu_wrap">
+        <SearchForm handleSearchSubmit={handleSearchSubmit} handleRadiusChange={handleRadiusChange} />
         <hr />
         {/* 장소 목록 표시 */}
         {showPlaceList && (

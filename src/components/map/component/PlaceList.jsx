@@ -7,11 +7,11 @@ const PlaceList = ({ places }) => {
         <li key={index} className="item">
           <span className={`markerbg marker_${index + 1}`}></span>
           <div className="info">
-            <h5>{place.place_name}</h5>
+            <h2>{place.place_name}</h2>
             {place.road_address_name ? (
               <>
-                <span>{place.road_address_name}</span>
-                <span className="jibun gray">{place.address_name}</span>
+                <h3>{place.road_address_name}</h3>
+                <h3 className="jibun gray">{place.address_name}</h3>
               </>
             ) : (
               <span>{place.address_name}</span>

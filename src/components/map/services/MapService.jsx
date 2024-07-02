@@ -187,7 +187,9 @@ class MapService {
     else if(this.keyword.match("헬스")){
       imageSrc = fitness;
     }
-    
+    else {
+      
+    }
     
     const markerImage = new this.kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
 
