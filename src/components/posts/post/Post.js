@@ -11,6 +11,9 @@ import Care from "../../../assets/images/care.png";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import CommentIcon from '@material-ui/icons/Comment';
+import ShareIcon from '@material-ui/icons/Share';
 
 const Post = forwardRef(
   ({ profile, username, timestamp, description, fileType, fileData }, ref) => {
@@ -40,11 +43,22 @@ const Post = forwardRef(
             <img src={Love} style={{ order: `${loveIconOrder} ` }} alt="love-icon" />
             <img src={Care} style={{ order: `${careIconOrder} ` }} alt="care-icon" />
           </div>
-          <h4>{likesCount}</h4>
-          <section>
-            <h4>{commentsCount} Comments</h4>
-            <h4>{sharesCount} Shares</h4>
-          </section>
+          <div>
+      <h4>
+        <ThumbUpIcon className="icon-small" />
+        {likesCount}
+      </h4>
+      <section>
+        <h4>
+          <CommentIcon className="icon-small" />
+          {commentsCount} Comments
+        </h4>
+        <h4>
+          <ShareIcon className="icon-small" />
+          {sharesCount} Shares
+        </h4>
+      </section>
+    </div>
         </div>
       );
     };

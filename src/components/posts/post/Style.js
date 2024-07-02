@@ -33,7 +33,7 @@ export default makeStyles((theme) => ({
       borderRadius: 999,
       transition: "all 0.3s ease",
       "&:hover": {
-        backgroundColor: "grey",
+        backgroundColor: "#FAFAFA",
       },
     },
   },
@@ -79,6 +79,8 @@ export default makeStyles((theme) => ({
       height: "auto",
       objectFit: "contain",
       transition: "all 0.5s ease",
+      marginLeft: "5px",
+      
       "&:hover": {
         transform: "scale(1.1)",
         [theme.breakpoints.down("xs")]: {
@@ -87,7 +89,7 @@ export default makeStyles((theme) => ({
       },
     },
   },
-
+  
   post__footer: {
     width: "100%",
     display: "flex",
@@ -151,7 +153,7 @@ export default makeStyles((theme) => ({
     transition: "all 0.3s ease",
     color: theme.palette.type === "dark" ? "lightgrey" : darkSecondary,
     "&:hover": {
-      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "lightgrey",
+      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "#FAFAFA",
     },
     [theme.breakpoints.down("xs")]: {
       "&:hover": {
