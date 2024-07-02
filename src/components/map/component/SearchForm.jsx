@@ -69,7 +69,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
 
   return (
     
-    <div>
+    <>
        {/* 검색어 입력 폼 */}   
       <form onSubmit={onSubmit} className="search-bar">
         <TextField
@@ -120,7 +120,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange }) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

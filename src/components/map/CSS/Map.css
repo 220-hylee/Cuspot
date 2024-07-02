@@ -1,5 +1,8 @@
 /* CSS/Map.css 또는 원하는 CSS 파일 */
 
+body {
+  overflow: hidden;
+}
 /* 검색 결과 목록 */
 #placesList li {
   list-style: none;
@@ -118,7 +121,6 @@ html, body {
 }
 /* 검색 창 */
 #menu_wrap {
-  overflow: "hidden";
   position: absolute;
   display: "flex";
   width: 100%;
@@ -181,9 +183,14 @@ html, body {
 }
 
 /* 페이징 */
-#pagination {
-  margin: 10px auto;
-  text-align: center;
+.pagination {
+  margin: auto;
+}
+
+
+/* x 버튼 입니다. */
+.searchClose {
+  float: right;
 }
 
 #pagination a {

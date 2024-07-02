@@ -49,34 +49,34 @@ const Form = () => {
       .then(() => resetState());
   //-----------------------------------------------------------------------------------------
         // Spring boot board에 게시글 데이터 보내기
-        fetch("http://localhost:8080/api/createboard", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json;charset=utf-8",
-          },
-          body: JSON.stringify({
-            email: email,
-            username: displayName,
-            content: uploadData.description,
-            profile: photoURL,
-            fileData: fileData,
-            fileName: uploadData.file.name,
-            fileType: uploadData.file.type,
-            timestamp: currentDate,
-            Likes : Like,
-            category : category
-          }),
-      })
-          .then(response => {
-              console.log(`response`, response);   
-              // 201은 성공  실패하면 null return
-              if (response.status === 201) {
-                  return response.json();     
-              } else {
-                  return null;
-              }
-             
-          })
+       fetch("http://localhost:8080/api/createboard", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+          email: email,
+          username: displayName,
+          content: uploadData.description,
+          profile: photoURL,
+          fileData: fileData,
+          fileName: uploadData.file.name,
+          fileType: uploadData.file.type,
+          timestamp: currentDate,
+          Likes : Like,
+          category : category
+        }),
+    })
+        .then(response => {
+            console.log(`response`, response);   
+            // 201은 성공  실패하면 null return
+            if (response.status === 201) {
+                return response.json();     
+            } else {
+                return null;
+            }
+           
+        })
     };
   const handleSubmitButton = (e) => {
     e.preventDefault();
