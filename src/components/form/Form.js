@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Chip, Paper, Divider, LinearProgress } from "@material-ui/core";
+import { TextField, Chip, Paper, Divider, LinearProgress } from "@material-ui/core";
 import imageCompression from "browser-image-compression";
 import Avatar from "@material-ui/core/Avatar";
 import VideocamRoundedIcon from "@material-ui/icons/VideocamRounded";
@@ -253,6 +253,9 @@ const Form = () => {
             value={uploadData.description}
             onChange={(e) => setUploadData({ ...uploadData, description: e.target.value })}
           /> 
+
+
+
           {/* 위 input은 피드 TEXT입력 부분 */}
           <input
             id="upload-image"

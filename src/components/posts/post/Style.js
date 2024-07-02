@@ -118,7 +118,7 @@ export default makeStyles((theme) => ({
       color: theme.palette.type === "dark" && textDark,
       fontSize: 14,
       marginLeft: 5,
-      fontWeight: 500,
+      fontWeight: 100,
     },
 
     "& > section": {

@@ -4,6 +4,9 @@ import axios from 'axios';
 import Header from "../header/Header";
 import Style from "./Style";
 import Logo from "./../../assets/images/logo_width.png";
+import { Link } from "react-router-dom";;
+
+
 function GptResult() {
 
   const classes = Style();
@@ -79,7 +82,10 @@ function GptResult() {
             )
           )}
         </div>
-        <button className={classes.button}>메인으로</button>
+        <br /><br /><br />
+        <Link to="/App.js">
+      <button className={classes.button}>뒤로가기</button>
+      </Link>
       </Paper>
     </div>
   );
