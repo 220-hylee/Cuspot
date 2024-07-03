@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const GroupChat = () => {
   const { displayName, photoURL, email } = useSelector((state) => state.user);
-  const iframeSrc = `http://localhost:3001/?displayName=${displayName}&photoURL=${photoURL}&email=${email}`;
+  // const iframeSrc = `http://localhost:3001/?displayName=${displayName}&photoURL=${photoURL}&email=${email}`;
 
   
 
@@ -47,7 +47,7 @@ const GroupChat = () => {
       <Grid className={classes.app}>
         <Grid item container className={classes.app__header}>
           <Header />
-          <iframe src={iframeSrc} width="100%" height="870px" title="chat"></iframe>
+          <iframe src="https://chat-9eb84.web.app" width="100%" height="870px" title="chat"></iframe>
         </Grid>
            
       </Grid>
