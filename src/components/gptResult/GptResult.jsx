@@ -10,23 +10,31 @@ import { Link } from "react-router-dom";;
 function GptResult() {
 
   const classes = Style();
+
+  //useState를 사용해서, data, loading 상태를 관리
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  //useEffect를 사용해서, Google Sheets API를 호출하고 데이터를 가져옵
   useEffect(() => {
     const sheetId = '1iCCfFgbT43iVt0f_0cwUALr3i2-oLU8jn9brUc_3HMA';
+    const range = 'Result Sheet!A:A'; // 구글 시트에서 가져 올 범위지정
     const apiKey = 'AIzaSyBP5KnUzW6BJaOgfeOjWA8RJhAiawg7Br0';
-    const range = 'Result Sheet!A:A'; // 가져오고자 하는 범위(A열의 전체 범위)
+
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
     axios.get(url)
-      .then(response => {
+      // 데이터 가져오기 성공
+      .then(response => { 
         console.log(response.data.values); // 데이터를 콘솔에 출력하여 확인
         const rows = response.data.values;
-        if(rows.length>0){
+        if(rows.length > 0){ 
           setData([rows[rows.length-1]]);
           //setData(rows);
         }
         setLoading(false);
       })
+
+      //데이터 가져오기 실패
       .catch(error => {
         console.error('Error fetching data: ', error);
         setLoading(false);
@@ -84,8 +92,8 @@ function GptResult() {
         </div>
         <br /><br /><br />
         <Link to="/App.js">
-      <button className={classes.button}>뒤로가기</button>
-      </Link>
+           <button className={classes.button}>뒤로가기</button>
+         </Link>
       </Paper>
     </div>
   );

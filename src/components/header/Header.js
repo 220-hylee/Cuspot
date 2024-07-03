@@ -2,18 +2,26 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Hidden, Avatar, Tooltip, Paper, Badge } from "@material-ui/core";
 // import SearchIcon from "@material-ui/icons/Search";
-import { HomeRounded } from "@material-ui/icons"; // 메인화면
-import { PlayCircleFilledWhiteRounded } from "@material-ui/icons"; // 맵
-import { SupervisedUserCircleRounded } from "@material-ui/icons"; // 챗
-import TelegramIcon from "@material-ui/icons/Telegram"; // 친구
+
+// import { HomeRounded } from "@material-ui/icons"; // 메인화면
+// import { PlayCircleFilledWhiteRounded } from "@material-ui/icons"; // 맵
+// import { SupervisedUserCircleRounded } from "@material-ui/icons"; // 챗
+// import TelegramIcon from "@material-ui/icons/Telegram"; // 친구
 // import { StoreMallDirectoryOutlined } from "@material-ui/icons";
 // import Brightness4Icon from "@material-ui/icons/Brightness4";
 // import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
+
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import NavigationRoundedIcon from '@material-ui/icons/NavigationRounded';
+import SmsRoundedIcon from '@material-ui/icons/SmsRounded';
+import PeopleRoundedIcon from '@material-ui/icons/PeopleRounded';
+
+
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import ArrowDropDownRoundedIcon from "@material-ui/icons/ArrowDropDownRounded";
 import AddIcon from "@material-ui/icons/Add";
 import Zoom from "@material-ui/core/Zoom";
-import logo from "../../assets/images/cpLogo_r.png";
+import logo from "../../assets/images/logoFull.png";
 import { ToggleTheme } from "../../store/actions/util";
 import { auth } from "../../firebase";
 import { useNavigate } from 'react-router-dom';
@@ -66,21 +74,21 @@ const Header = () => {
             <Avatar src={logo} />
           </div>
           <div className={classes.nav__links} onClick={handleHomeClick}>
-            <HomeRounded />
+            <HomeRoundedIcon />
           </div>
           <div className={classes.nav__links} onClick={handleMapClick}>
-            <PlayCircleFilledWhiteRounded />
+            <NavigationRoundedIcon />
           </div>
           <Hidden xsDown>
             {/* <div className={classes.nav__links}>
               <StoreMallDirectoryOutlined />
             </div> */}
             <div className={classes.nav__links} onClick={handleGroupChatClick}>
-              <SupervisedUserCircleRounded />
+              <SmsRoundedIcon />
             </div>
           </Hidden>
             <div className={classes.nav__links} onClick={handleFriendsClick}>
-              <TelegramIcon />
+              <PeopleRoundedIcon />
             </div>
           {/* <div className={classes.nav__links} onClick={changeTheme}>
             {mode ? <Brightness4Icon /> : <BrightnessHighIcon />}
@@ -104,7 +112,7 @@ const Header = () => {
             <Hidden smDown>
               <div className={classes.userinfo__options}>
                 <AddIcon  onClick={handleAddClick}/>
-                <TelegramIcon />
+                <PeopleRoundedIcon />
                 <Badge badgeContent={10} max={9} {...defaultProps} />
                 <ArrowDropDownRoundedIcon />
               </div>

@@ -129,7 +129,7 @@ export default makeStyles((theme) => ({
         color: theme.palette.type === "dark" && textDark,
         fontSize: 13,
         marginLeft: 10,
-        fontWeight: 500,
+        fontWeight: 100,//수정중
       },
     },
   },
@@ -141,7 +141,7 @@ export default makeStyles((theme) => ({
     padding: 4,
   },
 
-  action__icons: {
+  action__icons: { // 좋아요, 커멘트, 공유 아이콘
     flex: 1,
     display: "flex",
     justifyContent: "center",
