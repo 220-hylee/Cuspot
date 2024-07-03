@@ -8,9 +8,10 @@ import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
+import CommentPopup from "./CommentPopup"; // CommentPopup 컴포넌트 가져오기
 import Love from "../../../assets/images/love.png";
 
-// 서버와의 통신을 위한 함수
+// 서버와의 통신을 위한 함수들
 const fetchLikes = async (postId) => {
   const response = await fetch(`/api/posts/${postId}/likes`);
   const data = await response.json();
@@ -39,8 +40,9 @@ const Post = forwardRef(
 
     const [likesCount, setLikesCount] = useState(0);
     const [liked, setLiked] = useState(false);
-    const [commentsCount, setCommentsCount] = useState(1);
+    const [comments, setComments] = useState([]);
     const [sharesCount, setSharesCount] = useState(1);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     useEffect(() => {
       const loadLikes = async () => {
@@ -59,6 +61,18 @@ const Post = forwardRef(
       await updateLikes(postId, newLikesCount, userId, !liked);
     };
 
+    const handleCommentClick = () => {
+      setIsPopupOpen(true);
+    };
+
+    const handleClosePopup = () => {
+      setIsPopupOpen(false);
+    };
+
+    const addComment = (comment) => {
+      setComments([...comments, comment]);
+    };
+
     const Reactions = () => (
       <div className={classes.footer__stats}>
         <div>
@@ -68,7 +82,7 @@ const Post = forwardRef(
         <section>
           <h4>
             <TextsmsRoundedIcon className="icon-small" />
-            {commentsCount} Comments
+            {comments.length} Comments
           </h4>
           <h4>
             <ShareRoundedIcon className="icon-small" />
@@ -112,7 +126,7 @@ const Post = forwardRef(
               <ThumbUpRoundedIcon className={`icon-small ${liked ? "liked" : ""}`} />
               <h4>{liked ? "Unlike" : "Like"}</h4>
             </div>
-            <div className={classes.action__icons}>
+            <div className={classes.action__icons} onClick={handleCommentClick}>
               <TextsmsRoundedIcon className="icon-small" />
               <h4>Comment</h4>
             </div>
@@ -122,20 +136,13 @@ const Post = forwardRef(
             </div>
           </div>
         </div>
+        {isPopupOpen && <CommentPopup comments={comments} addComment={addComment} onClose={handleClosePopup} profile={profile} username={username}/>}
       </Paper>
     );
   }
 );
 
 export default Post;
-
-
-
-
-
-
-
-
 
 
 //================원본================================

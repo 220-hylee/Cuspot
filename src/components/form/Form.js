@@ -248,7 +248,7 @@ const Form = () => {
       <div className={classes.upload__header}>
         <Avatar src={photoURL} />
         <form className={classes.header__form} onSubmit={handleSubmitButton}>
-          <input
+          <textarea
             placeholder={`오늘은 어떤 내용을 공유할까요, ${displayName}님?`}
             value={uploadData.description}
             onChange={(e) => setUploadData({ ...uploadData, description: e.target.value })}

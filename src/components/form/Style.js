@@ -52,6 +52,27 @@ export default makeStyles((theme) => ({
         },
       },
     },
+    "& > textarea": {
+      height: "100%",
+      flex: 1,
+      border: 0,
+      outlineWidth: 0,
+      paddingLeft: 15,
+      color: theme.palette.type === "dark" && "lightgrey",
+      fontSize: 14,
+      resize: "none",
+      // fontWeight: 600,
+      backgroundColor: "transparent",
+      "&::placeholder": {
+        // fontWeight: 600,
+        fontSize: 15,
+        color: theme.palette.type === "dark" && textDark,
+        [theme.breakpoints.down("xs")]: {
+          fontWeight: 600,
+          fontSize: 12,
+        },
+      },
+    },
     "& > button": {
       height: "100%",
       display: "flex",
