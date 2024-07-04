@@ -123,15 +123,15 @@ const Post = forwardRef(
           <Reactions />
           <div className={classes.footer__actions}>
             <div className={classes.action__icons} onClick={handleLike}>
-              <ThumbUpRoundedIcon className={`icon-small ${liked ? "liked" : ""}`} />
+              <ThumbUpRoundedIcon className={`icon_small ${liked ? "liked" : ""}`} />
               <h4>{liked ? "Unlike" : "Like"}</h4>
             </div>
             <div className={classes.action__icons} onClick={handleCommentClick}>
-              <TextsmsRoundedIcon className="icon-small" />
+              <TextsmsRoundedIcon className="icon_small" />
               <h4>Comment</h4>
             </div>
             <div className={classes.action__icons}>
-              <ShareRoundedIcon className="icon-small" style={{ transform: "scaleX(-1)" }} />
+              <ShareRoundedIcon className="icon_small" style={{ transform: "scaleX(-1)" }} />
               <h4>Share</h4>
             </div>
           </div>

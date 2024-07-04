@@ -12,7 +12,8 @@ import { Grid, Hidden, Avatar, Tooltip, Paper, Badge } from "@material-ui/core";
 // import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
-import NavigationRoundedIcon from '@material-ui/icons/NavigationRounded';
+// import NavigationRoundedIcon from '@material-ui/icons/NavigationRounded';
+import DirectionsRoundedIcon from '@material-ui/icons/DirectionsRounded';
 import SmsRoundedIcon from '@material-ui/icons/SmsRounded';
 import PeopleRoundedIcon from '@material-ui/icons/PeopleRounded';
 
@@ -26,6 +27,8 @@ import { ToggleTheme } from "../../store/actions/util";
 import { auth } from "../../firebase";
 import { useNavigate } from 'react-router-dom';
 import Style from "./Style";
+
+
 const Header = () => {
   const classes = Style();
   const dispatch = useDispatch();
@@ -77,16 +80,16 @@ const Header = () => {
             <HomeRoundedIcon />
           </div>
           <div className={classes.nav__links} onClick={handleMapClick}>
-            <NavigationRoundedIcon />
+            <DirectionsRoundedIcon />
           </div>
-          <Hidden xsDown>
-            {/* <div className={classes.nav__links}>
-              <StoreMallDirectoryOutlined />
-            </div> */}
             <div className={classes.nav__links} onClick={handleGroupChatClick}>
               <SmsRoundedIcon />
             </div>
-          </Hidden>
+          {/* <Hidden xsDown>
+            {/* <div className={classes.nav__links}>
+              <StoreMallDirectoryOutlined />
+            </div> 
+          </Hidden> */}
             <div className={classes.nav__links} onClick={handleFriendsClick}>
               <PeopleRoundedIcon />
             </div>
@@ -97,6 +100,7 @@ const Header = () => {
             <Avatar src={photoURL} onClick={logout} />
           </div>
         </Grid>
+
         {/*----Userinfo and options--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__userinfo} sm={2} md={3}>

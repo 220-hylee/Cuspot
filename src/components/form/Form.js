@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { cuspotBlue } from "../../assets/Colors";
 import { TextField, Chip, Paper, Divider, LinearProgress } from "@material-ui/core";
 import imageCompression from "browser-image-compression";
 import Avatar from "@material-ui/core/Avatar";
@@ -11,6 +12,9 @@ import { v4 as uuid } from "uuid";
 import db, { storage } from "../../firebase";
 import Styles from "./Style";
 import swal from "@sweetalert/with-react";
+//이모지
+import Picker from 'emoji-picker-react';
+
 
 const Form = () => {
   const classes = Styles();
@@ -18,6 +22,8 @@ const Form = () => {
   const[ Like, setLike] = useState(0); // 좋아요 
   const currentDate = new Date(); // 현재 날짜
   const[category,setCategory] = useState(""); // 카테고리 
+  const [message, setMessage] = useState(""); // 이모지 입력 메시지 상태
+  const [showPicker, setShowPicker] = useState(false); // Show/hide emoji picker
 
   const [uploadData, setUploadData] = useState({
     description: "",
@@ -28,9 +34,12 @@ const Form = () => {
     },
   });
 
-  const [ progress, setProgress] = useState("");
+  const [progress, setProgress] = useState('');
 
-
+  const handleEmojiSelect = (emoji) => {
+    setMessage((prevMessage) => prevMessage + emoji);
+  };
+  
   const Categorys = (e) => {
     setCategory(e.target.value); 
 };
@@ -88,16 +97,10 @@ const Form = () => {
             }
            
         })
-  
-  
-  
     };
-  
+    
   const handleSubmitButton = (e) => {
     e.preventDefault();
-
-    
-
 
     // verify atleast one of the input fields are not empyt
     if (uploadData.description || uploadData.file.data) {
@@ -253,9 +256,6 @@ const Form = () => {
             value={uploadData.description}
             onChange={(e) => setUploadData({ ...uploadData, description: e.target.value })}
           /> 
-
-
-
           {/* 위 input은 피드 TEXT입력 부분 */}
           <input
             id="upload-image"
@@ -271,7 +271,7 @@ const Form = () => {
             accept="video/*"
             hidden
             onChange={(e) => imageUploadHandler(e, "video")}
-          />
+          />          
             {/* <select value= {category} onChange={Categorys}>
                 <option value="축구">축구</option>
                 <option value="농구">농구</option>
@@ -307,15 +307,15 @@ const Form = () => {
 
       <div className={classes.upload__media}>
         <label htmlFor="upload-video" className={classes.media__options}>
-          <VideocamRoundedIcon style={{ color: "red" }} />
+          <VideocamRoundedIcon style={{ color: "darkgray" }} />
           <h4>Video</h4>
         </label>
         <label htmlFor="upload-image" className={classes.media__options}>
-          <PhotoRoundedIcon style={{ color: "green" }} />
+          <PhotoRoundedIcon style={{ color: "darkgray" }} />
           <h4>Photo</h4>
         </label>
         <div className={classes.media__options}>
-          <EmojiEmotionsOutlinedIcon style={{ color: "orange" }} />
+          <EmojiEmotionsOutlinedIcon style={{ color: "darkgray" }} />
           <h4>Feeling/Activity</h4>
         </div>
       </div>

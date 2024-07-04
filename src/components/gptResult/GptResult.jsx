@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Paper, Typography, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { Paper, Box, Typography, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, makeStyles } from '@material-ui/core';
 import axios from 'axios';
 import Header from "../header/Header";
 import Logo from "../../assets/images/logo_width.png";
 import { Link } from "react-router-dom";
 import Style from "../../Style";
+import Styles from "./Style";
 import { Grid } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-
+// import "../../style.css";
 
 const GptResult = () => {
 
   // src/Style 사용
-  const classes = Style();
+  const classes = Styles();
 
+  const classes2 = Style();
+  // const classes2 = Style();
   //useState를 사용해서, data, loading 상태를 관리
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,13 +51,17 @@ const GptResult = () => {
 
   //랜더링
   return (
-
     <div>
-    <Grid className={classes.app}>
-      <Grid item container className={classes.app__header}>
-        <Header />
+      <Grid className={classes.app}>
+        <Grid item container className={classes2.app__header}>
+          <Header />
+        </Grid>
+      {/* gpt결과지*/}
          <div className="GptResult">
-          <Paper className={classes.gpt_root} >
+          <Paper className={classes.root} >
+      {/* 고정 */}
+          <div className={classes.gpt_root}> 
+            {/* 이미지 로고 */}
             <div className={classes.gpt_logo}>
                 <img
                   src={Logo}
@@ -62,20 +69,20 @@ const GptResult = () => {
                   alt="linked-in-logo"
                   />
             </div>
+            {/* 테이블 감싸는 구역 */}
             <div id="data" className={classes.gpt_paper}>
               {loading ? (
                 <div className={classes.loadingContainer}>
                   <CircularProgress />
                 </div>
               ) : (
-                data.length > 0 ? (
-                  <TableContainer component={Paper} className={classes.gpt_paper}>
-                    <div className={classes.divtable}>
+                data.length > 0 ? ( // 데이터가 있을 경우
+                  <TableContainer component={Paper} className={classes.gpt_tableContainer}>
                     <Table className={classes.gpt_table}>
                         <TableRow className={classes.gpt_tr}>
                           <TableCell className={classes.gpt_th}>
                             <h2>  Custpot 운동 추천 </h2>
-                            </TableCell>
+                          </TableCell>
                         </TableRow>
                       <TableBody className={classes.gpt_tablebody}>
                         {data.map((row, rowIndex) => (
@@ -87,7 +94,6 @@ const GptResult = () => {
                         ))}
                       </TableBody>
                     </Table>
-                  </div>
                   </TableContainer>
                 ) : (
                   <Typography variant="body1" color="textSecondary">
@@ -95,24 +101,22 @@ const GptResult = () => {
                   </Typography>
                 )
               )}
-            </div>
-            <br /><br /><br />
-
-
             {/* 버튼 이동-> 홈이랑, 맵 */}
-            <ButtonGroup variant="contained" color="primary">
-              <Link to="/App.js">
-                <Button className={classes.gpt_button}>HOME</Button>
-              </Link>
-              <Link to="/about">
-                <Button className={classes.gpt_button}>MAP</Button>
-              </Link>
+            </div>
+            <Box display="flex" justifyContent="center" mt={2}>
+              <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+                <Link to="/App.js">
+                  <Button className={classes.gpt_button} style={{ minWidth: '120px' }}>🏠 HOME</Button>
+                </Link>
+                <Link to="/about">
+                  <Button className={classes.gpt_button} style={{ minWidth: '120px' }}>🗺️ MAP</Button>
+                </Link>
               </ButtonGroup>
-      
+            </Box>
+          </div>
           </Paper>
     </div>
       </Grid>
-    </Grid>
   </div> 
   );
 }
