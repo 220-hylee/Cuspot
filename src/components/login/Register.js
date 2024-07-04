@@ -106,7 +106,6 @@ const Register = () => {
         <br/>
         
         <button type="submit" style={{backgroundColor:'#2050B2'}}>회원가입</button>
-          
       </form>
       <Link to="/">
       <button className={classes.button}>뒤로가기</button>

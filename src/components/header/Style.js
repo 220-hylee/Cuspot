@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { darkSecondary, darkPrimary } from "../../assets/Colors";
-
 export default makeStyles((theme) => ({
   header: {
     widows: "100%",
@@ -60,7 +59,6 @@ export default makeStyles((theme) => ({
     },
     color: "grey",
   },
-
   nav__links: {
     flex: 1,
     display: "flex",
@@ -84,7 +82,6 @@ export default makeStyles((theme) => ({
       },
     },
   },
-
   nav__links__specail: {
     [theme.breakpoints.up("sm")]: {
       display: "none",
@@ -94,7 +91,6 @@ export default makeStyles((theme) => ({
       height: 30,
     },
   },
-
   header__userinfo: {
     height: "100%",
     display: "flex",

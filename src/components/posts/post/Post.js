@@ -1,6 +1,9 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
+import ThumbUpRoundedIcon from "@material-ui/icons/ThumbUpRounded";
+import TextsmsRoundedIcon from "@material-ui/icons/TextsmsRounded";
+import ShareRoundedIcon from "@material-ui/icons/ShareRounded";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
 //아이콘 수정(전)
 // import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
@@ -19,15 +22,47 @@ import Style from "./Style";
 // import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 // import CommentIcon from '@material-ui/icons/Comment';
 // import ShareIcon from '@material-ui/icons/Share';
+import CommentPopup from "./CommentPopup"; // CommentPopup 컴포넌트 가져오기
+import Love from "../../../assets/images/love.png";
+
+// 서버와의 통신을 위한 함수들
+const fetchLikes = async (postId) => {
+  const response = await fetch(`/api/posts/${postId}/likes`);
+  const data = await response.json();
+  return data.likesCount;
+};
+
+const fetchUserLikeStatus = async (postId, userId) => {
+  const response = await fetch(`/api/posts/${postId}/likes/${userId}`);
+  const data = await response.json();
+  return data.liked;
+};
+
+const updateLikes = async (postId, newLikesCount, userId, liked) => {
+  await fetch(`/api/posts/${postId}/likes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ likesCount: newLikesCount, userId, liked }),
+  });
+};
+
 const Post = forwardRef(
-  ({ profile, username, timestamp, description, fileType, fileData }, ref) => {
+  ({ postId, profile, username, timestamp, description, fileType, fileData, userId }, ref) => {
     const classes = Style();
     const [likesCount, setLikesCount] = useState(1);
     const [commentsCount, setCommentsCount] = useState(1);
+
+    const [likesCount, setLikesCount] = useState(0);
+    const [liked, setLiked] = useState(false);
+    const [comments, setComments] = useState([]);
     const [sharesCount, setSharesCount] = useState(1);
     const [likeIconOrder, setLikeIconOrder] = useState(1);
     const [loveIconOrder, setLoveIconOrder] = useState(1);
     const [careIconOrder, setCareIconOrder] = useState(1);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
     useEffect(() => {
       setLikesCount(Math.floor(Math.random() * 1000) + 1);
       setCommentsCount(Math.floor(Math.random() * 100) + 1);
@@ -49,6 +84,54 @@ const Post = forwardRef(
         </div>
       );
     };
+      const loadLikes = async () => {
+        const initialLikesCount = await fetchLikes(postId);
+        const userLiked = await fetchUserLikeStatus(postId, userId);
+        setLikesCount(initialLikesCount);
+        setLiked(userLiked);
+      };
+      loadLikes();
+    }, [postId, userId]);
+
+    const handleLike = async () => {
+      const newLikesCount = liked ? likesCount - 1 : likesCount + 1;
+      setLikesCount(newLikesCount);
+      setLiked(!liked);
+      await updateLikes(postId, newLikesCount, userId, !liked);
+    };
+
+    const handleCommentClick = () => {
+      setIsPopupOpen(true);
+    };
+
+    const handleClosePopup = () => {
+      setIsPopupOpen(false);
+    };
+
+    const addComment = (comment) => {
+      setComments([...comments, comment]);
+    };
+
+    const Reactions = () => (
+      <div className={classes.footer__stats}>
+        <div>
+          <img src={Love} alt="love-icon" />
+        </div>
+        <h4>{likesCount}</h4>
+        <section>
+          <h4>
+            <TextsmsRoundedIcon className="icon-small" />
+            {comments.length} Comments
+          </h4>
+          <h4>
+            <ShareRoundedIcon className="icon-small" />
+            {sharesCount} Shares
+          </h4>
+        </section>
+        <div></div>
+      </div>
+    );
+
     return (
       <Paper ref={ref} className={classes.post}>
         <div className={classes.post__header}>
@@ -82,6 +165,9 @@ const Post = forwardRef(
               {/* <ThumbUpAltOutlinedIcon /> */}
               <ThumbUpRoundedIcon className="icon-small"/>
               <h4>Like</h4>
+            <div className={classes.action__icons} onClick={handleLike}>
+              <ThumbUpRoundedIcon className={`icon-small ${liked ? "liked" : ""}`} />
+              <h4>{liked ? "Unlike" : "Like"}</h4>
             </div>
             <div className={classes.action__icons}>
               {/* <ChatBubbleOutlineOutlinedIcon /> */}
@@ -95,6 +181,7 @@ const Post = forwardRef(
             </div>
           </div>
         </div>
+        {isPopupOpen && <CommentPopup comments={comments} addComment={addComment} onClose={handleClosePopup} profile={profile} username={username}/>}
       </Paper>
     );
   }
