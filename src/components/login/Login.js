@@ -83,13 +83,7 @@ const Login = () => {
           {/* 로그인 버튼 */}
           <Button type="submit" style={{backgroundColor:'#2050B2'}}>Login</Button>
         </form>
-          {/* 회원가입 링크 */}
-          <Link to="/register" className={classes.login_link}>회원가입</Link>
-          {/* 이메일 찾기 링크 */}
-          <Link to="/findEmail" className={classes.login_link}>아이디 찾기</Link>
-          {/* 비밀번호 찾기 링크 */}
-          <Link to="/rePassword" className={classes.login_link}>비밀번호 찾기</Link>
-
+    
         <div className={classes.google}>
           <section>
             <div></div>
@@ -100,55 +94,19 @@ const Login = () => {
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
+          <div className={classes.linkContainer}>
+            <Link to="/register" className={classes.login_link}>회원가입</Link>
+            <Link to="/findEmail" className={classes.login_link}>ID찾기</Link>
+            <Link to="/rePassword" className={classes.login_link}>비밀번호 찾기</Link>
+         </div>
             <p>copywrite TTEZO</p>
         </div>
         <div className={classes.about}>
-          {/* <section>
-            <div></div>
-            <p>copywriter TTEZO</p>
-            <div></div>
-          </section> */}
-          {/* <div>
-            {author.map(({ src, url, color }, i) => (
-              <a
-                href={`${url}`}
-                key={`author-link-${i}`}
-                rel="noreferrer nofollow"
-                target="_blank"
-                style={{ color: color }}
-              >
-                {src}
-              </a>
-            ))}
-          </div> */}
         </div>
       </Paper>
     </div>
   );
 };
 
-// const author = [
-//   { src: <GitHubIcon />, url: "https://github.com/phanison898", color: "black" },
-//   {
-//     src: <LinkedInIcon />,
-//     url: "https://www.linkedin.com/in/phanison225/",
-//     color: "#0057ae",
-//   },
-//   {
-//     src: <YouTubeIcon />,
-//     url: "https://www.youtube.com/channel/UC4FAldAo2Ow_2F447yggcqA",
-//     color: "red",
-//   },
-//   {
-//     src: <InstagramIcon />,
-//     url: "https://www.instagram.com/phanison225/",
-//     color: "#b7066e",
-//   },
-//   {
-//     src: <TwitterIcon />,
-//     url: "https://twitter.com/phanison225",
-//     color: "rgb(29 161 242)",
-//   },
-// ];
 
 export default Login;

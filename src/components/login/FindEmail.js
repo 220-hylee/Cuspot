@@ -38,6 +38,7 @@ const FindEmail = () => {
 
   return (
     <div>
+      
       <h1>이름과 전화번호로 이메일 찾기</h1>
       <input
         type="text"

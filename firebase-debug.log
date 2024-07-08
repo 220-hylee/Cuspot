@@ -1,0 +1,28 @@
+[debug] [2024-07-08T08:04:47.593Z] ----------------------------------------------------------------------
+[debug] [2024-07-08T08:04:47.600Z] Command:       D:\IT_KOREA_class\node\node.exe C:\Users\ahn\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-07-08T08:04:47.601Z] CLI Version:   13.13.0
+[debug] [2024-07-08T08:04:47.602Z] Platform:      win32
+[debug] [2024-07-08T08:04:47.602Z] Node Version:  v20.15.0
+[debug] [2024-07-08T08:04:47.602Z] Time:          Mon Jul 08 2024 17:04:47 GMT+0900 (대한민국 표준시)
+[debug] [2024-07-08T08:04:47.603Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-08T08:04:47.618Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-08T08:04:47.618Z] > authorizing via signed-in user (ahnkong92@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\IT_KOREA_class\Team\Cuspot
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
