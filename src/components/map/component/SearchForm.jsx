@@ -204,29 +204,29 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
   return (
     <>
       <form onSubmit={handleSubmit} className="search-bar">
-        {/* <input
+        <input
           className={classes.searchBar}
           type='text'
           placeholder="검색을 입력하세요"
           variant='filled'
           value={input}
           onChange={(e) => setInput(e.target.value)}
-        /> */}
+        />
         <IconButton label="search" color="inherit" type='submit' >
           <SearchIcon />
         </IconButton>
         <IconButton 
           label="display more actions" edge="end" color="inherit" onClick={toggleOptions} style={{ marginRight: '2px' }}/>
-        <TextField
+        {/* <TextField
           className={classes.searchBar}
           placeholder="검색을 입력하세요"
           variant="filled"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-        />
-        <IconButton aria-label="search" color="inherit" type='submit'>
+        /> */}
+        {/* <IconButton aria-label="search" color="inherit" type='submit'>
           <SearchIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={toggleOptions}>
           <MoreIcon />
         </IconButton>
