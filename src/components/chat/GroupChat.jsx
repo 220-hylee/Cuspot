@@ -27,7 +27,9 @@ const GroupChat = () => {
         <Grid item container className={classes.app__header}>
           <Header />
           {/* iframe에 ref를 설정하고 src에 직접 메시지를 보내는 함수를 호출 */}
-          <iframe src={`https://chat-9eb84.web.app/?userId=${user.userId}&displayName=${displayName}`} width="100%" height="870px" title="chat"></iframe>
+          {/* <iframe src={`https://chat-9eb84.web.app/?userId=${user.userId}&displayName=${displayName}`} width="100%" height="870px" title="chat"></iframe> */}
+           {/* 로컬 용 코드 */}
+           <iframe src={`http://localhost:3001/?userId=${user.userId}&displayName=${displayName}`} width="100%" height="870px" title="chat"></iframe>
           </Grid>
         </Grid>
     </div>

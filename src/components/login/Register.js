@@ -36,6 +36,7 @@ const Register = () => {
       // Firestore에 추가 정보 저장
       await db.collection("users").doc(userCredential.user.uid).set({
         email: email,
+        password: password,
         displayName: displayName,
         photoURL: photoURL,
         date: new Date(),
