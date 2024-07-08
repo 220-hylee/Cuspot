@@ -4,17 +4,13 @@ import FlipMove from "react-flip-move";
 import Post from "./post/Post";
 import db from "../../firebase";
 import axios from 'axios';
-import { useSelector } from "react-redux";
 const Posts = () => {
   const classes = Style();
   // 이메일 정보 가져오기
-  const { email } = useSelector((state) => state.user);
 
   const [posts, setPosts] = useState([]);
   // 게시판 정보 담기
   const[board,setBoard] = useState([]);
-  // 좋아요 상태 
-  const[likeState,setLikeState] = useState([]);
 
 
   // 봄동에서 피드 데이터 가져오기
