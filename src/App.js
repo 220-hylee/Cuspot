@@ -4,8 +4,12 @@ import { Grid, Hidden, Paper } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import GptResult from "./components/gptResult/GptResult";
 import Login from "./components/login/Login";
+import GptResult from "./components/gptResult/GptResult";
+import Register from "./components/login/Register";
+import RePassword from './components/login/RePassword';
+import FindEmail from './components/login/FindEmail';
+
 import Header from "./components/header/Header";
 import Contacts from "./components/contacts/Contacts";
 import Form from "./components/form/Form";
@@ -17,7 +21,6 @@ import { LoginAction, LogoutAction } from "./store/actions/auth";
 import { auth } from "./firebase";
 import { lightPrimary } from "./assets/Colors";
 import Style from "./Style";
-import Register from "./components/login/Register";
 
 const MainContent = () => {
   const classes = Style();
@@ -120,6 +123,8 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/findEmail" element={<FindEmail />} />
+              <Route path="/rePassword" element={<RePassword />} />
             </Routes>
           )}
           <GitpleScriptLoader />

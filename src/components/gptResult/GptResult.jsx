@@ -150,7 +150,7 @@ const GptResult = () => {
                     <Link to="/chat" className={classes.linkButton}>
                       <Button className={classes.gpt_button} style={{ minWidth: '140px' }}>😉 CHAT</Button>
                     </Link>
-                    <Link to="/about" className={classes.linkButton}>
+                    <Link to="/about=" className={classes.linkButton}>
                       <Button className={classes.gpt_button} style={{ minWidth: '140px' }}>🗺️ MAP</Button>
                     </Link>
                   </ButtonGroup>

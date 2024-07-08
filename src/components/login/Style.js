@@ -15,7 +15,7 @@ export default makeStyles((theme) => ({
     minWidth: 400,
     maxWidth: 400,
     height: 500,
-    padding: theme.spacing(4), // 위아래 여백을 동일하게 설정
+  padding: theme.spacing(4), // 위아래 여백을 동일하게 설정
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(2),
     // [theme.breakpoints.down("xs")]: {

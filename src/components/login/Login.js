@@ -82,13 +82,13 @@ const Login = () => {
           <br/>
           {/* 로그인 버튼 */}
           <Button type="submit" style={{backgroundColor:'#2050B2'}}>Login</Button>
+        </form>
           {/* 회원가입 링크 */}
           <Link to="/register" className={classes.login_link}>회원가입</Link>
-          {/* 회원가입 링크 */}
-          <Link to="/register" className={classes.login_link}>아이디 찾기</Link>
-          {/* 회원가입 링크 */}
-          <Link to="/register" className={classes.login_link}>비밀번호 찾기</Link>
-        </form>
+          {/* 이메일 찾기 링크 */}
+          <Link to="/findEmail" className={classes.login_link}>아이디 찾기</Link>
+          {/* 비밀번호 찾기 링크 */}
+          <Link to="/rePassword" className={classes.login_link}>비밀번호 찾기</Link>
 
         <div className={classes.google}>
           <section>

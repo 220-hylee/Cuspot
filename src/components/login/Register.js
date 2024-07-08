@@ -6,11 +6,11 @@ import Style from "./Style";
 import { Paper, TextField,Button } from "@material-ui/core";
 import Logo from "./../../assets/images/logo_width.png";
 import { Link } from "react-router-dom";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import YouTubeIcon from "@material-ui/icons/YouTube";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import TwitterIcon from "@material-ui/icons/Twitter";
+// import LinkedInIcon from "@material-ui/icons/LinkedIn";
+// import GitHubIcon from "@material-ui/icons/GitHub";
+// import YouTubeIcon from "@material-ui/icons/YouTube";
+// import InstagramIcon from "@material-ui/icons/Instagram";
+// import TwitterIcon from "@material-ui/icons/Twitter";
 
 
 const Register = () => {
@@ -20,6 +20,7 @@ const Register = () => {
   const [displayName, setDisplayName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
 
 
   const classes = Style();
@@ -47,6 +48,7 @@ const Register = () => {
         photoURL: photoURL,
         date: new Date(),
         addres: address,
+        phone: phone
       });
 
       // Redux에 사용자 정보 저장
@@ -111,6 +113,15 @@ const Register = () => {
           onChange={(e) => setAddress(e.target.value)}
           required
         />
+         <TextField
+          type="text"
+          label = "phone"
+          // placeholder="[address]"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+
         <br/>
         
         <Button type="submit" size="large"

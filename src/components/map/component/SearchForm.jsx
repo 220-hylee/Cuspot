@@ -217,7 +217,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
         </IconButton>
         <IconButton 
           label="display more actions" edge="end" color="inherit" onClick={toggleOptions} style={{ marginRight: '2px' }}/>
-        {/* <TextField
+        {/* <TextFieldn
           className={classes.searchBar}
           placeholder="검색을 입력하세요"
           variant="filled"
