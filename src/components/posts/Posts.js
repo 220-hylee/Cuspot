@@ -18,37 +18,37 @@ const Posts = () => {
 
 
   // 봄동에서 피드 데이터 가져오기
-  // useEffect(() => {
-  //   const unsubscribe = db
-  //     .collection("posts")
-  //     .orderBy("timestamp", "desc")
-  //     .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
-  //   return unsubscribe;
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
+    return unsubscribe;
+  }, []);
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  // },[]);
+  },[]);
 //------------------------------------------------------------
   //스프링 부트에서 데이터 가져오기
   // 전체 피드 목록 가져오기
-  useEffect(() => {
-     axios
-     .get('http://localhost:8080/api/getBoardList')
-      .then(response => {
-        setBoard(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-    }, []);
+  // useEffect(() => {
+  //    axios
+  //    .get('http://localhost:8080/api/getBoardList')
+  //     .then(response => {
+  //       setBoard(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  //   }, []);
   
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
         
         {/* 봄동에서 가져온 데이터 출력 */}
-        {/* {Array.from(posts).map((post) => (
+        {Array.from(posts).map((post) => (
           <Post
             key={post.id}
             profile={post.data.profile}
@@ -58,7 +58,7 @@ const Posts = () => {
             fileType={post.data.fileType}
             fileData={post.data.fileData}
           />
-        ))} */}
+        ))}
 
         {Array.from(board).map((board) => (
            <Post
