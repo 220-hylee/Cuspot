@@ -72,7 +72,6 @@ const KakaoMap = () => {
       mapService.searchPlaces(keyword, []); // 장소 검색 요청 (선택된 옵션 초기화)
     }
   }, [mapService, keyword]);
- 
   // 검색 결과 창 닫기
   const searchClose = useCallback(() => {
     setKeyword(""); // 검색어 초기화
@@ -80,8 +79,6 @@ const KakaoMap = () => {
     setShowPlaceList(false); // 장소 목록 숨기기
     setCurrentPage(1); // 페이지 초기화
   }, []);
- 
- 
   return (
     <div className="map_wrap">
       {/* 지도 컨테이너 */}
@@ -91,7 +88,6 @@ const KakaoMap = () => {
         <SearchForm handleSearchSubmit={handleSearchSubmit} handleRadiusChange={handleRadiusChange} />
         <hr />
         {/* 장소 목록 표시 */}
-       
         {showPlaceList && (
           <>
             <PlaceList
@@ -122,5 +118,5 @@ const KakaoMap = () => {
     </div>
   );
 };
-
 export default KakaoMap;
+

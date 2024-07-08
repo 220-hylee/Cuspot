@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from "@material-ui/core";
 import '../CSS/Map.css';
+
 import { cuspotBlue } from '../../../assets/Colors';
+
 
 export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChange }) => {
   const [selectedOption, setSelectedOption] = useState(""); 
@@ -32,6 +34,7 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
             border: '1px solid #ccc', 
             color: '#333', 
             margin: '5px' // Adjust margin to reduce spacing
+
           }}
         >
           {option}
@@ -41,11 +44,12 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
   );
 };
 
-//거리별 아이콘 선택 
+
 export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick }) => {
   return (
     <div className="options-container" style={{ margin: '0' }}>
       <div className="button-options" style={{ margin: '0' }}>
+
         <Button 
           variant={selectedRadius === "" ? 'contained' : 'primary'}
           size="small"
@@ -70,6 +74,7 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
               backgroundColor: '#F0F0F0', 
               border: '1px solid #black', 
               color: '#2453B3', 
+
               margin: '5px 5px 5px 0' // Adjust margin to reduce spacing
             }}
           >

@@ -1,3 +1,4 @@
+
 // import React, { useState } from 'react';
 // import Checkbox from '@material-ui/core/Checkbox';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -149,8 +150,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { SearchOptions, SearchRadiusOptions } from "./SearchOptions";
 
 
-
-
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
@@ -181,6 +180,7 @@ const useStyles = makeStyles((theme) => ({
 
 //SearchOptions 컴포넌트가 옵션을 관리합니다.
 // handleCheckboxChange를 통해 옵션 선택 상태를 관리합니다.
+
 const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChange, selectedOptions }) => {
   const classes = useStyles();
   const [input, setInput] = useState(""); // 검색어 입력 상태 관리
@@ -204,19 +204,30 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
   return (
     <>
       <form onSubmit={handleSubmit} className="search-bar">
-        <input
+        {/* <input
           className={classes.searchBar}
           type='text'
           placeholder="검색을 입력하세요"
           variant='filled'
           value={input}
           onChange={(e) => setInput(e.target.value)}
-        />
+        /> */}
         <IconButton label="search" color="inherit" type='submit' >
           <SearchIcon />
         </IconButton>
         <IconButton 
-        label="display more actions" edge="end" color="inherit" onClick={toggleOptions} style={{ marginRight: '2px' }}>
+          label="display more actions" edge="end" color="inherit" onClick={toggleOptions} style={{ marginRight: '2px' }}/>
+        <TextField
+          className={classes.searchBar}
+          placeholder="검색을 입력하세요"
+          variant="filled"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <IconButton aria-label="search" color="inherit" type='submit'>
+          <SearchIcon />
+        </IconButton>
+        <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={toggleOptions}>
           <MoreIcon />
         </IconButton>
       </form>

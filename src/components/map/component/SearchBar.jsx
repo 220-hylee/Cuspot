@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
   },
   searchBar: {
+
     width: '90%', // 7/5 11시 30분 90%->100%으로 수정, 다시 90으로
 }
 
