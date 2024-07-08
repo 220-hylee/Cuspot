@@ -7,6 +7,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import GptResult from "./components/gptResult/GptResult";
 import Login from "./components/login/Login";
 import Header from "./components/header/Header";
+import Category from "./components/category/category"
 import Sidebar from "./components/sidebar/Sidebar";
 import Contacts from "./components/contacts/Contacts";
 import Stories from "./components/stories/Stories";
@@ -28,6 +29,9 @@ const MainContent = () => {
     <Grid className={classes.app}>
       <Grid item container className={classes.app__header}>
         <Header />
+      </Grid>
+      <Grid item container className={classes.app__header}>
+        <Category />
       </Grid>
       <Grid item container className={classes.app__body}>
         { <Hidden smDown>
