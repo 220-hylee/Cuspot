@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Grid, Hidden, Paper } from "@material-ui/core";
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 import GptResult from "./components/gptResult/GptResult";
 import Login from "./components/login/Login";
 import Header from "./components/header/Header";
+
 import Category from "./components/category/category"
 import Sidebar from "./components/sidebar/Sidebar";
+
 import Contacts from "./components/contacts/Contacts";
-import Stories from "./components/stories/Stories";
 import Form from "./components/form/Form";
 import Posts from "./components/posts/Posts";
 import CusMap from "./components/map/CusMap"; // 맵 컴포넌트
@@ -34,16 +35,12 @@ const MainContent = () => {
         <Category />
       </Grid>
       <Grid item container className={classes.app__body}>
-        { <Hidden smDown>
+        <Hidden smDown>
           <Grid item container className={classes.body__left} md={3}>
-            {/* <Sidebar /> */}
             <Contacts />
           </Grid>
-        </Hidden> }
+        </Hidden>
         <Grid item container className={classes.body__feed} xs={12} sm={8} md={6}>
-          {/* <Grid item container className={classes.feed__stories}>
-            <Stories />
-          </Grid> */}
           <Grid item container className={classes.feed__form}>
             <Form />
           </Grid>
@@ -51,14 +48,39 @@ const MainContent = () => {
             <Posts />
           </Grid>
         </Grid>
-        {/* <Hidden smDown>
-          <Grid item container className={classes.body__right} md={3}>
-            <Contacts />
-          </Grid>
-        </Hidden> */}
       </Grid>
     </Grid>
   );
+};
+
+// 깃플챗 스크립트를 로드하는 커스텀 훅
+const usePageViews = () => {
+  const location = useLocation();
+  useEffect(() => {
+    let script;
+    if (location.pathname === '/') {
+      script = document.createElement('script');
+      script.src = 'https://app.gitple.io/inapp-web/gitple-loader.js';
+      script.async = true;
+      document.body.appendChild(script);
+
+      script.onload = () => {
+        window.GitpleConfig = {"appCode":"G7qJfFaCWBYX7XEOPExHBV7QRs6g13"};
+        window.Gitple('boot');
+      };
+    }
+
+    return () => {
+      if (script) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [location]);
+};
+
+const GitpleScriptLoader = () => {
+  usePageViews();
+  return null;
 };
 
 const App = () => {
@@ -92,24 +114,22 @@ const App = () => {
           className={classes.root}
           style={{ backgroundColor: !mode && lightPrimary }}
         >
-          {!displayName ? (
-            <Routes>
-              <Route path="/" element={<Login />}/>
-              <Route path="/register" element={<Register />}/>
-
-
-             </Routes>
-          ) : (
+          {displayName ? (
             <Routes>
               <Route path="/" element={<MainContent />} />
               <Route path="/about" element={<CusMap />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/friends" element={<Friends />} />
-              <Route path="/GptResult" element={<GptResult />}/>
+              <Route path="/GptResult" element={<GptResult />} />
               <Route path="*" element={<Navigate to="/" />} />
-              
+            </Routes>
+          ) : (
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           )}
+          <GitpleScriptLoader />
         </Paper>
       </ThemeProvider>
     </Router>
@@ -117,4 +137,3 @@ const App = () => {
 };
 
 export default App;
-

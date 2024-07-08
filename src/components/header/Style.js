@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { darkSecondary, darkPrimary } from "../../assets/Colors";
+import { darkSecondary, darkPrimary, hoverGrey } from "../../assets/Colors";
+
 export default makeStyles((theme) => ({
   header: {
     widows: "100%",
@@ -49,7 +50,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     padding: "4px 60px",
     [theme.breakpoints.down("md")]: {
-      padding: "4px 30px",
+      padding: "4px 30px", //=> 여기 원래 4px, 30px
     },
     [theme.breakpoints.down("sm")]: {
       padding: "4px 10px",
@@ -57,7 +58,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       padding: 4,
     },
-    color: "grey",
+    color: "#EAEAEB", // 아이콘 색상 (헤드)
   },
   nav__links: {
     flex: 1,
@@ -65,7 +66,7 @@ export default makeStyles((theme) => ({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 8,
+    borderRadius: 1,
     cursor: "pointer",
     transition: "all 0.5s ease",
     color: theme.palette.type === "dark" && "lightgrey",
@@ -73,7 +74,7 @@ export default makeStyles((theme) => ({
       fontSize: 30,
     },
     "&:hover": {
-      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "lightgrey",
+      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "hoverGrey",
     },
     [theme.breakpoints.down("xs")]: {
       justifyContent: "space-evenly",

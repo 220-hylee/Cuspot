@@ -144,9 +144,14 @@ export default makeStyles((theme) => ({
     padding: 4,
   },
 
+  icon_small  : {
+    fontSize : '12px',
+  }, 
+
   action__icons: { // 좋아요, 커멘트, 공유 아이콘
     flex: 1,
     display: "flex",
+    fontWeight: "normal",
     justifyContent: "center",
     alignItems: "center",
     marginRight: 2,
@@ -166,18 +171,18 @@ export default makeStyles((theme) => ({
     "& > .MuiSvgIcon-root": {
       color: theme.palette.type === "dark" && textDark,
       [theme.breakpoints.down("xs")]: {
-        fontSize: 16,
+        fontSize: 18, //아이콘 크기
       },
     },
     "& > h4": {
       color: theme.palette.type === "dark" && textDark,
       marginLeft: 4,
       [theme.breakpoints.down("xs")]: {
-        fontSize: 12,
+        fontSize: 15, // 아이콘 옆 폰트 사이즈
+        fontWeight: 100,
       },
     },
-  },
-
+  }, 
   popup__overlay: {
     position: "fixed",
     top: 0,
@@ -264,10 +269,10 @@ export default makeStyles((theme) => ({
   comment__submit: {
     marginTop: "10px",
     padding: "10px",
-    backgroundColor: darkSecondary,
+    backgroundColor: 'black',
     color: "white",
     border: "none",
-    borderRadius: "4px",
+    borderRadius: "14px",
     cursor: "pointer",
     fontSize: "16px",
     "&:hover": {
