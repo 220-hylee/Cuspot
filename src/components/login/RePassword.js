@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
-// import { functions } from "../../firebase"; // Firebase 초기화 파일에서 functions 가져오기
-import { auth, db } from "../../firebase";
+import { functions } from "../../firebase"; // Firebase 초기화 파일에서 functions 가져오기
+import Style from "./Style";
+import { Paper, TextField, Button } from "@material-ui/core";
+import Logo from "./../../assets/images/logo_width.png";
+import { Link } from "react-router-dom";
+
+// import { auth, db } from "../../firebase";
 
 // const ResetPassword = () => {
 //   const [displayName, setDisplayName] = useState('');
@@ -28,55 +33,66 @@ const RePassword = () => {
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
   
-    const searchPwd = async () => {
+    const classes = Style();
+
+
+    const handleResetPassword = async () => {
+      const sendTemporaryPassword = functions.httpsCallable('sendTemporaryPassword');
+  
       try {
-        const querySnapshot = await db.collection('users')
-          .where('displayName', '==', displayName)
-          .where('email', '==', email)
-          .get();
-  
-  
-          // 봄동에서 데이터 검색
-        if (!querySnapshot.empty) {
-          const user = querySnapshot.docs[0].data(); // 첫 번째 일치하는 문서
-  
-          //성공
-          setResult(user.password);
-          setError(null);
-        } else {
-          // 검색은 성공이지만 해당하는 데이터 없음
-          setResult(null);
-          setError('해당 조건에 맞는 사용자를 찾을 수 없습니다!');
-        }
-  
-        //검색자체가 실패
+        const response = await sendTemporaryPassword({ displayName, email });
+        setResult(response.data.message);
+        setError(null);
       } catch (err) {
-        console.error("사용자 검색 중 오류 발생:", err);
-        setError('사용자 검색 중 오류 발생.');
+        console.error("임시 비밀번호 전송 중 오류 발생:", err);
+        setError(err.message);
         setResult(null);
       }
     };
-  return (
-    <div>
-      <h1>비밀번호 재설정</h1>
-      <input
-        type="text"
-        value={displayName}
-        onChange={(e) => setDisplayName(e.target.value)}
-        placeholder="이름 입력"
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="이메일 입력"
-      />
-      {/* <button onClick={handleResetPassword}>임시 비밀번호 이메일 보내기</button> */}
-      <button onClick={searchPwd}>비밀번호 찾기</button>
-      {result && <p>{result}</p>}
-      {error && <p>{error}</p>}
-    </div>
-  );
-};
-
-export default RePassword;
+  
+    return (
+      <div className={classes.login__container}>
+      <Paper elevation={1} className={classes.login}>
+       <div className={classes.logo}>
+        <img
+          src={Logo}
+          style={{ width: "270px", height: "130px" }}
+          alt="linked-in-logo"
+        />
+      </div>
+      <div>
+        <h1>비밀번호 재설정</h1>
+        <TextField
+        style={{ width: "260px"}}
+           required
+          label="name"
+          type="text"
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+          placeholder="name"
+        /> <br/>
+        <TextField
+        style={{ width: "260px"}}
+           required
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="email"
+        /><br/>
+        <Button className={classes.findEmail_bt} onClick={handleResetPassword}
+          variant="contained"
+          size = "small"
+          color = "primary">✉️이메일 전송</Button>
+          
+        <Link to="/" className={classes.link_back}>back</Link>
+        {result && <p>{result}</p>}
+        {error && <p>{error}</p>}
+      </div>
+      <p style={{ marginTop: '20px' }}>copywrite TTEZO</p>
+      </Paper>
+      </div>
+    );
+  };
+  
+  export default RePassword;

@@ -3,92 +3,25 @@ import { cuspotBlue, darkSecondary, darkPrimary } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
 
-  // login__container: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   minHeight: '100vh',
-  //   padding: theme.spacing(2),
-  // },
-
-  // login: {
-  //   minWidth: 400,
-  //   maxWidth: 400,
-  //   height: 500,
-  // padding: theme.spacing(4), // 위아래 여백을 동일하게 설정
-  //   [theme.breakpoints.down('sm')]: {
-  //     padding: theme.spacing(2),
-  //   // [theme.breakpoints.down("xs")]: {
-  //   //   padding: theme.spacing(4), // 위아래 여백을 동일하게 설정
-  //   //   // paddingTop: 20,
-  //     // paddingBottom: 5,
-  //     width: "100%",
-  //     height: "100",
-  //     borderRadius: 0,
-  //     border: 0,
-  //     boxShadow: "none",
-  //   },
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   // justifyContent: "space-between",// textfeild 공간
-  //   alignItems: "center",
-  //   "& > *": {},
-  // },
-  // "& > .firebaseui-idp-button": {
-  //   width: 200,
-  // },
-  // Register__container: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   minHeight: '100vh',
-  // },
-  // Register: {
-  //   minWidth: 400,
-  //   maxWidth: 400,
-  //   height: 800,
-  //   padding: theme.spacing(2), // 위아래 여백을 동일하게 설정
-  //   [theme.breakpoints.down('sm')]: {
-  //     padding: theme.spacing(2),
-  //   [theme.breakpoints.down("xs")]: {
-  //     padding: theme.spacing(4), // 위아래 여백을 동일하게 설정
-  //     // paddingTop: 20,
-  //     paddingBottom: 5,
-  //     width: "100%",
-  //     height: "100%",
-  //     borderRadius: 0,
-  //     border: 0,
-  //     boxShadow: "none",
-  //   },
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   justifyContent: "space-between",
-  //   alignItems: "center",
-  //   "& > *": {},
-  // },
-  // "& > .firebaseui-idp-button": {
-  //   width: 300,
-  // },
   login__container: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '100vh',
-    padding: theme.spacing(4), // Unified vertical padding
+    paddingTop: theme.spacing(4), // Unified vertical padding
+    // paddingBottom: theme.spacing(4), // Unified vertical padding
   },
   
   login: {
-    minWidth: 400,
-    maxWidth: 400,
-    height: 500,
-    padding: theme.spacing(2), // Unified vertical padding
+    minWidth: 450,
+    maxWidth: 450,
+    height: 570,
+    padding: theme.spacing(4), // Unified vertical padding
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(4),
     },
     width: '100%',
-    height: '100%',
-    borderRadius: 0,
-    border: 0,
+  
     boxShadow: 'none',
     display: 'flex',
     flexDirection: 'column',
@@ -98,7 +31,9 @@ export default makeStyles((theme) => ({
   "& > .firebaseui-idp-button": {
     width: 200,
   },
-  
+
+
+
   register__container: {
     display: 'flex',
     justifyContent: 'center',
@@ -141,12 +76,12 @@ export default makeStyles((theme) => ({
   logo: {
     width: "100%",
     paddingTop: 0,
-    paddingBottom: 0,
+    paddingBottom: 30,
     // Additional styling for your logo
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    margin: '10px 0',
+    // margin: '10px 0',
     "& > img": {
       height: 35,
     },
@@ -179,7 +114,22 @@ export default makeStyles((theme) => ({
       backgroundColor: cuspotBlue,
     },
   },
+  //버튼 관리 
+  //왜 안먹지..
+  loginBt : {
+    marginBottom : 10,
+    fontSize: '14',
+    width: '100%',
 
+  },
+
+  findEmail_bt : {
+    width: '100%',
+    marginTop: 20,
+    marginBottom: 10,
+    fontSize: '15',
+    fontWeight : 'bold',
+  },
   // 회원가입 버튼
   // Button: {
   //   width:250,  
@@ -192,6 +142,8 @@ export default makeStyles((theme) => ({
   //   backgroundColor: cuspotBlue,
   //   },
 
+
+  //
     google: {
       width: "100%",
       display: "flex",
@@ -289,4 +241,46 @@ export default makeStyles((theme) => ({
       },
     },
   },
+
+  searchEmail_form : {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // minHeight: '700',
+    paddingTop: theme.spacing(3), //
+    paddingBottom: theme.spacing(3), //
+
+
+  },
+
+  findEmail : {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+
+
+  searchEmail_form : {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // minHeight: '700',
+    paddingTop: theme.spacing(3), //
+    paddingBottom: theme.spacing(3), //
+    
+  },
+  email_result : {
+    textDecoration : 'underline',
+    fontSize : 12,
+    paddingBlock : 20,
+    
+  },
+
+  link_back : {
+    marginBottom : 40,
+    marginTop :0,
+    // fontWeight : 600,
+    // fontSize : 14,
+  }
 }));

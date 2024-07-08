@@ -58,30 +58,33 @@ const Login = () => {
             alt="linked-in-logo"
           />
         </div>
+        <h2 style={{ textAlign: 'center' }}>Login</h2>
         {/* 일반 로그인  */}
         <form className={classes.form} onSubmit={handleSubmit}>
           {/* 이메일 입력 */}
           <br/>
           <TextField
-          
+           style={{ width: "270px"}}
             type="email"
             label = "email"
-            
             value={email}
             onChange={handleEmailChange}
             required 
           />
           {/* 비밀번호 입력 */}
           <TextField
+
             type="password"
             label = "password"
             value={password}
             onChange={handlePasswordChange}
             required
-          />
-          <br/>
+          /><br/>
           {/* 로그인 버튼 */}
-          <Button type="submit" style={{backgroundColor:'#2050B2'}}>Login</Button>
+          <Button type="submit"  className="loginBt"
+            variant="contained"
+            size = "small"
+            color = "primary" >Login</Button><br/>
         </form>
     
         <div className={classes.google}>

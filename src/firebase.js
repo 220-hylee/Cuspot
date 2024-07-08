@@ -12,7 +12,7 @@ const firebaseConfig = {
   storageBucket: "cuspot-c33ef.appspot.com",
   messagingSenderId: "952066253953",
   appId: "1:952066253953:web:ed003da01ce18c7ab95980",
-  measurementId: "G-50F4968PD4"
+  measurementId: "G-50F4968PD4",
 };
 
 let app;

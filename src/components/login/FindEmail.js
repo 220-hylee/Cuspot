@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
 import { auth, db } from "../../firebase";
+import Style from "./Style";
+import { Paper, TextField, Modal, Typography } from "@material-ui/core";
+import Logo from "./../../assets/images/logo_width.png";
+import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const FindEmail = () => {
   const [displayName, setDisplayName] = useState("");
   const [phone, setPhone] = useState('');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false); // 모달 상태 추가
+
+  const classes = Style();
+  
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
   const searchEmail = async () => {
     try {
@@ -22,10 +35,15 @@ const FindEmail = () => {
         //성공
         setResult(user.email);
         setError(null);
+        handleOpen(); // 모달 열기
+
+
       } else {
         // 검색은 성공이지만 해당하는 데이터 없음
         setResult(null);
         setError('해당 조건에 맞는 사용자를 찾을 수 없습니다!');
+        handleOpen(); // 모달 열기
+
       }
 
       //검색자체가 실패
@@ -33,29 +51,91 @@ const FindEmail = () => {
       console.error("사용자 검색 중 오류 발생:", err);
       setError('사용자 검색 중 오류 발생.');
       setResult(null);
+      handleOpen(); // 모달 열기
+
     }
   };
 
   return (
-    <div>
-      
-      <h1>이름과 전화번호로 이메일 찾기</h1>
-      <input
+    <div className={classes.login__container}>
+    <Paper elevation={1} className={classes.login}>
+     <div className={classes.logo}>
+      <img
+        src={Logo}
+        style={{ width: "270px", height: "130px" }}
+        alt="linked-in-logo"
+      />
+    </div>
+      <div className='searchEmail_form'>
+      <h2 style={{ textAlign: 'center' }}>Find E-mail</h2>
+      <br/>
+      <TextField
+       style={{ width: "260px"}}
+       required 
+        label="name"
         type="text"
         value={displayName}
         onChange={(e) => setDisplayName(e.target.value)}
-        placeholder="이름 입력"
-      />
-
-      <input
+        placeholder="name" >
+       </TextField>
+        <br/>
+      <TextField
+        style={{ width: "260px"}}
+        label="phone"
         type="text"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        placeholder="전화번호 입력"
-      />
-      <button onClick={searchEmail}>검색</button>
+        placeholder="phone 입력">
+        </TextField>
+        <br/>
+
+        <Button className={classes.findEmail_bt} 
+          onClick={searchEmail}
+          size = "small"
+          variant="contained"
+          color = "primary"
+        >Search</Button>
+
+          <div className={classes.linkContainer}>
+            <Link to="/" className={classes.link_back}>back</Link> <br/>
+            <Link to="/rePassword" className={classes.link_back}>pwd찾기</Link>
+         </div>
+      
+      <text className="email_result">
       {result && <p>이메일: {result}</p>}
       {error && <p>{error}</p>}
+      </text>
+
+      </div>
+      <p style={{ marginTop: '30px', textAlign: 'center' }}>copywrite TTEZO</p>
+      </Paper>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 350,
+          backgroundColor: 'white',
+          borderRadius : '10px',
+          // border: '2px solid #000',
+          boxShadow: '24',
+          padding: '16px 32px 24px'
+        }}>
+          <Typography variant="h6" id="simple-modal-title">
+            {result ? 'E-mail Found' : 'Error'}
+          </Typography>
+          <Typography variant="body2" id="simple-modal-description">
+            {result ? `이메일: ${result}` : error}
+          </Typography>
+            <Button onClick={handleClose} style={{ marginTop: '20px' }} variant="contained" color="primary"></Button>
+        </div>
+      </Modal>
     </div>
   );
 };

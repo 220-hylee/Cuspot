@@ -73,7 +73,7 @@ const Register = () => {
             style={{ width: "270px", height: "130px" }}
             alt="linked-in-logo"/>
         </div>
-      <form className={classes.form} onSubmit={handleSignup}>
+      <form className={classes.form_register} onSubmit={handleSignup}>
         <TextField
           type="text"
           label = "name"
@@ -114,7 +114,7 @@ const Register = () => {
           onChange={(e) => setPhone(e.target.value)}
           required
         />
-         <Button
+         <Button 
             type="submit"
             size="large"
             style={{ backgroundColor: "#2050B2" }}
