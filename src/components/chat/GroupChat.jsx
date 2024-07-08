@@ -12,8 +12,8 @@ const GroupChat = () => {
       <Grid className={classes.app}>
         <Grid item container className={classes.app__header}>
           <Header />
-          <object data="https://chat-9eb84.web.app" width="100%" height="870px">
-          </object>       
+          {/* <object data="https://chat-9eb84.web.app" width="100%" height="870px">
+          </object>        */}
         </Grid>
            
       </Grid>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { cuspotBlue } from "../../assets/Colors";
 import { TextField, Chip, Paper, Divider, LinearProgress } from "@material-ui/core";
 import imageCompression from "browser-image-compression";
 import Avatar from "@material-ui/core/Avatar";
@@ -12,19 +11,12 @@ import { v4 as uuid } from "uuid";
 import db, { storage } from "../../firebase";
 import Styles from "./Style";
 import swal from "@sweetalert/with-react";
-//이모지
-import Picker from 'emoji-picker-react';
-
-
 const Form = () => {
   const classes = Styles();
   const { displayName, photoURL, email } = useSelector((state) => state.user);
-  const[ Like, setLike] = useState(0); // 좋아요 
+  const[ Like, setLike] = useState(0); // 좋아요
   const currentDate = new Date(); // 현재 날짜
-  const[category,setCategory] = useState(""); // 카테고리 
-  const [message, setMessage] = useState(""); // 이모지 입력 메시지 상태
-  const [showPicker, setShowPicker] = useState(false); // Show/hide emoji picker
-
+  const[category,setCategory] = useState(""); // 카테고리
   const [uploadData, setUploadData] = useState({
     description: "",
     file: {
@@ -33,23 +25,13 @@ const Form = () => {
       data: "",
     },
   });
-
-  const [progress, setProgress] = useState('');
-
-  const handleEmojiSelect = (emoji) => {
-    setMessage((prevMessage) => prevMessage + emoji);
-  };
-  
+  const [ progress, setProgress] = useState("");
   const Categorys = (e) => {
-    setCategory(e.target.value); 
+    setCategory(e.target.value);
 };
-
-  const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수. 
+  const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수.
     // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
     // uploading to collection called posts
-    
-  
-    
     // 봄동에 게시글 데이터 보내기
     db.collection("posts")
       .add({
@@ -65,10 +47,8 @@ const Form = () => {
         category : category
       })
       .then(() => resetState());
-  
   //-----------------------------------------------------------------------------------------
-  
-       // Spring boot board에 게시글 데이터 보내기
+        // Spring boot board에 게시글 데이터 보내기
        fetch("http://localhost:8080/api/createboard", {
         method: "POST",
         headers: {
@@ -98,10 +78,8 @@ const Form = () => {
            
         })
     };
-    
   const handleSubmitButton = (e) => {
     e.preventDefault();
-
     // verify atleast one of the input fields are not empyt
     if (uploadData.description || uploadData.file.data) {
       // if file input is true...upload the file to Fire-Store
@@ -114,12 +92,9 @@ const Form = () => {
             const value = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
             setProgress(value);
           },
-          
-
           (error) => {
             alert(error);
           },
-
           () => {
             storage
               .ref("posts")
@@ -128,17 +103,15 @@ const Form = () => {
               .then((url) => uploadToFirebaseDB(url));
           }
         );
-
         // do not go further..
         return;
       }
       // if not file input provided
       uploadToFirebaseDB(uploadData.file.data);
     } else {
-      swal("😕 Input field can not be empty");
+      swal(":혼란스러운: Input field can not be empty");
     }
   };
-
   // if file name is too long.. compress it
   const fileNameCompressor = (str, limit) => { // 파일명 압축 함수.
     // 파일명이 너무 길 경우, 지정한 길이로 압축하여 반환합니다.
@@ -146,56 +119,50 @@ const Form = () => {
     const arr = str.split(".");
     const name = arr[0];
     const ext = arr[arr.length - 1];
-
     if (name.length > limit) {
       fileName = name.substring(0, limit).trim() + "... ." + ext;
     }
     return fileName;
   };
-
   const imageUploadHandler = async (e, type) => { // 파일 업로드 핸들러
     const inputFile = e.target.files[0];
     const _inputFile = inputFile.type.split("/");
     const inputFileType = _inputFile[0];
     const inputFileExec = _inputFile[1];
     const inputFileName = fileNameCompressor(inputFile.name, 20);
-
     const fileSize = inputFile.size / (1024 * 1024);
-
     const acceptedImageFormats = ["png", "jpg", "jpeg", "gif"]; // 이미지 업로드 가능한 포맷
     const acceptedVideoFormats = ["mp4", "mkv", "3gp", "avi", "webm"]; // 동영상 업로드 가능한 포맷
-
     switch (type) {
       case "video":
         if (!acceptedVideoFormats.some((format) => format.includes(inputFileExec))) {
-          swal("🔴 Please select video format of mp4 , mkv , av ");
+          swal(":빨간색_원: Please select video format of mp4 , mkv , av ");
           e.target.value = "";
           return;
         }
         if (fileSize > 10) {
-          swal("🔴 Please select a video less than 10MB file size");
+          swal(":빨간색_원: Please select a video less than 10MB file size");
           e.target.value = "";
           return;
         }
         break;
       case "image":
         if (!acceptedImageFormats.some((format) => format.includes(inputFileExec))) {
-          swal("🔴 Please select image format of png , jpg , jpeg , gif ");
+          swal(":빨간색_원: Please select image format of png , jpg , jpeg , gif ");
           e.target.value = "";
           return;
         }
         if (fileSize > 2) {
-          swal("🔴 Please select an image less than 2MB file size");
+          swal(":빨간색_원: Please select an image less than 2MB file size");
           e.target.value = "";
           return;
         }
         break;
       default:
-        swal("😮 OOPS...!!! Invalid file format");
+        swal(":벌린_입: OOPS...!!! Invalid file format");
         e.target.value = "";
         return;
     }
-
     let compressedInputFile = inputFile;
     if (inputFileType === "image") {
       //compression algorithm
@@ -204,14 +171,12 @@ const Form = () => {
         maxWidthOrHeight: 1920,
         useWebWorker: true,
       };
-
       try {
         compressedInputFile = await imageCompression(inputFile, compressionOptions);
       } catch (error) {
         alert(error);
       }
     }
-
     let inputFileDataBase64;
     const file = new FileReader();
     if (compressedInputFile) {
@@ -228,11 +193,9 @@ const Form = () => {
       };
       file.readAsDataURL(compressedInputFile);
     }
-
     // clear the file input event value
     e.target.value = "";
   };
-
   const resetState = () => { // 상태 초기화 함수
     // 업로드 데이터와 진행률을 초기화 합니다.
     setUploadData({
@@ -245,17 +208,20 @@ const Form = () => {
     });
     setProgress("");
   };
-
   return ( // jsx 반환
     <Paper className={classes.upload}>
       <div className={classes.upload__header}>
         <Avatar src={photoURL} />
         <form className={classes.header__form} onSubmit={handleSubmitButton}>
-          <textarea
+          <input
+            multipleLine
             placeholder={`오늘은 어떤 내용을 공유할까요, ${displayName}님?`}
             value={uploadData.description}
             onChange={(e) => setUploadData({ ...uploadData, description: e.target.value })}
           /> 
+
+
+
           {/* 위 input은 피드 TEXT입력 부분 */}
           <input
             id="upload-image"
@@ -266,19 +232,18 @@ const Form = () => {
           />
           {/* 위 input은 피드 이미지 업로드 부분, 아래 라벨의 htmlFor와 id값이 일치해야 업로드 내용이 나옴. */}
           <input
-            id="upload-video" 
+            id="upload-video"
             type="file"
             accept="video/*"
             hidden
             onChange={(e) => imageUploadHandler(e, "video")}
-          />          
+          />
             {/* <select value= {category} onChange={Categorys}>
                 <option value="축구">축구</option>
                 <option value="농구">농구</option>
                 <option value="풋살">풋살</option>
                 <option value="배드민턴">배드민턴</option>
             </select> */}
-          
           {/* 위 input은 피드 동영상 업로드 부분 */}
           <button type="submit" >올리기</button>
           {/* POST버튼 */}
@@ -304,23 +269,21 @@ const Form = () => {
         ""
       )}
       <Divider />
-
       <div className={classes.upload__media}>
         <label htmlFor="upload-video" className={classes.media__options}>
-          <VideocamRoundedIcon style={{ color: "darkgray" }} />
+          <VideocamRoundedIcon style={{ color: "red" }} />
           <h4>Video</h4>
         </label>
         <label htmlFor="upload-image" className={classes.media__options}>
-          <PhotoRoundedIcon style={{ color: "darkgray" }} />
+          <PhotoRoundedIcon style={{ color: "green" }} />
           <h4>Photo</h4>
         </label>
         <div className={classes.media__options}>
-          <EmojiEmotionsOutlinedIcon style={{ color: "darkgray" }} />
+          <EmojiEmotionsOutlinedIcon style={{ color: "orange" }} />
           <h4>Feeling/Activity</h4>
         </div>
       </div>
     </Paper>
   );
 };
-
 export default Form;

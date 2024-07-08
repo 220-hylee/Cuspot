@@ -1,124 +1,167 @@
 import React, { useEffect, useState } from 'react';
-import { Paper, Box, Typography, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, makeStyles } from '@material-ui/core';
+import {
+  Paper, Box, Typography, CircularProgress, Table, TableBody, TableCell, TableContainer,
+  TableRow, Grid, Button, ButtonGroup, makeStyles
+} from '@material-ui/core';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import Header from "../header/Header";
 import Logo from "../../assets/images/logo_width.png";
-import { Link } from "react-router-dom";
 import Style from "../../Style";
 import Styles from "./Style";
-import { Grid } from "@material-ui/core";
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-// import "../../style.css";
+
+const useStyles = makeStyles({
+  // Add your custom styles here
+});
 
 const GptResult = () => {
-
-  // src/Style 사용
   const classes = Styles();
-
   const classes2 = Style();
-  // const classes2 = Style();
-  //useState를 사용해서, data, loading 상태를 관리
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  //Google Sheets API를 호출하고 데이터를 가져옴
-  useEffect(() => {
-    const sheetId = '1iCCfFgbT43iVt0f_0cwUALr3i2-oLU8jn9brUc_3HMA';
-    const range = 'Result Sheet!A:A'; // 구글 시트에서 가져 올 범위지정
+  const addDataToSheet = async (id) => {
+    const sheetId = '1iCCfFgbT43iVt0f_0cwUALr3i2';
+    const range = 'DB!A:A';
+    const apiKey = 'AIzaSyBP5KnUzW6BJaOgfeOjWA8RJhAiawg7Br0';
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}:append?valueInputOption=RAW&key=${apiKey}`;
+    
+    const values = [
+      [id]
+    ];
+
+    try {
+      const response = await axios.post(url, { values });
+      console.log('Data added:', response.data);
+      fetchData(); // 데이터를 추가한 후 다시 가져오기
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  };
+
+  const fetchData = async () => {
+    const sheetId = '1iCCfFgbT43iVt0f_0cwUALr3i2';
+    const range = 'ResultSheet!B:B';
     const apiKey = 'AIzaSyBP5KnUzW6BJaOgfeOjWA8RJhAiawg7Br0';
 
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
-    axios.get(url)
 
-      // 데이터 가져오기 성공
-      .then(response => { 
-        console.log(response.data.values); // 데이터를 콘솔에 출력하여 확인
-        const rows = response.data.values;
-        if(rows.length > 0){ 
-          setData([rows[rows.length-1]]); // 현재 행보다 -1 한걸 데이터에 담아줌
-          //setData(rows);
+    try {
+      const response = await axios.get(url);
+      const rows = response.data.values;
+      if (rows.length > 0) {
+        setData(rows);
+      } else {
+        setData([]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('데이터를 가져오는 데 실패했습니다. 나중에 다시 시도해 주세요.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //searchForId: 이 함수는 Google Sheets에서 특정 ID를 검색하고 해당 ID의 데이터를 가져와서 상태를 업데이트
+  const searchForId = async (id, columnName) => {
+    const sheetId = '1iCCfFgbT43iVt0f_0cwUALr3i2';
+    const range = 'Sheet1!A:Z'; // 전체 열 범위를 지정
+    const apiKey = 'AIzaSyBP5KnUzW6BJaOgfeOjWA8RJhAiawg7Br0';
+
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    try {
+      const response = await axios.get(url);
+      const rows = response.data.values;
+      if (rows.length > 0) {
+        const headerRow = rows[0];
+        const columnIndex = headerRow.indexOf(columnName);
+        const foundRow = rows.find(row => row.includes(id));
+        if (foundRow && columnIndex > -1) {
+          setData([foundRow[columnIndex]]);
+        } else {
+          setData([]);
         }
-        setLoading(false);
-      })
+      } else {
+        setData([]);
+      }
+    } catch (error) {
+      console.error('Error searching for ID:', error);
+      setError('ID를 검색하는 데 실패했습니다. 나중에 다시 시도해 주세요.');
+    }
+  };
 
-      //데이터 가져오기 실패
-      .catch(error => {
-        console.error('Error fetching data: ', error);
-        setLoading(false);
-      });
+  useEffect(() => {
+    fetchData();
   }, []);
 
-  //랜더링
   return (
     <div>
-      <Grid className={classes.app}>
+      <Grid className={classes2.app}>
         <Grid item container className={classes2.app__header}>
           <Header />
         </Grid>
-      {/* gpt결과지*/}
-         <div className="GptResult">
-          <Paper className={classes.root} >
-      {/* 고정 */}
-          <div className={classes.gpt_root}> 
-            {/* 이미지 로고 */}
-            <div className={classes.gpt_logo}>
-                <img
-                  src={Logo}
-                  style={{ width: "300px", height: "100px", alignContent: "center" }}
-                  alt="linked-in-logo"
+        <div className={classes.container}>
+          <Grid item container className={classes.GptResult} xs={12} sm={8} md={6}>
+            <Paper className={classes.root}>
+              <div className={classes.gpt_root}>
+                <div className={classes.gpt_logo}>
+                  <img
+                    src={Logo}
+                    style={{ width: "300px", height: "100px", alignContent: "center" }}
+                    alt="logo"
                   />
-            </div>
-            {/* 테이블 감싸는 구역 */}
-            <div id="data" className={classes.gpt_paper}>
-              {loading ? (
-                <div className={classes.loadingContainer}>
-                  <CircularProgress />
                 </div>
-              ) : (
-                data.length > 0 ? ( // 데이터가 있을 경우
-                  <TableContainer component={Paper} className={classes.gpt_tableContainer}>
-                    <Table className={classes.gpt_table}>
+                <div id="data" className={classes.gpt_paper}>
+                  {loading ? (
+                    <div className={classes.loadingContainer}>
+                      <CircularProgress />
+                    </div>
+                  ) : error ? (
+                    <Typography variant="body1" color="error">
+                      {error}
+                    </Typography>
+                  ) : data.length > 0 ? (
+                    <TableContainer component={Paper} className={classes.gpt_tableContainer}>
+                      <Table className={classes.gpt_table}>
                         <TableRow className={classes.gpt_tr}>
                           <TableCell className={classes.gpt_th}>
-                            <h2>  Custpot 운동 추천 </h2>
+                            <h2>Custpot 운동 추천</h2>
                           </TableCell>
                         </TableRow>
-                      <TableBody className={classes.gpt_tablebody}>
-                        {data.map((row, rowIndex) => (
-                          <TableRow key={rowIndex} className={classes.gpt_tr}>
-                            {row.map((cell, cellIndex) => (
-                              <TableCell key={cellIndex} className={classes.gpt_td}>{cell}</TableCell>
-                            ))}
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                ) : (
-                  <Typography variant="body1" color="textSecondary">
-                    No data available
-                  </Typography>
-                )
-              )}
-            {/* 버튼 이동-> 홈이랑, 맵 */}
-            </div>
-            <Box display="flex" justifyContent="center" mt={2}>
-              <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                <Link to="/App.js">
-                  <Button className={classes.gpt_button} style={{ minWidth: '120px' }}>🏠 HOME</Button>
-                </Link>
-                <Link to="/about">
-                  <Button className={classes.gpt_button} style={{ minWidth: '120px' }}>🗺️ MAP</Button>
-                </Link>
-              </ButtonGroup>
-            </Box>
-          </div>
-          </Paper>
-    </div>
+                        <TableBody className={classes.gpt_tablebody}>
+                          {data.map((row, rowIndex) => (
+                            <TableRow key={rowIndex} className={classes.gpt_tr}>
+                              <TableCell className={classes.gpt_td}>{row}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  ) : (
+                    <Typography variant="body1" color="textSecondary">
+                      사용 가능한 데이터가 없습니다.
+                    </Typography>
+                  )}
+                </div>
+                <Box display="flex" justifyContent="center" mt={4} className={classes.fullWidthButtonGroup}>
+                  <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+                    <Link to="/chat" className={classes.linkButton}>
+                      <Button className={classes.gpt_button} style={{ minWidth: '140px' }}>😉 CHAT</Button>
+                    </Link>
+                    <Link to="/about" className={classes.linkButton}>
+                      <Button className={classes.gpt_button} style={{ minWidth: '140px' }}>🗺️ MAP</Button>
+                    </Link>
+                  </ButtonGroup>
+                </Box>
+              </div>
+            </Paper>
+          </Grid>
+        </div>
       </Grid>
-  </div> 
+    </div>
   );
-}
+};
 
 export default GptResult;

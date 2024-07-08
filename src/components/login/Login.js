@@ -49,7 +49,6 @@ const Login = () => {
   };
 
   return (
-    <div className={classes.Backgroundimg}>
       <div className={classes.login__container}>
         <Paper elevation={1} className={classes.login}>
          <div className={classes.logo}>
@@ -64,11 +63,13 @@ const Login = () => {
           {/* 이메일 입력 */}
           <br/>
           <TextField
+          
             type="email"
             label = "email"
+            
             value={email}
             onChange={handleEmailChange}
-            required
+            required 
           />
           {/* 비밀번호 입력 */}
           <TextField
@@ -83,19 +84,23 @@ const Login = () => {
           <Button type="submit" style={{backgroundColor:'#2050B2'}}>Login</Button>
           {/* 회원가입 링크 */}
           <Link to="/register" className={classes.login_link}>회원가입</Link>
-
+          {/* 회원가입 링크 */}
+          <Link to="/register" className={classes.login_link}>아이디 찾기</Link>
+          {/* 회원가입 링크 */}
+          <Link to="/register" className={classes.login_link}>비밀번호 찾기</Link>
         </form>
 
         <div className={classes.google}>
           <section>
             <div></div>
-            <p>OR</p>
+            <p> OR </p>
             <div></div>
           </section>
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
+            <p>copywrite TTEZO</p>
         </div>
         <div className={classes.about}>
           {/* <section>
@@ -118,7 +123,6 @@ const Login = () => {
           </div> */}
         </div>
       </Paper>
-    </div>
     </div>
   );
 };
