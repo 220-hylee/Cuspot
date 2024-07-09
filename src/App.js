@@ -37,7 +37,7 @@ const MainContent = () => {
       <Grid item container className={classes.app__body}>
         <Hidden smDown>
           <Grid item container className={classes.body__left} md={3}>
-            <Contacts />
+            {/* <Contacts /> */}
           </Grid>
         </Hidden>
         <Grid item container className={classes.body__feed} xs={12} sm={8} md={6}>
@@ -82,6 +82,8 @@ const GitpleScriptLoader = () => {
   usePageViews();
   return null;
 };
+
+
 
 const App = () => {
   const dispatch = useDispatch();

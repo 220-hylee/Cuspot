@@ -4,6 +4,7 @@ import FlipMove from "react-flip-move";
 import Post from "./post/Post";
 import db from "../../firebase";
 import axios from 'axios';
+import { useSelector } from "react-redux";
 const Posts = () => {
   const classes = Style();
   // 이메일 정보 가져오기
@@ -11,16 +12,19 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   // 게시판 정보 담기
   const[board,setBoard] = useState([]);
-
+  const info = useSelector(state => state.session.info);
 
   // 봄동에서 피드 데이터 가져오기
-  useEffect(() => {
-    const unsubscribe = db
-      .collection("posts")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = db
+  //     .collection("posts")
+  //     .orderBy("timestamp", "desc")
+  //     .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
+  //   return unsubscribe;
+  // }, []);
+
+ 
+
 
   useEffect(() => {
 
@@ -30,7 +34,7 @@ const Posts = () => {
   // 전체 피드 목록 가져오기
   useEffect(() => {
      axios
-     .get('http://localhost:8080/api/getBoardList')
+     .get('http://3.35.205.229:8080/api/getBoardList')
       .then(response => {
         setBoard(response.data);
       })
@@ -56,7 +60,9 @@ const Posts = () => {
           />
         ))} */}
 
-        {Array.from(board).map((board) => (
+        {Array.from(board)
+        .filter(board => board.category === info)
+        .map((board) => (
            <Post
            key={board.id}
            profile={board.profile}
@@ -68,6 +74,7 @@ const Posts = () => {
            postId={board.id}
            like={board.likes}
            email={board.email}
+           category={board.category}
            />
         ))}
       </FlipMove>
