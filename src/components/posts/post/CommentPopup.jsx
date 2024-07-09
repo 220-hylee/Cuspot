@@ -4,10 +4,14 @@ import CloseIcon from '@material-ui/icons/Close';
 import Avatar from "@material-ui/core/Avatar";
 import ReactTimeago from 'react-timeago';
 import Style from './Style';
+
+
+
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const CommentPopup = ({ onClose, comments, addComment, profile, username,postId }) => {
+
   const { displayName, photoURL, email } = useSelector((state) => state.user);
   const classes = Style();
   const [comment, setComment] = useState('');
@@ -23,8 +27,8 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
       const newComment = {
         text: comment,
         user: {
-          icon: "/path/to/user/icon.jpg", // 여기에 사용자 아이콘 경로를 추가하세요
-          name: "User Name", // 여기에 사용자 이름을 추가하세요
+          icon: photoURL, // 여기에 사용자 아이콘 경로를 추가하세요
+          name: displayName, // 여기에 사용자 이름을 추가하세요
         },
         timestamp: new Date(),
       };
@@ -67,9 +71,9 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
         <div className={classes.popup__body}>
           {/* {comments.map((c, index) => (
             <div key={index} className={classes.comment}>
-              <Avatar src={profile} className={classes.comment__icon} />
+              <Avatar src={photoURL} className={classes.comment__icon} />
               <div className={classes.comment__details}>
-                <h4>{username}</h4>
+                <h4>{displayName}</h4>
                 <p style={{ whiteSpace: 'pre-wrap' }}>{c.text}</p>
                 <ReactTimeago date={c.timestamp} className={classes.comment__time} />
               </div>

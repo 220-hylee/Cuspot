@@ -149,7 +149,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from "@material-ui/core/styles";
 import { SearchOptions, SearchRadiusOptions } from "./SearchOptions";
 
-
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
@@ -173,15 +172,11 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .MuiInputBase-input': {
       color: 'white',
-     }
-    },
+    }
+  },
 }));
 
-
-//SearchOptions 컴포넌트가 옵션을 관리합니다.
-// handleCheckboxChange를 통해 옵션 선택 상태를 관리합니다.
-
-const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChange, selectedOptions }) => {
+const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChange }) => {
   const classes = useStyles();
   const [input, setInput] = useState(""); // 검색어 입력 상태 관리
   const [showOptions, setShowOptions] = useState(false); // 옵션 펼침 상태 관리
@@ -217,19 +212,20 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
         </IconButton>
         <IconButton 
           label="display more actions" edge="end" color="inherit" onClick={toggleOptions} style={{ marginRight: '2px' }}/>
+
         {/* <TextFieldn
           className={classes.searchBar}
           placeholder="검색을 입력하세요"
           variant="filled"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-        /> */}
-        {/* <IconButton aria-label="search" color="inherit" type='submit'>
+        />
+        <IconButton aria-label="search" color="inherit" type='submit'>
           <SearchIcon />
-        </IconButton> */}
+        </IconButton>
         <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={toggleOptions}>
           <MoreIcon />
-        </IconButton>
+        </IconButton>*/}
       </form>
 
       {showOptions && (
@@ -239,7 +235,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
             handleRadiusButtonClick={handleRadiusButtonClick}
           />
           <SearchOptions
-            options={["축구", "배드민턴", "헬스", "야구", "테니스"]} // 검색 태그 추가 후 MapService에서 마커 이미지 추가
+            options={["축구", "배드민턴", "헬스", "야구", "테니스", ]} // 검색 태그 추가 후 MapService에서 마커 이미지 추가
             handleSearchSubmit={handleSearchSubmit}
             handleCheckboxChange={handleCheckboxChange} 
           />

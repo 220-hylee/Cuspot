@@ -57,14 +57,17 @@ export default makeStyles((theme) => ({
       flex: 1,
       border: 0,
       outlineWidth: 0,
+      paddingTop:10,
       paddingLeft: 15,
       color: theme.palette.type === "dark" && "lightgrey",
       fontSize: 14,
       resize: "none",
       // fontWeight: 600,
       backgroundColor: "transparent",
+      fontFamily: "'Nanum Gothic', sans-serif",
       "&::placeholder": {
         // fontWeight: 600,
+        fontStyle: "italic",
         fontSize: 15,
         color: theme.palette.type === "dark" && textDark,
         [theme.breakpoints.down("xs")]: {

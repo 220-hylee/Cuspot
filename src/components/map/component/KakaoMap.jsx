@@ -110,7 +110,7 @@ const KakaoMap = () => {
                 </Button>
               ))}
               {/* 검색결과 창 닫기 */}
-              <Button onClick={searchClose} className='searchClose' color="contained"> ✖️ </Button>
+              <button onClick={searchClose} className='searchClose'> X</button>
             </div>
           </>
         )}

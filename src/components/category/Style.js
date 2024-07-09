@@ -1,18 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { darkSecondary, darkPrimary, hoverGrey } from "../../assets/Colors";
-
+import { darkSecondary, darkPrimary } from "../../assets/Colors";
 export default makeStyles((theme) => ({
   header: {
-    position: "fixed", 
-    width: "100%",
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: theme.palette.type === "dark" ? darkPrimary : "#1C1209",
-    zIndex: 1000, 
-    padding: 10,
-    height: 94,
-    
+    widows: "100%",
+    height: "100%",
+    justifyContent: 'center', 
+    // backgroundColor: theme.palette.type === "dark" && darkPrimary,
+    // 헤더 백그라운드 변경
+    // backgroundColor: theme.palette.type === "dark" ? darkPrimary : "#1C1209",
   },
   header__logo: {
     height: "100%",
@@ -55,7 +50,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     padding: "4px 60px",
     [theme.breakpoints.down("md")]: {
-      padding: "4px 30px", //=> 여기 원래 4px, 30px
+      padding: "4px 30px",
     },
     [theme.breakpoints.down("sm")]: {
       padding: "4px 10px",
@@ -63,7 +58,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       padding: 4,
     },
-    color: "#EAEAEB", // 아이콘 색상 (헤드)
+    color: "grey",
   },
   nav__links: {
     flex: 1,
@@ -71,7 +66,7 @@ export default makeStyles((theme) => ({
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 1,
+    borderRadius: 8,
     cursor: "pointer",
     transition: "all 0.5s ease",
     color: theme.palette.type === "dark" && "lightgrey",
@@ -79,7 +74,7 @@ export default makeStyles((theme) => ({
       fontSize: 30,
     },
     "&:hover": {
-      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "hoverGrey",
+      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "lightgrey",
     },
     [theme.breakpoints.down("xs")]: {
       justifyContent: "space-evenly",

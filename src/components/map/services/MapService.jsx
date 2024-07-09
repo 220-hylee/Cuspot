@@ -367,7 +367,6 @@ class MapService {
   addMarker(position, index) {
     let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
   // 마커 사이즈 --------------------------------------
-
   let imageSize = new this.kakao.maps.Size(36, 37);
 
     // --------------------------------------------------
@@ -386,7 +385,6 @@ class MapService {
     }
     
     const markerImage = new this.kakao.maps.MarkerImage(imageSrc, imageSize);
-
 
     const marker = new this.kakao.maps.Marker({
       position,

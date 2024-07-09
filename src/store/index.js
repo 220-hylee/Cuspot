@@ -1,6 +1,9 @@
 import { compose, applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 import combineReducers from "./reducers";
+import sessionReducer from "./reducers/session";
+import utilReducer from "./reducers/util";
+import userReducer from "./reducers/user";
 
 // Enables Redux-Store chrome extention in browser
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
