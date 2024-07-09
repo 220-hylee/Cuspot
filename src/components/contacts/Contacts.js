@@ -76,7 +76,12 @@ const Contacts = () => {
   };
   
   // 친구 정보 가져오기
-  
+  const unsubscribeFriends = db
+  .collection("friends")
+  .where("currentUserEmail", "==", email)
+  .onSnapshot((snap) =>
+    setFriends(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+  );
 
  
 
@@ -89,7 +94,7 @@ const Contacts = () => {
         <Divider />
         <div className={classes.contacts__tab}>
           <h4>친구 리스트</h4>
-
+          
 
           {/* 친구 추가 띄우기  */}
           <IconButton color="inherit" type="button" onClick={() => setFriendModal(true)}>
