@@ -1,10 +1,15 @@
 import React from 'react';
 
-const PlaceList = ({ places }) => {
+// PlaceList 컴포넌트: 검색 결과 장소 목록을 렌더링
+const PlaceList = ({ places, onPlaceClick }) => {
   return (
     <ul id="placesList" className="place-list">
       {places.map((place, index) => (
-        <li key={index} className="item">
+        // 각 장소 항목 클릭 시 onPlaceClick 함수 호출
+        <li 
+          key={index} 
+          className="item" 
+          onClick={() => onPlaceClick(place)}>
           <span className={`markerbg marker_${index + 1}`}></span>
           <div className="info">
             <h2>{place.place_name}</h2>

@@ -36,6 +36,7 @@ const GroupChat = () => {
           </Grid>
 
         </Grid>
+      
     </div>
   );
 };
