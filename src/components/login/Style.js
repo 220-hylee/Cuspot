@@ -8,11 +8,29 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '100vh',
-    paddingTop: theme.spacing(4), // Unified vertical padding
+    padding: theme.spacing(4), // Unified vertical padding
     // paddingBottom: theme.spacing(4), // Unified vertical padding
   },
   
   login: {
+    minWidth: 450,
+    maxWidth: 450,
+    height: 570,
+    padding: theme.spacing(4), // Unified vertical padding
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(4),
+    },
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    "& > *": {},
+  },
+  "& > .firebaseui-idp-button": {
+    width: 200,
+  },
+
+  register: {
     minWidth: 450,
     maxWidth: 450,
     height: 570,
@@ -28,12 +46,7 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     "& > *": {},
   },
-  "& > .firebaseui-idp-button": {
-    width: 200,
-  },
-
-
-
+  
   register__container: {
     display: 'flex',
     justifyContent: 'center',
@@ -41,28 +54,24 @@ export default makeStyles((theme) => ({
     minHeight: '100vh',
     padding: theme.spacing(4), // Unified vertical padding
   },
+
   register: {
     minWidth: 400,
     maxWidth: 400,
-    height: 500,
+    // height: '100vh',
     padding: theme.spacing(2), // Unified vertical padding
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(2),
     },
     width: '100%',
     height: '100%',
-    borderRadius: 0,
-    border: 0,
-    boxShadow: 'none',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     "& > *": {},
   },
-  "& > .firebaseui-idp-button": {
-    width: 200,
-  },
-  
+
+
   linkContainer: {
     display: 'flex',
     justifyContent: 'space-between', // Adjust this as per your requirement
@@ -97,7 +106,10 @@ export default makeStyles((theme) => ({
     textAlign: "center",
 
   },
-  form: {
+
+  //폼 창 관리
+
+  form_register : {
     width: 250,
     height: 200,
     display: "flex",
@@ -114,8 +126,42 @@ export default makeStyles((theme) => ({
       backgroundColor: cuspotBlue,
     },
   },
+  
+  form: {
+    width: 250,
+    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    //로그인 버튼
+    "& > Button": {
+      height: 30,
+      border: "1px solid lightgrey",
+      borderRadius: 4,
+      color: "white",
+      fontSize: 14,
+      fontWeight: 600,
+      backgroundColor: cuspotBlue,
+    },
+  },
+
+  form_register: {
+    width: 250,
+    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    //로그인 버튼
+    "& > Button": {
+      height: 30,
+      borderRadius: 4,
+      color: "white",
+      fontSize: 14,
+      fontWeight: 600,
+      backgroundColor: cuspotBlue,
+    },
+  },
   //버튼 관리 
-  //왜 안먹지..
   loginBt : {
     marginBottom : 10,
     fontSize: '14',
@@ -177,20 +223,24 @@ export default makeStyles((theme) => ({
       },
     },
 
+
+    // [링크 모음]
     login_link :{
       color: "cuspotBlue",
       textDecoration: "underline",
       cursor: "pointer",
       paddingTop: "10px",
     },
-    Register_link :{
+    Register_link : {
+
+    "& > register_link"  :{
       color: "cuspotBlue",
+      textAlign:"Left",
       textDecoration: "underline",
       cursor: "pointer",
-      paddingTop: "10px",
-
+      paddingBottom: "60px",
     },
-
+  },
   about: {
     width: "100%",
     display: "flex",
@@ -282,5 +332,18 @@ export default makeStyles((theme) => ({
     marginTop :0,
     // fontWeight : 600,
     // fontSize : 14,
-  }
+  },
+
+  popup : {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 350,
+  height: 200,
+  backgroundColor: 'white',
+  borderRadius : '10px',
+  padding: '32px',
+  // padding: '16px 32px 24px'
+  }  
 }));

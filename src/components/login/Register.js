@@ -65,19 +65,19 @@ const Register = () => {
 
   // css
   return (
-    <div className={classes.register__container}>
-      <Paper elevation={1} className={classes.register}>
+    <div className={classes.login__container}>
+      <Paper elevation={1} className={classes.login}>
         <div className={classes.logo}>
           <img
             src={Logo}
             style={{ width: "270px", height: "130px" }}
             alt="linked-in-logo"/>
         </div>
+      {/* <h2 style={{ textAlign: 'center' }}>회원가입</h2> */}
       <form className={classes.form_register} onSubmit={handleSignup}>
         <TextField
           type="text"
           label = "name"
-          // placeholder="Name"
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
@@ -85,7 +85,6 @@ const Register = () => {
         <TextField
           type="email"
           label = "email"
-          // placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -93,7 +92,6 @@ const Register = () => {
         <TextField
           type="password"
           label = "password"
-          // placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -101,7 +99,6 @@ const Register = () => {
           <TextField
           type="text"
           label = "address"
-          // placeholder="address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           required
@@ -109,30 +106,25 @@ const Register = () => {
          <TextField
           type="text"
           label = "phone"
-          // placeholder="[address]"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
         />
-         <Button 
-            type="submit"
-            size="large"
-            style={{ backgroundColor: "#2050B2" }}
-          >
-            Sign Up
-          </Button>
+        <br/>
+          <Button 
+            className={classes.loginBt}
+            type="submit" 
+            variant="contained"
+            size="small"
+           >Sign Up</Button><br/>
         </form>
         <div className={classes.Register_link}>
-          <Link to="/" className={classes.egister_link}>
-            뒤로가기
-          </Link>
-          <br />
-          <section>
-            <div></div>
-            <p>copywriter TTEZO</p>
-            <div></div>
-          </section>
+        <Link to="/" className={classes.register_link}>
+          뒤로가기
+        </Link>
+         
         </div>
+            <p>copywriter TTEZO</p>
         {/* classes.about */}
       </Paper>
     </div>

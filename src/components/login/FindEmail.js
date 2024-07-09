@@ -5,7 +5,6 @@ import { Paper, TextField, Modal, Typography } from "@material-ui/core";
 import Logo from "./../../assets/images/logo_width.png";
 import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const FindEmail = () => {
   const [displayName, setDisplayName] = useState("");
@@ -101,39 +100,34 @@ const FindEmail = () => {
             <Link to="/rePassword" className={classes.link_back}>pwd찾기</Link>
          </div>
       
-      <text className="email_result">
-      {result && <p>이메일: {result}</p>}
-      {error && <p>{error}</p>}
+      <text className={classes.email_result}>
       </text>
 
       </div>
-      <p style={{ marginTop: '30px', textAlign: 'center' }}>copywrite TTEZO</p>
+      <p style={{ marginTop: '60px', textAlign: 'center' }}>copywrite TTEZO</p>
       </Paper>
+
+      {/* 팝업 부분 */}
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 350,
-          backgroundColor: 'white',
-          borderRadius : '10px',
-          // border: '2px solid #000',
-          boxShadow: '24',
-          padding: '16px 32px 24px'
-        }}>
-          <Typography variant="h6" id="simple-modal-title">
+        <div className={classes.popup}>
+          <Typography variant="h5" id="simple-modal-title">
             {result ? 'E-mail Found' : 'Error'}
-          </Typography>
-          <Typography variant="body2" id="simple-modal-description">
+          </Typography><br/>
+          <Typography variant="h6" id="simple-modal-description">
             {result ? `이메일: ${result}` : error}
           </Typography>
-            <Button onClick={handleClose} style={{ marginTop: '20px' }} variant="contained" color="primary"></Button>
+            <Button onClick={handleClose} 
+            style={{ marginTop: '20px', height:'40px' }} 
+            variant="contained" 
+            size='small'
+            color="primary"
+            fullWidth
+            >닫기</Button>
         </div>
       </Modal>
     </div>

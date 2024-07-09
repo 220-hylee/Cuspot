@@ -151,10 +151,18 @@ import { SearchOptions, SearchRadiusOptions } from "./SearchOptions";
 
 
 const useStyles = makeStyles((theme) => ({
+
   menuButton: {
     marginRight: theme.spacing(2),
   },
-
+  //toolbar :
+  // toolbar: {
+  //   minHeight: 128,
+  //   alignItems: 'flex-start',
+  //   paddingTop: theme.spacing(1),
+  //   paddingBottom: theme.spacing(2),
+  // },
+  
   searchBar: {
     width: '100%',
     padding: '10px 10px', // 왼쪽 패딩 추가
@@ -165,15 +173,15 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: '1px solid #000', // 아래쪽 테두리 추가
     borderTop: '1px solid #000', // 위쪽 테두리 추가
     outline: 'none', // 포커스 시 기본 아웃라인 제거
-    height: '40px', // 입력 필드의 높이 설정
-    lineHeight: '40px', // 입력 필드의 높이와 동일하게 설정
+    height: '42px', // 입력 필드의 높이 설정
+    lineHeight: '42px', // 입력 필드의 높이와 동일하게 설정
 
-    '&:focus': {
-      borderBottom: '2px solid #000', // 포커스 시 아래쪽 테두리 두껍게
-    },
-    '& .MuiInputBase-input': {
-      color: 'white',
-     }
+    // '&:focus': {
+    //   borderBottom: '2px solid #000', // 포커스 시 아래쪽 테두리 두껍게
+    // },
+    // '& .MuiInputBase-input': {
+    //   color: 'white',
+    //  }
     },
 }));
 
@@ -210,27 +218,27 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
           placeholder="검색을 입력하세요"
           variant='filled'
           value={input}
+          // value={inputValue} 
           onChange={(e) => setInput(e.target.value)}
         />
-        <IconButton label="search" color="inherit" type='submit' >
+        {/* <IconButton label="search" color="inherit" type='submit' >
           <SearchIcon />
         </IconButton>
-        <IconButton 
+        <IconButton 내거
           label="display more actions" edge="end" color="inherit" onClick={toggleOptions} style={{ marginRight: '2px' }}/>
-        {/* <TextFieldn
-          className={classes.searchBar}
-          placeholder="검색을 입력하세요"
-          variant="filled"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        /> */}
-        {/* <IconButton aria-label="search" color="inherit" type='submit'>
-          <SearchIcon />
+        <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={toggleOptions}>
+          <MoreIcon />
         </IconButton> */}
+
+        <IconButton aria-label="search" color="inherit" type='submit'>
+          <SearchIcon />
+        </IconButton>
         <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={toggleOptions}>
           <MoreIcon />
         </IconButton>
+
       </form>
+
 
       {showOptions && (
         <div className="options-container">
@@ -238,11 +246,15 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
             selectedRadius={selectedRadius}
             handleRadiusButtonClick={handleRadiusButtonClick}
           />
-          <SearchOptions
-            options={["축구", "배드민턴", "헬스", "야구", "테니스"]} // 검색 태그 추가 후 MapService에서 마커 이미지 추가
+
+          {/* 종목 */}
+          <div className="sports">
+         <SearchOptions 
+            options={["#축구⚽", "#배드민턴🏸", "#헬스🏋🏻‍♂️", "#야구🥎", "#테니스🎾", "#농구⛹🏻", "#런닝🏃🏻‍♂️" ]} // 검색 태그 추가 후 MapService에서 마커 이미지 추가
             handleSearchSubmit={handleSearchSubmit}
             handleCheckboxChange={handleCheckboxChange} 
           />
+          </div>
         </div>
       )}
     </>

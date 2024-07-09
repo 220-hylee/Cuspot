@@ -73,7 +73,6 @@ const Login = () => {
           />
           {/* 비밀번호 입력 */}
           <TextField
-
             type="password"
             label = "password"
             value={password}
@@ -96,6 +95,8 @@ const Login = () => {
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
+
+            
           />
           <div className={classes.linkContainer}>
             <Link to="/register" className={classes.login_link}>회원가입</Link>

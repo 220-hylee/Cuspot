@@ -13,6 +13,8 @@ const Map = () => {
             <Header />
           </Grid>
             <KakaoMap/>   
+            {/* <KakaoMap/>   다른 부분
+          </Grid> */}
         </Grid>
       <h2></h2>
       

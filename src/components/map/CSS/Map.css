@@ -81,7 +81,23 @@ html, body {
 }
 
 
+.sports {
+  border: '1px solid lightgray';
+  margin: '5px 5px 5px 5px';
+  borderRadius: '50px';
+  padding: '5px 15px'; 
+  fontWeight: 'bold';  
+  textTransform: 'none';
+}
 
+.length {
+  border: '1px solid lightgray';
+  margin: '5px 5px 5px 5px';
+  borderRadius: '50px';
+  padding: '5px 15px'; 
+  fontWeight: 'bold';  
+  textTransform: 'none';
+}
 
 /* 페이징 */
 /* .pagination button {
@@ -140,7 +156,7 @@ html, body {
   .map_wrap {
     width: 100%;
     /* height: calc(100% - 64px); 헤더 높이를 뺀 나머지 높이 */
-    position: absolute;
+    /* position: absolute; */
     /* top: 64px; 헤더 아래로 위치 */
     left: 0;
   }

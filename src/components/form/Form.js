@@ -49,7 +49,7 @@ const Form = () => {
       .then(() => resetState());
   //-----------------------------------------------------------------------------------------
         // Spring boot board에 게시글 데이터 보내기
-       fetch("http://localhost:8080/api/createboard", {
+       fetch("http://3.35.205.229:8080/api/createboard", {
         method: "POST",
         headers: {
             "Content-Type": "application/json;charset=utf-8",

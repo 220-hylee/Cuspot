@@ -18,13 +18,13 @@ const Posts = () => {
 
 
   // 봄동에서 피드 데이터 가져오기
-  useEffect(() => {
-    const unsubscribe = db
-      .collection("posts")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = db
+  //     .collection("posts")
+  //     .orderBy("timestamp", "desc")
+  //     .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
+  //   return unsubscribe;
+  // }, []);
 
   useEffect(() => {
 
@@ -32,16 +32,16 @@ const Posts = () => {
 //------------------------------------------------------------
   //스프링 부트에서 데이터 가져오기
   // 전체 피드 목록 가져오기
-  // useEffect(() => {
-  //    axios
-  //    .get('http://localhost:8080/api/getBoardList')
-  //     .then(response => {
-  //       setBoard(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  //   }, []);
+  useEffect(() => {
+     axios
+     .get('http://3.35.205.229:8080/api/getBoardList')
+      .then(response => {
+        setBoard(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+    }, []);
   
   return (
     <div className={classes.posts}>

@@ -24,4 +24,5 @@ const PlaceList = ({ places }) => {
   );
 };
 
+
 export default PlaceList;
