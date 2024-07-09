@@ -3,44 +3,51 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Paper, TextField, Button } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import YouTubeIcon from "@material-ui/icons/YouTube";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import TwitterIcon from "@material-ui/icons/Twitter";
-//로그인 화면 로고 사진 파일
 import Logo from "./../../assets/images/logo_width.png";
 import Style from "./Style";
 import { useDispatch } from "react-redux";
 import { LoginAction } from "../../store/actions/auth";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import db from "../../firebase"; // assuming this is your Firebase configuration file
 
 const Login = () => {
   const classes = Style();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState(""); //  초기 이메일
-  const [password, setPassword] = useState(""); // 초기 비밀번호
-  
-  // 구글 로그인시 작동
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const uiConfig = {
     signInFlow: "popup",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    callbacks: {
+      signInSuccessWithAuthResult: async (authResult) => {
+        const user = authResult.user;
+        const { uid, email, displayName, photoURL } = user;
+        
+        // 구글에 로그인한 정보를 저장하기
+        await db.collection("users").doc(uid).set({
+          email: email,
+          displayName: displayName,
+          photoURL: photoURL,
+          date: new Date(),
+          authProvider: "google", // Set auth provider as google
+        }, { merge: true });
+        
+        dispatch(LoginAction(user));
+        return false; // Avoid redirect
+      },
+    },
   };
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  // 로그인 버튼을 눌렀을때 작동됨
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await firebase
-        .auth()
-        // 봄동에 auth에 로그인 정보 확인
-        // .signInWithEmailAndPassword는 일반로그인시  사용합니다.
-        .signInWithEmailAndPassword(email, password);
+      // 일반 로그인
+      const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
       const user = userCredential.user;
-      // 로그인이 됬을때 dispatch로  user 값이 변환된것을 알려줍니다.
       dispatch(LoginAction(user));
     } catch (error) {
       console.error("Error logging in with email and password", error);
@@ -49,9 +56,9 @@ const Login = () => {
   };
 
   return (
-      <div className={classes.login__container}>
-        <Paper elevation={1} className={classes.login}>
-         <div className={classes.logo}>
+    <div className={classes.login__container}>
+      <Paper elevation={1} className={classes.login}>
+        <div className={classes.logo}>
           <img
             src={Logo}
             style={{ width: "270px", height: "130px" }}
@@ -61,20 +68,18 @@ const Login = () => {
         <h2 style={{ textAlign: 'center' }}>Login</h2>
         {/* 일반 로그인  */}
         <form className={classes.form} onSubmit={handleSubmit}>
-          {/* 이메일 입력 */}
-          <br/>
+          <br />
           <TextField
            style={{ width: "270px"}}
             type="email"
             label = "email"
             value={email}
             onChange={handleEmailChange}
-            required 
+            required
           />
-          {/* 비밀번호 입력 */}
           <TextField
             type="password"
-            label = "password"
+            label="password"
             value={password}
             onChange={handlePasswordChange}
             required
