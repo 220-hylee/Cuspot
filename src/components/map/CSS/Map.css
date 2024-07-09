@@ -65,7 +65,7 @@ html, body {
   display: "flex";
   width: 100%;
   z-index: 1000;
-  background: #1C1209;
+  background: #fff;
   font-size: 10px;
 }
 
@@ -75,7 +75,7 @@ html, body {
   display: flex;
   align-items: center;
   width: 100%;
-  background: linear-gradient(to bottom, #000000 0%, #806d6d 120%);
+  background: linear-gradient(to bottom, #000000 0%, #8a7665 250%);
   color: #fff;
   z-index: 1000;
 }
@@ -159,4 +159,80 @@ html, body {
   padding: 5px;
   width: 100%; /* 검색 폼 너비에 맞게 설정 */
 }
+
+/* Map.css */
+
+.info-window {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  font-size: 14px;
 }
+
+
+}
+/* info-window CSS */
+.info-window {
+  width: 250px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.info-window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+.info-window-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.info-window-close {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.info-window-body {
+  display: flex;
+  padding: 10px;
+}
+
+.info-window-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.info-window-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-window-address,
+.info-window-postcode {
+  margin: 0;
+  font-size: 12px;
+}
+
+.info-window-link {
+  font-size: 12px;
+  color: blue;
+  text-decoration: none;
+  margin-top: 5px;
+}
+
+.info-window-link:hover {
+  text-decoration: underline;
+}
+

@@ -11,8 +11,8 @@ const Map = () => {
         <Grid className={styles.app}>
           <Grid item container className={styles.app__header} >
             <Header />
-          </Grid>
             <KakaoMap/>   
+          </Grid>
         </Grid>
       <h2></h2>
       
