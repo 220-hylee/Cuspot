@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { Paper } from "@material-ui/core";
+import { Paper, TextField, Button } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -9,7 +9,7 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 //로그인 화면 로고 사진 파일
-import Logo from "./../../assets/images/cpLogo.png";
+import Logo from "./../../assets/images/logo_width.png";
 import Style from "./Style";
 import { useDispatch } from "react-redux";
 import { LoginAction } from "../../store/actions/auth";
@@ -49,60 +49,66 @@ const Login = () => {
   };
 
   return (
-    <div className={classes.login__container}>
-      <Paper elevation={3} className={classes.login}>
-        <div className={classes.logo}>
+      <div className={classes.login__container}>
+        <Paper elevation={1} className={classes.login}>
+         <div className={classes.logo}>
           <img
             src={Logo}
-            style={{ width: "300px", height: "180px" }}
+            style={{ width: "270px", height: "130px" }}
             alt="linked-in-logo"
           />
-          <h4>Clone</h4>
         </div>
         {/* 일반 로그인  */}
         <form className={classes.form} onSubmit={handleSubmit}>
           {/* 이메일 입력 */}
-          <input
+          <br/>
+          <TextField
+          
             type="email"
-            placeholder="Email"
+            label = "email"
+            
             value={email}
             onChange={handleEmailChange}
-            required
+            required 
           />
           {/* 비밀번호 입력 */}
-          <input
+          <TextField
             type="password"
-            placeholder="Password"
+            label = "password"
             value={password}
             onChange={handlePasswordChange}
             required
           />
+          <br/>
           {/* 로그인 버튼 */}
-          <button type="submit">Log In</button>
+          <Button type="submit" style={{backgroundColor:'#2050B2'}}>Login</Button>
           {/* 회원가입 링크 */}
-          <Link to="/register">
-            <button className={classes.button}>회원가입</button>
-          </Link>
+          <Link to="/register" className={classes.login_link}>회원가입</Link>
+          {/* 회원가입 링크 */}
+          <Link to="/register" className={classes.login_link}>아이디 찾기</Link>
+          {/* 회원가입 링크 */}
+          <Link to="/register" className={classes.login_link}>비밀번호 찾기</Link>
         </form>
 
         <div className={classes.google}>
           <section>
             <div></div>
-            <p>OR</p>
+            <p> OR </p>
             <div></div>
           </section>
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
+            <p>copywrite TTEZO</p>
         </div>
         <div className={classes.about}>
-          <section>
+          {/* <section>
             <div></div>
-            <p>Developer Info</p>
+            <p>copywriter TTEZO</p>
             <div></div>
-          </section>
-          <div>
+          </section> */}
+          {/* <div>
             {author.map(({ src, url, color }, i) => (
               <a
                 href={`${url}`}
@@ -114,36 +120,35 @@ const Login = () => {
                 {src}
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
-      
       </Paper>
     </div>
   );
 };
 
-const author = [
-  { src: <GitHubIcon />, url: "https://github.com/phanison898", color: "black" },
-  {
-    src: <LinkedInIcon />,
-    url: "https://www.linkedin.com/in/phanison225/",
-    color: "#0057ae",
-  },
-  {
-    src: <YouTubeIcon />,
-    url: "https://www.youtube.com/channel/UC4FAldAo2Ow_2F447yggcqA",
-    color: "red",
-  },
-  {
-    src: <InstagramIcon />,
-    url: "https://www.instagram.com/phanison225/",
-    color: "#b7066e",
-  },
-  {
-    src: <TwitterIcon />,
-    url: "https://twitter.com/phanison225",
-    color: "rgb(29 161 242)",
-  },
-];
+// const author = [
+//   { src: <GitHubIcon />, url: "https://github.com/phanison898", color: "black" },
+//   {
+//     src: <LinkedInIcon />,
+//     url: "https://www.linkedin.com/in/phanison225/",
+//     color: "#0057ae",
+//   },
+//   {
+//     src: <YouTubeIcon />,
+//     url: "https://www.youtube.com/channel/UC4FAldAo2Ow_2F447yggcqA",
+//     color: "red",
+//   },
+//   {
+//     src: <InstagramIcon />,
+//     url: "https://www.instagram.com/phanison225/",
+//     color: "#b7066e",
+//   },
+//   {
+//     src: <TwitterIcon />,
+//     url: "https://twitter.com/phanison225",
+//     color: "rgb(29 161 242)",
+//   },
+// ];
 
 export default Login;

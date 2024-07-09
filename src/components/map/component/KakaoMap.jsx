@@ -3,23 +3,16 @@ import SearchForm from './SearchForm';
 import PlaceList from './PlaceList';
 import MapService from '../services/MapService';
 import '../CSS/Map.css';
+import { Button, ButtonGroup } from '@material-ui/core';
 const KakaoMap = () => {
-  const mapRef = useRef(null);
-  // 검색어 상태 관리
-  const [keyword, setKeyword] = useState("");
-  // 사용자 위치 상태 관리
-  const [userPosition, setUserPosition] = useState(null);
-  // 장소 목록 상태 관리
-  const [places, setPlaces] = useState([]);
-  // MapService 인스턴스 상태 관리
-  const [mapService, setMapService] = useState(null);
-  // 장소 목록 표시 여부 상태 관리
-  const [showPlaceList, setShowPlaceList] = useState(false);
-  // 현재 페이지 상태 관리
-  const [currentPage, setCurrentPage] = useState(1);
-  // 페이지당 결과 수
-  const resultsPerPage = 5;
-  // 현재 위치 가져오기 함수
+  const mapRef = useRef(null); // 검색어 상태 관리
+  const [keyword, setKeyword] = useState(""); // 사용자 위치 상태 관리
+  const [userPosition, setUserPosition] = useState(null); // 장소 목록 상태 관리
+  const [places, setPlaces] = useState([]); // MapService 인스턴스 상태 관리
+  const [mapService, setMapService] = useState(null); // 장소 목록 표시 여부 상태 관리
+  const [showPlaceList, setShowPlaceList] = useState(false);  // 현재 페이지 상태 관리
+  const [currentPage, setCurrentPage] = useState(1); // 페이지당 결과 수
+  const resultsPerPage = 5; // 현재 위치 가져오기 함수
   const getCurrentPosition = useCallback(() => {
     return new Promise((resolve, reject) => {
       if (navigator.geolocation) {
@@ -106,13 +99,15 @@ const KakaoMap = () => {
             {/* 페이지네이션 */}
             <div className="pagination">
               {Array.from({ length: Math.ceil(places.length / resultsPerPage) }, (_, index) => (
-                <button
+                <Button
+                  color="primary"
+                  size="small"
                   key={index + 1}
                   onClick={() => changePage(index + 1)}
                   className={currentPage === index + 1 ? 'active' : ''}
                 >
                   {index + 1}
-                </button>
+                </Button>
               ))}
               {/* 검색결과 창 닫기 */}
               <button onClick={searchClose} className='searchClose'> X</button>
@@ -124,3 +119,4 @@ const KakaoMap = () => {
   );
 };
 export default KakaoMap;
+

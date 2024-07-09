@@ -10,6 +10,9 @@ import ReactTimeago from "react-timeago";
 import Style from "./Style";
 import CommentPopup from "./CommentPopup"; // CommentPopup 컴포넌트 가져오기
 import Love from "../../../assets/images/love.png";
+import axios from "axios";
+
+
 
 // 서버와의 통신을 위한 함수들
 const fetchLikes = async (postId) => {
@@ -24,7 +27,7 @@ const fetchUserLikeStatus = async (postId, userId) => {
   return data.liked;
 };
 
-const updateLikes = async (postId, newLikesCount, userId, liked) => {
+const updateLikes = async (postId, newLikesCount, userId, liked,email) => {
   await fetch(`/api/posts/${postId}/likes`, {
     method: 'POST',
     headers: {
@@ -32,17 +35,40 @@ const updateLikes = async (postId, newLikesCount, userId, liked) => {
     },
     body: JSON.stringify({ likesCount: newLikesCount, userId, liked }),
   });
+  //스프링부트
+  // 좋아요 갯수  업데이트
+  await axios.post(`http://localhost:8080/api/updateLike/${postId}/${newLikesCount}`, {
+  });
+
 };
 
 const Post = forwardRef(
-  ({ postId, profile, username, timestamp, description, fileType, fileData, userId }, ref) => {
+  ({ postId, profile, username, timestamp, description, fileType, fileData, userId,like,email }, ref) => {
     const classes = Style();
 
-    const [likesCount, setLikesCount] = useState(0);
+    // 좋아요 갯수
+    const [likesCount, setLikesCount] = useState(like);
+    // 좋아요 상태 Like or Unlike
     const [liked, setLiked] = useState(false);
+    // 댓글
     const [comments, setComments] = useState([]);
     const [sharesCount, setSharesCount] = useState(1);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    // 피드 
+    const[board,setBoard] = useState([]);
+    // 댓글 갯수
+    const[commentCount,setCommentCount] = useState(0);
+
+       // // 좋아요 상태 가져오기
+       useEffect(() => {
+        axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`)
+          .then(response => {
+            setLiked(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }, []); 
 
     useEffect(() => {
       const loadLikes = async () => {
@@ -53,13 +79,54 @@ const Post = forwardRef(
       };
       loadLikes();
     }, [postId, userId]);
-
+   
+    useEffect(() => {
+      axios.get('http://localhost:8080/api/getCommentsList')
+        .then(response => {
+          setComments(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    }, []);
+    
     const handleLike = async () => {
       const newLikesCount = liked ? likesCount - 1 : likesCount + 1;
       setLikesCount(newLikesCount);
       setLiked(!liked);
-      await updateLikes(postId, newLikesCount, userId, !liked);
-    };
+      await updateLikes(postId, newLikesCount, userId, !liked,email);
+         // 해당 게시판  좋아요를 누르면  Heart 테이블에 해당 유저의 좋아요 상태 만들기
+        // Spring boot heart에  데이터 보내기
+        if(liked === false){
+          fetch("http://localhost:8080/api/insertLike", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+              email: email,
+              boardid:postId
+            }),
+        })
+            .then(response => {
+                console.log(`response`, response);   
+                // 201은 성공  실패하면 null return
+                if (response.status === 201) {
+                    return response.json();     
+                } else {
+                    return null;
+                }
+               
+            })
+          }
+           // 해당 게시판  unLike를 누르면  Heart 테이블 삭제
+           else if (liked === true) {
+            axios.delete(`http://localhost:8080/api/deleteLike/${postId}/${email}`)
+          };
+        };
+        
+
+    
 
     const handleCommentClick = () => {
       setIsPopupOpen(true);
@@ -82,6 +149,7 @@ const Post = forwardRef(
         <section>
           <h4>
             <TextsmsRoundedIcon className="icon-small" />
+            
             {comments.length} Comments
           </h4>
           <h4>
@@ -123,20 +191,20 @@ const Post = forwardRef(
           <Reactions />
           <div className={classes.footer__actions}>
             <div className={classes.action__icons} onClick={handleLike}>
-              <ThumbUpRoundedIcon className={`icon-small ${liked ? "liked" : ""}`} />
+              <ThumbUpRoundedIcon className={`icon_small ${liked ? "liked" : ""}`} />
               <h4>{liked ? "Unlike" : "Like"}</h4>
             </div>
             <div className={classes.action__icons} onClick={handleCommentClick}>
-              <TextsmsRoundedIcon className="icon-small" />
+              <TextsmsRoundedIcon className="icon_small" />
               <h4>Comment</h4>
             </div>
             <div className={classes.action__icons}>
-              <ShareRoundedIcon className="icon-small" style={{ transform: "scaleX(-1)" }} />
+              <ShareRoundedIcon className="icon_small" style={{ transform: "scaleX(-1)" }} />
               <h4>Share</h4>
             </div>
           </div>
         </div>
-        {isPopupOpen && <CommentPopup comments={comments} addComment={addComment} onClose={handleClosePopup} profile={profile} username={username}/>}
+        {isPopupOpen && <CommentPopup comments={comments} addComment={addComment} onClose={handleClosePopup} profile={profile} username={username} postId={postId}/>}
       </Paper>
     );
   }

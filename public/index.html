@@ -19,12 +19,13 @@
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!-- 깃플챗API-->
+     <!--
     <script>
       window.GitpleConfig = {"appCode":"G7qJfFaCWBYX7XEOPExHBV7QRs6g13"};
-      screen : 'fullscreen'
       !function(){function e(){function e(){var e=t.contentDocument,a=e.createElement("script");a.type="text/javascript",a.async=!0,a.src=window[n]&&window[n].url?window[n].url+"/inapp-web/gitple-loader.js":"https://app.gitple.io/inapp-web/gitple-loader.js",a.charset="UTF-8",e.head&&e.head.appendChild(a)}var t=document.getElementById(a);t||((t=document.createElement("iframe")).id=a,t.style.display="none",t.style.width="0",t.style.height="0",t.addEventListener?t.addEventListener("load",e,!1):t.attachEvent?t.attachEvent("onload",e):t.onload=e,document.body.appendChild(t))}var t=window,n="GitpleConfig",a="gitple-loader-frame";if(!window.Gitple){document;var i=function(){i.ex&&i.ex(arguments)};i.q=[],i.ex=function(e){i.processApi?i.processApi.apply(void 0,e):i.q&&i.q.push(e)},window.Gitple=i,t.attachEvent?t.attachEvent("onload",e):t.addEventListener("load",e,!1)}}();
       Gitple('boot');
-      </script>
+      </script> -->
+
     <title>Cuspot</title>
      <!-- 폰트-->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -37,8 +38,21 @@
       if (!window.location.port && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === "object") {
         window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {};
       }
+
+      // Conditionally load Gitple script on the root page
+      if (window.location.pathname === '/') {
+        window.GitpleConfig = {"appCode":"G7qJfFaCWBYX7XEOPExHBV7QRs6g13"};
+        !function(){function e(){function e(){var e=t.contentDocument,a=e.createElement("script");a.type="text/javascript",a.async=!0,a.src=window[n]&&window[n].url?window[n].url+"/inapp-web/gitple-loader.js":"https://app.gitple.io/inapp-web/gitple-loader.js",a.charset="UTF-8",e.head&&e.head.appendChild(a)}var t=document.getElementById(a);t||((t=document.createElement("iframe")).id=a,t.style.display="none",t.style.width="0",t.style.height="0",t.addEventListener?t.addEventListener("load",e,!1):t.attachEvent?t.attachEvent("onload",e):t.onload=e,document.body.appendChild(t))}var t=window,n="GitpleConfig",a="gitple-loader-frame";if(!window.Gitple){document;var i=function(){i.ex&&i.ex(arguments)};i.q=[],i.ex=function(e){i.processApi?i.processApi.apply(void 0,e):i.q&&i.q.push(e)},window.Gitple=i,t.attachEvent?t.attachEvent("onload",e):t.addEventListener("load",e,!1)}}();
+        Gitple('boot');
+      }
     </script>
-    <!-- 지도API-->
+    <!-- 깃플챗 -->
+    <script>
+      window.GitpleConfig = {"appCode":"G7qJfFaCWBYX7XEOPExHBV7QRs6g13"};
+      !function(){function e(){function e(){var e=t.contentDocument,a=e.createElement("script");a.type="text/javascript",a.async=!0,a.src=window[n]&&window[n].url?window[n].url+"/inapp-web/gitple-loader.js":"https://app.gitple.io/inapp-web/gitple-loader.js",a.charset="UTF-8",e.head&&e.head.appendChild(a)}var t=document.getElementById(a);t||((t=document.createElement("iframe")).id=a,t.style.display="none",t.style.width="0",t.style.height="0",t.addEventListener?t.addEventListener("load",e,!1):t.attachEvent?t.attachEvent("onload",e):t.onload=e,document.body.appendChild(t))}var t=window,n="GitpleConfig",a="gitple-loader-frame";if(!window.Gitple){document;var i=function(){i.ex&&i.ex(arguments)};i.q=[],i.ex=function(e){i.processApi?i.processApi.apply(void 0,e):i.q&&i.q.push(e)},window.Gitple=i,t.attachEvent?t.attachEvent("onload",e):t.addEventListener("load",e,!1)}}();
+      Gitple('boot');
+      </script>
+      <!-- 지도API-->
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17f8cf34e473ff0eaf8fb6cba12e68b3&libraries=services,clusterer,drawing"></script>
 </body>
 </html>
