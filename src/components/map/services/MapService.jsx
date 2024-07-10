@@ -3,6 +3,11 @@ import badminton from "../../../assets/images/badminton.png"; // 배드민턴
 import fitness from "../../../assets/images/fitness.png"; // 헬스
 import baseball from "../../../assets/images/baseball.png"; // 야구
 import tennis from "../../../assets/images/tennis.png"; // 테니스 
+import basketball from "../../../assets/images/basketball.png";
+import volleyball from "../../../assets/images/volleyball.png";
+// import basketball from "../../../assets/images/basketball.png";
+import run from "../../../assets/images/run.png";
+
 
 class MapService {
   constructor(mapContainer, userPosition, setPlaces) {
@@ -175,6 +180,10 @@ class MapService {
       imageSrc = tennis;
     } else if (this.keyword.match("헬스")) {
       imageSrc = fitness;
+    } else if (this.keyword.match("농구")) {
+      imageSrc = basketball;
+    } else if (this.keyword.match("배구")) {
+      imageSrc = volleyball;
     }
 
     const markerImage = new this.kakao.maps.MarkerImage(imageSrc, imageSize);
