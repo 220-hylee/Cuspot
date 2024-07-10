@@ -3,16 +3,11 @@ import { darkSecondary, darkPrimary, hoverGrey } from "../../assets/Colors";
 
 export default makeStyles((theme) => ({
   header: {
-    position: "fixed", 
-    width: "100%",
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "center",
+    widows: "100%",
+    height: "100%",
+    // backgroundColor: theme.palette.type === "dark" && darkPrimary,
+    // 헤더 백그라운드 변경
     backgroundColor: theme.palette.type === "dark" ? darkPrimary : "#1C1209",
-    zIndex: 1000, 
-    padding: 10,
-    height: 94,
-    
   },
   header__logo: {
     height: "100%",

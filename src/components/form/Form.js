@@ -11,11 +11,15 @@ import { v4 as uuid } from "uuid";
 import db, { storage } from "../../firebase";
 import Styles from "./Style";
 import swal from "@sweetalert/with-react";
+
+
 const Form = () => {
   const classes = Styles();
   const { displayName, photoURL, email } = useSelector((state) => state.user);
   const[ Like, setLike] = useState(0); // 좋아요
   const currentDate = new Date(); // 현재 날짜
+  const info = useSelector(state => state.session.info);
+  console.log(info); // sessionInfo를 콘솔에 출력하여 확인
   const[category,setCategory] = useState(""); // 카테고리
   const [uploadData, setUploadData] = useState({
     description: "",
@@ -29,7 +33,7 @@ const Form = () => {
   const Categorys = (e) => {
     setCategory(e.target.value);
 };
-  const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수.
+const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수.
     // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
     // uploading to collection called posts
     // 봄동에 게시글 데이터 보내기
@@ -64,7 +68,7 @@ const Form = () => {
           fileType: uploadData.file.type,
           timestamp: currentDate,
           Likes : Like,
-          category : category
+          category : info
         }),
     })
         .then(response => {
@@ -238,15 +242,12 @@ const Form = () => {
             hidden
             onChange={(e) => imageUploadHandler(e, "video")}
           />
-            {/* <select value= {category} onChange={Categorys}>
-                <option value="축구">축구</option>
-                <option value="농구">농구</option>
-                <option value="풋살">풋살</option>
-                <option value="배드민턴">배드민턴</option>
-            </select> */}
           {/* 위 input은 피드 동영상 업로드 부분 */}
+            
+          
           <button type="submit" >올리기</button>
           {/* POST버튼 */}
+        
         </form>
       </div>
       {uploadData.file.name && !progress && (

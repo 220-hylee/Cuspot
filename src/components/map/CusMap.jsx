@@ -11,8 +11,11 @@ const Map = () => {
         <Grid className={styles.app}>
           <Grid item container className={styles.app__header} >
             <Header />
-            <KakaoMap/>   
           </Grid>
+          <Grid item container className={styles.app__header} >
+            <KakaoMap/>
+          </Grid>
+               
         </Grid>
       <h2></h2>
       
