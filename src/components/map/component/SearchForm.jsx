@@ -5,6 +5,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from "@material-ui/core/styles";
 import { SearchOptions, SearchRadiusOptions } from "./SearchOptions";
 
+
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),

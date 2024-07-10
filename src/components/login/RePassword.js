@@ -72,7 +72,6 @@ const RePassword = () => {
       <br/>
         <TextField
         style={{ width: "260px"}}
-           required
           label="name"
           type="text"
           value={displayName}
@@ -81,7 +80,6 @@ const RePassword = () => {
         /> <br/>
         <TextField
         style={{ width: "260px"}}
-           required
           label="Email"
           type="email"
           value={email}
@@ -90,7 +88,6 @@ const RePassword = () => {
         /><br/>   
         <TextField
         style={{ width: "260px"}}
-           required
           label="phone"
           type="text"
           value={phone}
@@ -118,7 +115,7 @@ const RePassword = () => {
           <Typography variant="h5" id="simple-modal-title">
             {result ? '비밀번호' : 'Error'}
           </Typography><br/>
-          <Typography variant="h6" id="simple-modal-description">
+          <Typography variant="body4" id="simple-modal-description">
             {result ? `비밀번호: ${result}` : error}
           </Typography>
             <Button onClick={handleClose} 
