@@ -28,6 +28,7 @@ export default makeStyles((theme) => ({
   },
   body__friend: {
     position: 'fixed',
+    
     width: "100%",
     height: "100%",
     justifyContent: "center",

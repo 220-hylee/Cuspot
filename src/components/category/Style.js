@@ -3,7 +3,7 @@ import { darkSecondary, darkPrimary } from "../../assets/Colors";
 export default makeStyles((theme) => ({
   header: {
     widows: "100%",
-    height: "100%",
+    height: "100%",//헤더 문제는 이부분!
     justifyContent: 'center', 
     // backgroundColor: theme.palette.type === "dark" && darkPrimary,
     // 헤더 백그라운드 변경

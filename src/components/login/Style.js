@@ -109,23 +109,23 @@ export default makeStyles((theme) => ({
 
   //폼 창 관리
 
-  form_register : {
-    width: 250,
-    height: 200,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    //로그인 버튼
-    "& > Button": {
-      height: 30,
-      border: "1px solid lightgrey",
-      borderRadius: 4,
-      color: "white",
-      fontSize: 14,
-      fontWeight: 600,
-      backgroundColor: cuspotBlue,
-    },
-  },
+  // form_register : {
+  //   width: 250,
+  //   height: 200,
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   justifyContent: "space-evenly",
+  //   //로그인 버튼
+  //   "& > Button": {
+  //     height: 30,
+  //     border: "1px solid lightgrey",
+  //     borderRadius: 4,
+  //     color: "white",
+  //     fontSize: 14,
+  //     fontWeight: 600,
+  //     backgroundColor: cuspotBlue,
+  //   },
+  // },
   
   form: {
     width: 250,
@@ -231,16 +231,14 @@ export default makeStyles((theme) => ({
       cursor: "pointer",
       paddingTop: "10px",
     },
-    Register_link : {
-
-    "& > register_link"  :{
+     Register_link : {
       color: "cuspotBlue",
       textAlign:"Left",
       textDecoration: "underline",
       cursor: "pointer",
-      paddingBottom: "60px",
-    },
+      padding: "10px 10px 30px 10px",
   },
+
   about: {
     width: "100%",
     display: "flex",

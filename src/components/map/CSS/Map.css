@@ -1,4 +1,4 @@
-/* CSS/Map.css 또는 원하는 CSS 파일 */
+CSS/Map.css 또는 원하는 CSS 파일
 
 body {
   overflow: hidden;
@@ -81,23 +81,7 @@ html, body {
 }
 
 
-.sports {
-  border: '1px solid lightgray';
-  margin: '5px 5px 5px 5px';
-  borderRadius: '50px';
-  padding: '5px 15px'; 
-  fontWeight: 'bold';  
-  textTransform: 'none';
-}
 
-.length {
-  border: '1px solid lightgray';
-  margin: '5px 5px 5px 5px';
-  borderRadius: '50px';
-  padding: '5px 15px'; 
-  fontWeight: 'bold';  
-  textTransform: 'none';
-}
 
 /* 페이징 */
 .pagination button {
@@ -117,7 +101,7 @@ html, body {
     width: calc(100% + 400px); /* 사이드바 너비를 뺀 나머지 너비 */
     height: 100%;
     position: absolute;
-    top: 94px;
+    /* top: 94px; */
     border-top: 100xp;
   }
 
@@ -136,28 +120,20 @@ html, body {
 }
 
 /* 미디어 쿼리: 768px 이하일 상단 검색바 */
-
-
-
 @media (max-width: 767px) {
   .map_wrap {
     width: calc(100%); /* 사이드바 너비를 뺀 나머지 너비 */
     height: 100%;
     position: absolute;
-    width: 100%;
-    /* height: calc(100% - 64px); 헤더 높이를 뺀 나머지 높이 */
-    /* position: absolute; */
-    /* top: 64px; 헤더 아래로 위치 */
-    left: 0;
   }
   #menu_wrap {
     position: absolute;
     display: "flex";
     width: 100%;
-    top: 94px;
+    top: 0;
     z-index: 1000;
     background: #fff;
-    font-size: 10px;
+    font-size: 12px;
   }
 
 .searchClose {
