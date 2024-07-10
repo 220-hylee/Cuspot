@@ -19,20 +19,23 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
   return (
     <div className="tag-options" style={{ color: '#333', margin: '0' }}>
       {options.map((option, index) => (
-        <Button
-          key={index}
-          variant={selectedOption === option ? 'contained' : 'outlined'}
-          color="primary"
-          onClick={() => handleOptionButtonClick(option)}
-          style={{ 
-            backgroundColor: 'transparent', 
-            border: '1px solid #ccc', 
-            color: '#333', 
-            margin: '5px 5px 5px 0' // Adjust margin to reduce spacing
-          }}
-        >
-          {option}
-        </Button>
+       <Button
+       key={index}
+       variant={selectedOption === option ? 'contained' : 'text'}
+       color="primary"
+       onClick={() => handleOptionButtonClick(option)}
+       style={{ 
+        borderRadius: "20px",
+        backgroundColor: selectedOption === option ? '#3f51b5' : '#f0f0f0', 
+        color: selectedOption === option ? '#fff' : '#333', 
+        margin: '5px',
+        // padding: '8px 16px',
+        transition: 'background-color 0.3s, transform 0.3s, box-shadow 0.3s',
+        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+      }}
+     >
+       {option}
+     </Button>
       ))}
     </div>
   );
@@ -42,34 +45,41 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
   return (
     <div className="options-container" style={{ margin: '0' }}>
       <div className="button-options" style={{ margin: '0' }}>
-        <Button
-          variant={selectedRadius === "" ? 'contained' : 'outlined'}
+      <Button
+          variant={selectedRadius === "" ? 'contained' : 'text'}
           color="primary"
           onClick={() => handleRadiusButtonClick("")}
           style={{ 
-            backgroundColor: 'transparent', 
-            border: '1px solid #ccc', 
-            color: '#333', 
-            margin: '5px 5px 5px 0' // 
+            borderRadius: "20px",
+            backgroundColor: selectedRadius === "" ? '#358770' : '#f0f0f0', 
+            color: selectedRadius === "" ? '#fff' : '#333', 
+            margin: '5px',
+            // padding: '8px 16px',
+            transition: 'background-color 0.3s, transform 0.3s, box-shadow 0.3s',
+            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
           }}
         >
           전체
         </Button>
         {["500", "1000", "1500", "2000"].map((radius, index) => (
-          <Button
-            key={index}
-            variant={selectedRadius === radius ? 'contained' : 'outlined'}
-            color="primary"
-            onClick={() => handleRadiusButtonClick(radius)}
-            style={{ 
-              backgroundColor: 'transparent', 
-              border: '1px solid #ccc', 
-              color: '#333', 
-              margin: '5px 5px 5px 0' // 
-            }}
-          >
-            {radius}m
-          </Button>
+        <Button
+        key={index}
+        variant={selectedRadius === radius ? 'contained' : 'text'}
+        color="primary"
+        onClick={() => handleRadiusButtonClick(radius)}
+        className={selectedRadius === radius ? 'active' : ''}
+        style={{ 
+          borderRadius: '20px', 
+          backgroundColor: selectedRadius === radius ? '#358770' : '#f0f0f0', 
+          color: selectedRadius === radius ? '#fff' : '#333', 
+          margin: '5px',
+          // padding: '8px 16px',
+          transition: 'background-color 0.3s, transform 0.3s, box-shadow 0.3s',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+        }}
+      >
+        {radius}m
+      </Button>
         ))}
       </div>
     </div>

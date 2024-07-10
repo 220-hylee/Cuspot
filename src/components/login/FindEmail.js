@@ -70,7 +70,7 @@ const FindEmail = () => {
       <br/>
       <TextField
        style={{ width: "260px"}}
-       required 
+      //  required 
         label="name"
         type="text"
         value={displayName}
@@ -84,7 +84,7 @@ const FindEmail = () => {
         type="text"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        placeholder="phone 입력">
+        placeholder="phone">
         </TextField>
         <br/>
 
@@ -104,7 +104,7 @@ const FindEmail = () => {
       </text>
 
       </div>
-      <p style={{ marginTop: '60px', textAlign: 'center' }}>copywrite TTEZO</p>
+      <p style={{ marginTop: '60px', textAlign: 'center' }}>copyright TTEZO</p>
       </Paper>
 
       {/* 팝업 부분 */}
