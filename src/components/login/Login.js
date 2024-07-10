@@ -3,6 +3,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Paper, TextField, Button } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
+import db from "../../firebase"; // assuming this is your Firebase 
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import YouTubeIcon from "@material-ui/icons/YouTube";
@@ -25,7 +26,26 @@ const Login = () => {
   const uiConfig = {
     signInFlow: "popup",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    callbacks: {
+      signInSuccessWithAuthResult: async (authResult) => {
+        const user = authResult.user;
+        const { uid, email, displayName, photoURL } = user;
+        
+        // 구글에 로그인한 정보를 저장하기
+        await db.collection("users").doc(uid).set({
+          email: email,
+          displayName: displayName,
+          photoURL: photoURL,
+          date: new Date(),
+          authProvider: "google", // Set auth provider as google
+        }, { merge: true });
+        
+        dispatch(LoginAction(user));
+        return false; // Avoid redirect
+      },
+    },
   };
+
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -48,6 +68,7 @@ const Login = () => {
     }
   };
 
+
   return (
       <div className={classes.login__container}>
         <Paper elevation={1} className={classes.login}>
@@ -58,7 +79,6 @@ const Login = () => {
             alt="linked-in-logo"
           />
         </div>
-        <h2 style={{ textAlign: 'center' }}></h2>
         {/* 일반 로그인  */}
         <form className={classes.form} onSubmit={handleSubmit}>
           {/* 이메일 입력 */}
@@ -84,7 +104,10 @@ const Login = () => {
             variant="contained"
             size = "small"
             color = "primary" >Login</Button><br/>
+         
+         
         </form>
+    
     
         <div className={classes.google}>
           <section>
@@ -95,6 +118,8 @@ const Login = () => {
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
+
+            
 
             
           />
@@ -111,6 +136,7 @@ const Login = () => {
     </div>
   );
 };
+
 
 
 export default Login;

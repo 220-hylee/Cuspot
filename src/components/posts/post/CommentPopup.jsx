@@ -36,7 +36,7 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
       setComment('');   
     }
      // Spring boot 댓글 생성
-     fetch("http://localhost:8080/api/insertComments", {
+     fetch("http://3.35.205.229:8080/api/insertComments", {
       method: "POST",
       headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -54,7 +54,7 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
   };
 // 댓글 목록 가져오기
   useEffect(() => {
-  axios.get('http://localhost:8080/api/getCommentsList')
+  axios.get('http://3.35.205.229:8080/api/getCommentsList')
     .then(response => {
       setList(response.data);
     })

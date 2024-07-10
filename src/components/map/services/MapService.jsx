@@ -10,7 +10,7 @@ import run from "../../../assets/images/run.png";
 
 
 class MapService {
-  constructor(mapContainer, userPosition, setPlaces) {
+  constructor(mapContainer, userPosition, setPlaces,initialKeyword = "") {
     this.mapContainer = mapContainer;  // 지도를 표시할 HTML 요소의 참조
     this.userPosition = userPosition;  // 사용자의 현재 위치 좌표
     this.setPlaces = setPlaces;        // 검색 결과 장소들을 설정할 상태 업데이트 함수
@@ -21,7 +21,7 @@ class MapService {
     this.ps = null;                    // Kakao 장소 검색 서비스 객체
     this.infowindow = null;            // Kakao 인포윈도우 객체
     this.currentRadius = null;         // 현재 선택된 검색 반경
-    this.keyword = "";
+    this.keyword = initialKeyword;     // 초기 키워드 설정
   }
 
   // 지도 초기화 메서드
@@ -47,6 +47,7 @@ class MapService {
     }
   }
 
+  
   // 사용자 위치 업데이트 메서드
   updateUserPosition(position) {
     this.userPosition = position;

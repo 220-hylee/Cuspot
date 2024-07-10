@@ -14,6 +14,7 @@ import axios from "axios";
 
 
 
+
 // 서버와의 통신을 위한 함수들
 const fetchLikes = async (postId) => {
   const response = await fetch(`/api/posts/${postId}/likes`);
@@ -37,7 +38,7 @@ const updateLikes = async (postId, newLikesCount, userId, liked,email) => {
   });
   //스프링부트
   // 좋아요 갯수  업데이트
-  await axios.post(`http://localhost:8080/api/updateLike/${postId}/${newLikesCount}`, {
+  await axios.post(`http://3.35.205.229:8080/api/updateLike/${postId}/${newLikesCount}`, {
   });
 
 };
@@ -59,9 +60,10 @@ const Post = forwardRef(
     // 댓글 갯수
     const[commentCount,setCommentCount] = useState(0);
 
+
        // // 좋아요 상태 가져오기
        useEffect(() => {
-        axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`)
+        axios.get(`http://3.35.205.229:8080/api/getLiked/${postId}/${email}`)
           .then(response => {
             setLiked(response.data);
           })
@@ -80,8 +82,9 @@ const Post = forwardRef(
       loadLikes();
     }, [postId, userId]);
    
+    // 댓글들 가져오기
     useEffect(() => {
-      axios.get('http://localhost:8080/api/getCommentsList')
+      axios.get('http://3.35.205.229:8080/api/getCommentsList')
         .then(response => {
           setComments(response.data);
         })
@@ -98,7 +101,7 @@ const Post = forwardRef(
          // 해당 게시판  좋아요를 누르면  Heart 테이블에 해당 유저의 좋아요 상태 만들기
         // Spring boot heart에  데이터 보내기
         if(liked === false){
-          fetch("http://localhost:8080/api/insertLike", {
+          fetch("http://3.35.205.229:8080/api/insertLike", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
@@ -121,7 +124,7 @@ const Post = forwardRef(
           }
            // 해당 게시판  unLike를 누르면  Heart 테이블 삭제
            else if (liked === true) {
-            axios.delete(`http://localhost:8080/api/deleteLike/${postId}/${email}`)
+            axios.delete(`http://3.35.205.229:8080/api/deleteLike/${postId}/${email}`)
           };
         };
         
@@ -141,7 +144,9 @@ const Post = forwardRef(
     };
 
     const Reactions = () => (
+      
       <div className={classes.footer__stats}>
+        
         <div>
           <img src={Love} alt="love-icon" />
         </div>

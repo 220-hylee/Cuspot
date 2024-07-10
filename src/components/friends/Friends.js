@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import Style from '../../Style'; // 스타일 import
 import Header from '../header/Header'; // 헤더 컴포넌트 import
+import Contacts from '../contacts/Contacts';
+
 // import Contacts from './Contacts'; // Contacts 컴포넌트 import
 
 const Friends = () => {
@@ -40,11 +42,14 @@ const Friends = () => {
         </Grid>
         <Grid item container className={classes.body__friend} md={12}>
           {/* <Sidebar /> */}
-          {/* <Contacts /> */}
+          <Contacts/>
+        
         </Grid>
       </Grid>
-    </div>
+   </div>
   );
 };
 
 export default Friends;
+
+
