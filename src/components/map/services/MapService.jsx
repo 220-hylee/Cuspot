@@ -1,6 +1,3 @@
-
-
-
 import sccoer from "../../../assets/images/sccoer.png"; // 축구
 import badminton from "../../../assets/images/badminton.png"; // 배드민턴
 import fitness from "../../../assets/images/fitness.png"; // 헬스
@@ -14,7 +11,7 @@ import basic from "../../../assets/images/basicR.png";
 
 
 class MapService {
-  constructor(mapContainer, userPosition, setPlaces,initialKeyword = "") {
+  constructor(mapContainer, userPosition, setPlaces, initialKeyword = "축구") {
     this.mapContainer = mapContainer;  // 지도를 표시할 HTML 요소의 참조
     this.userPosition = userPosition;  // 사용자의 현재 위치 좌표
     this.setPlaces = setPlaces;        // 검색 결과 장소들을 설정할 상태 업데이트 함수
@@ -50,9 +47,13 @@ class MapService {
     if (this.userPosition) {
       this.addUserMarker(this.userPosition);
     }
+      // 지도 초기화 시 기본 검색 키워드로 장소 검색
+      this.searchPlaces(this.keyword);
   }
 
-  
+
+
+
   // 사용자 위치 업데이트 메서드
   updateUserPosition(position) {
     this.userPosition = position;
