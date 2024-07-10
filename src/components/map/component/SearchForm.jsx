@@ -162,15 +162,37 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
     setSelectedRadius(prevRadius => prevRadius === radius ? "" : radius);
     handleRadiusChange(radius);
   };
+
+
+  // const handleOptionChange = (option) => {
+  //   setSelectedOptions(prevOptions => {
+  //     if (prevOptions.includes(option)) {
+  //       return prevOptions.filter(opt => opt !== option);
+  //     } else {
+  //       return [...prevOptions, option];
+  //     }
+  //   });
+  // };  
+
   const handleOptionChange = (option) => {
     setSelectedOptions(prevOptions => {
       if (prevOptions.includes(option)) {
-        return prevOptions.filter(opt => opt !== option);
+        const newOptions = prevOptions.filter(opt => opt !== option);
+        updateInputWithOptions(newOptions);
+        return newOptions;
       } else {
-        return [...prevOptions, option];
+        const newOptions = [...prevOptions, option];
+        updateInputWithOptions(newOptions);
+        return newOptions;
       }
     });
-  };  
+  };
+
+  const updateInputWithOptions = (options) => {
+    const optionsString = options.join(", ");
+    setInput(optionsString);
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="search-bar">
@@ -194,41 +216,6 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
             selectedRadius={selectedRadius}
             handleRadiusButtonClick={handleRadiusButtonClick}
           />
-          {/* <SearchOptions
-            options={["축구"]} // 검색 태그 추가 후 MapService에서 마커 이미지 추가
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleCheckboxChange} 
-          />
-          <SearchOptions
-            options={["배드민턴"]} 
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleCheckboxChange} 
-          />
-          <SearchOptions
-            options={["헬스"]} 
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleCheckboxChange} 
-          />
-          <SearchOptions
-            options={["야구"]} 
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleCheckboxChange} 
-          />
-          <SearchOptions
-            options={["테니스"]} 
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleCheckboxChange} 
-          />
-          <SearchOptions
-            options={["배구"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleCheckboxChange} 
-          />
-          <SearchOptions
-            options={["농구"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleCheckboxChange} 
-          /> */}
           <SearchOptions
             options={["축구", "배드민턴", "헬스", "야구", "테니스", "배구", "농구"]}
             handleSearchSubmit={handleSearchSubmit}
@@ -236,8 +223,6 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
           />
         </div>
       )}
-      {/* 선택된 종목을 지도 컴포넌트에 전달 */}
-      {/* <Map selectedOptions={selectedOptions} /> */}
     </>
   );
 };

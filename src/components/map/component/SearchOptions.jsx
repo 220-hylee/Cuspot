@@ -28,7 +28,7 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
       {options.map((option, index) => (
         <Button
           key={index}
-          variant={selectedOption === option ? 'contained' : 'outlined'}
+          variant={selectedOption === option ? 'contained' : 'primary'}
           color="primary"
           onClick={() => handleOptionButtonClick(option)}
           style={{ 
@@ -65,8 +65,8 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
   const [inputValue, setInputValue] = useState('');
 
   const handleRadiusClick = (radius) => {
-    handleRadiusButtonClick(radius);
-    setInputValue(radius);
+    handleRadiusButtonClick(radius); // 반경 값 전달
+    setInputValue(radius); // 검색 입력 창 값 업데이트
   };
 
   return (
@@ -97,7 +97,7 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
         
         
         {/* 거리 버튼 - 둥근 아이콘모양 으로 수정 완 */}
-        {["500", "1000", "1500", "2000"].map((radius, index) => (  
+        {["500M", "1000M", "1500M", "2000M"].map((radius, index) => (  
           <Button
           key={index}
           variant={selectedRadius === radius ? 'contained' : 'primary'}
