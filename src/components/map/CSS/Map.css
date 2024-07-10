@@ -1,4 +1,3 @@
-CSS/Map.css 또는 원하는 CSS 파일
 
 body {
   overflow: hidden;
@@ -16,7 +15,7 @@ body {
   min-height: 65px;
 }
 
-#placesList .item span {
+#placesList, .item, span {
   display: block;
   margin-top: 4px;
 }
@@ -42,7 +41,7 @@ body {
 }
 
 #placesList .info .tel {
-  color: #009900;
+  color: #340ce4;
 }
 
 
@@ -66,7 +65,7 @@ html, body {
   width: 100%;
   z-index: 1000;
   background: #fff;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 /* 검색바 */

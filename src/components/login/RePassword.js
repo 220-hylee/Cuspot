@@ -105,7 +105,7 @@ const RePassword = () => {
           
         <Link to="/" className={classes.link_back}>back</Link>
       </div>
-      <p style={{ marginTop: '60px' }}>copywrite TTEZO</p>
+      <p style={{ marginTop: '60px' }}>copyright TTEZO</p>
       </Paper>
       
       <Modal

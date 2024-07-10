@@ -21,12 +21,12 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
       {options.map((option, index) => (
         <Button
           key={index}
-          variant={selectedOption === option ? 'contained' : 'outlined'}
+          variant={selectedOption === option ? 'contained' : ''}
           color="primary"
           onClick={() => handleOptionButtonClick(option)}
           style={{ 
             backgroundColor: 'transparent', 
-            border: '1px solid #ccc', 
+            // border: '1px solid #ccc', 
             color: '#333', 
             margin: '5px 5px 5px 0' // Adjust margin to reduce spacing
           }}
@@ -43,12 +43,12 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
     <div className="options-container" style={{ margin: '0' }}>
       <div className="button-options" style={{ margin: '0' }}>
         <Button
-          variant={selectedRadius === "" ? 'contained' : 'outlined'}
+          variant={selectedRadius === "" ? 'contained' : ''}
           color="primary"
           onClick={() => handleRadiusButtonClick("")}
           style={{ 
             backgroundColor: 'transparent', 
-            border: '1px solid #ccc', 
+            // border: '1px solid #ccc', 
             color: '#333', 
             margin: '5px 5px 5px 0' // 
           }}
@@ -58,12 +58,14 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
         {["500", "1000", "1500", "2000"].map((radius, index) => (
           <Button
             key={index}
-            variant={selectedRadius === radius ? 'contained' : 'outlined'}
+            variant={selectedRadius === radius ? 'contained' : ''}
             color="primary"
             onClick={() => handleRadiusButtonClick(radius)}
             style={{ 
               backgroundColor: 'transparent', 
-              border: '1px solid #ccc', 
+              size : "smal",
+              borderRadius : "20px",
+              // border: '1px solid #ccc', 
               color: '#333', 
               margin: '5px 5px 5px 0' // 
             }}

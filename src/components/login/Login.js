@@ -58,7 +58,7 @@ const Login = () => {
             alt="linked-in-logo"
           />
         </div>
-        <h2 style={{ textAlign: 'center' }}>Login</h2>
+        <h2 style={{ textAlign: 'center' }}></h2>
         {/* 일반 로그인  */}
         <form className={classes.form} onSubmit={handleSubmit}>
           {/* 이메일 입력 */}
@@ -103,7 +103,7 @@ const Login = () => {
             <Link to="/findEmail" className={classes.login_link}>ID찾기</Link>
             <Link to="/rePassword" className={classes.login_link}>비밀번호 찾기</Link>
          </div>
-            <p>copywrite TTEZO</p>
+            <p>copyright TTEZO</p>
         </div>
         <div className={classes.about}>
         </div>

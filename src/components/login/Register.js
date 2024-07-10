@@ -122,9 +122,8 @@ const Register = () => {
         <Link to="/" className={classes.register_link}>
           뒤로가기
         </Link>
-         
         </div>
-            <p>copywriter TTEZO</p>
+            <p>copyright TTEZO</p>
         {/* classes.about */}
       </Paper>
     </div>
