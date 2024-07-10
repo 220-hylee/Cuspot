@@ -99,8 +99,9 @@ const RePassword = () => {
           variant="contained"
           size = "small"
           color = "primary">✉️비밀번호</Button>
-          
         <Link to="/" className={classes.link_back}>back</Link>
+        <p>Cuspot은 구글 회원가입 </p>
+
       </div>
       <p style={{ marginTop: '60px' }}>copyright TTEZO</p>
       </Paper>

@@ -1,3 +1,6 @@
+
+
+
 import sccoer from "../../../assets/images/sccoer.png"; // 축구
 import badminton from "../../../assets/images/badminton.png"; // 배드민턴
 import fitness from "../../../assets/images/fitness.png"; // 헬스
@@ -5,12 +8,13 @@ import baseball from "../../../assets/images/baseball.png"; // 야구
 import tennis from "../../../assets/images/tennis.png"; // 테니스 
 import basketball from "../../../assets/images/basketball.png";
 import volleyball from "../../../assets/images/volleyball.png";
-// import basketball from "../../../assets/images/basketball.png";
-import run from "../../../assets/images/run.png";
+import basic from "../../../assets/images/basicR.png";
+// import basic from "../../../assets/images/basic.png";
+// import run from "../../../assets/images/run.png";
 
 
 class MapService {
-  constructor(mapContainer, userPosition, setPlaces) {
+  constructor(mapContainer, userPosition, setPlaces,initialKeyword = "") {
     this.mapContainer = mapContainer;  // 지도를 표시할 HTML 요소의 참조
     this.userPosition = userPosition;  // 사용자의 현재 위치 좌표
     this.setPlaces = setPlaces;        // 검색 결과 장소들을 설정할 상태 업데이트 함수
@@ -21,7 +25,8 @@ class MapService {
     this.ps = null;                    // Kakao 장소 검색 서비스 객체
     this.infowindow = null;            // Kakao 인포윈도우 객체
     this.currentRadius = null;         // 현재 선택된 검색 반경
-    this.keyword = "";
+    this.keyword = initialKeyword;
+    this.selectedPlaces = []; // Array to store selected places
   }
 
   // 지도 초기화 메서드
@@ -47,6 +52,7 @@ class MapService {
     }
   }
 
+  
   // 사용자 위치 업데이트 메서드
   updateUserPosition(position) {
     this.userPosition = position;
@@ -167,7 +173,7 @@ class MapService {
 
   //마커 추가
   addMarker(position, index) {
-    let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
+    let imageSrc = basic;
     let imageSize = new this.kakao.maps.Size(36, 37);
 
     if (this.keyword.match("축구")) {

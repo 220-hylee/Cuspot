@@ -93,6 +93,7 @@ html, body {
   padding: 10px; /* Add some padding around the container */
 }
 
+
 .pagination button {
   background-color: black;
   border: none;
@@ -103,11 +104,19 @@ html, body {
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
   transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
-
   /* Add some margin */
-  margin: 0 5px; 
+  margin-bottom: 15px; 
+
 }
 
+.searchClose {
+  align-self: flex-end; /* 오른쪽 정렬 */
+  background-color: transparent;
+  border: none;
+  color: #2453B3;
+  font-size: 14px;
+  cursor: pointer;
+}
 /* Hover effect */
 .pagination button:hover {
   background-color: #444; /* Slightly lighter background on hover */
@@ -159,19 +168,12 @@ html, body {
     top: 0;
     z-index: 1000;
     background: #fff;
-    font-size: 10px; /*플레이 리스트 폰트 크기*/
+    font-size: 11px; /*플레이 리스트 폰트 크기*/
   }
 
-.searchClose {
-  align-self: flex-end; /* 오른쪽 정렬 */
-  background-color: transparent;
-  border: none;
-  color: #524a4a;
-  font-size: 14px;
-  cursor: pointer;
-}
+
 @keyframes init{}
-.options-container {
+.options_container {
   position: absolute;
   top: 100%; 
   left: -2px;
@@ -181,6 +183,9 @@ html, body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   padding: 5px;
   width: 100%; /* 검색 폼 너비에 맞게 설정 */
+  display: flex; /* Flexbox 사용 */
+  /* flex-wrap: wrap; 필요 시 여러 줄로 나눌 수 있습니다 */
+  justify-content: space-around; /* 각 요소 사이의 간격을 설정합니다 */
 }
 
 /* Map.css */
@@ -191,7 +196,7 @@ html, body {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   background-color: white;
-  font-size: 14px;
+  font-size: 14 px;
 }
 
 
@@ -205,27 +210,33 @@ html, body {
   overflow: hidden;
 }
 
+
+
 .info-window-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #2453B3;
   padding: 10px;
 }
 
 .info-window-title {
   margin: 0;
   font-size: 14px;
-  font-weight: bold;
+  /* text-align: center; */
+  /* font-weight: bold; */
+  color: white;
 }
 
 .info-window-close {
   background: none;
+  color: white;
   border: none;
   font-size: 14px;
   cursor: pointer;
 }
 
+/* 연결url */
 .info-window-body {
   display: flex;
   padding: 10px;
