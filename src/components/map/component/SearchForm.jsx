@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
       color: 'white',
     }
   },
+    
+  
 }));
 
 const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChange, selectedOptions }) => {
@@ -47,12 +49,14 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
     <>
       <form onSubmit={handleSubmit} className="search-bar">
         <TextField
+       
           className={classes.searchBar}
           placeholder="검색을 입력하세요"
           variant="filled"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
+    
         <IconButton aria-label="search" color="inherit" type='submit'>
           <SearchIcon />
         </IconButton>

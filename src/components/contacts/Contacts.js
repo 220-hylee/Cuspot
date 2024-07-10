@@ -8,6 +8,7 @@ import Style from "./Style";
 import db from "../../firebase";
 import { useSelector } from "react-redux";
 import "./friend.css";
+
 const Contacts = () => {
   const classes = Style();
   const [users, setUsers] = useState([]);
@@ -16,11 +17,11 @@ const Contacts = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [friendModal, setFriendModal] = useState(false);
   const { displayName, photoURL, email } = useSelector((state) => state.user);
-  const [friends,setFriends] = useState([]);
+  const [friends, setFriends] = useState([]);
   const modalBackground = useRef();
+  
+  // 봄동에서 전체 유저 데이터 가져오기
   useEffect(() => {
-    
-    // 전체 유저 정보 가져오기
     const unsubscribe = db
       .collection("users")
       .orderBy("date", "desc")
@@ -30,29 +31,58 @@ const Contacts = () => {
     return unsubscribe;
   }, []);
 
-  // 검색한 친구 
+
+  // 친구 리스트 가져오기
+  useEffect(() => {
+    const unsubscribe = db
+      .collection("friends")
+      .where("currentUserEmail", "==", email)
+      .onSnapshot((snap) =>
+        setFriends(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+      );
+    return () => unsubscribe();
+  }, [email]);
+
   const handleInputChange = (e) => {
-    setFriendSearch(e.target.value); // 입력값을 기준으로 friend 상태를 업데이트
+    setFriendSearch(e.target.value);
   };
 
   const friendSubmit = (e) => {
     e.preventDefault();
   };
 
-
-  //프로필을 누르면 실행 
   const handleAvatarClick = (event, user) => {
     setAnchorEl(event.currentTarget);
-    setSelectedUser(user);
+    setSelectedUser({ ...user, isFriend: false });
   };
 
-  // 친구추가 닫으면 초기화
+  const handleFriendClick = (event, user) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedUser({ ...user, isFriend: true });
+  };
+
+  const handleDeleteFriend = () => {
+    if (selectedUser) {
+      db.collection("friends")
+        .doc(selectedUser.id)
+        .delete()
+        .then(() => {
+          alert("친구 삭제 완료");
+        })
+        .catch((error) => {
+          alert("친구 삭제 실패:", error);
+        });
+    }
+    handleClose();
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
     setSelectedUser(null);
   };
 
-  // selectedUser에 내가 선택한 유저 값이 들어가면 newFriend에 해당 값들 넣기
+
+  // 친구 추가하기
   const handleAddFriend = () => {
     if (selectedUser) {
       const newFriend = {
@@ -60,9 +90,9 @@ const Contacts = () => {
         currentUserName: displayName,
         friendId: selectedUser.data.email,
         friendName: selectedUser.data.displayName,
+        photoURL: selectedUser.data.photoURL
       };
 
-      // Firestore에 친구 관계 추가
       db.collection("friends")
         .add(newFriend)
         .then(() => {
@@ -74,14 +104,16 @@ const Contacts = () => {
     }
     handleClose();
   };
-  
-  // 친구 정보 가져오기
-  
-
- 
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  // 친구와 본인을 제외한 사용자 필터링
+  const filteredUsers = users.filter(
+    (user) =>
+      user.data.email !== email &&
+      !friends.some((friend) => friend.data.friendId === user.data.email)
+  );
 
   return (
     <Paper elevation={0} className={classes.contacts}>
@@ -89,42 +121,60 @@ const Contacts = () => {
         <Divider />
         <div className={classes.contacts__tab}>
           <h4>친구 리스트</h4>
-
-
-          {/* 친구 추가 띄우기  */}
+          
           <IconButton color="inherit" type="button" onClick={() => setFriendModal(true)}>
-              <MoreHorizIcon/>
+            <MoreHorizIcon />
           </IconButton>
         </div>
-        {
-        friendModal &&
-        <div className={'modal-container'} ref={modalBackground} onClick={e => {
-          if (e.target === modalBackground.current) {
-            setFriendModal(false);
-          }
-        }}>
-          <div className={'modal-content'}>
-            <form onSubmit={friendSubmit}>
-              <input
-                className={classes.searchBar}
-                type="text"
-                placeholder="검색을 입력하세요"
-                value={friendSearch}
-                onChange={handleInputChange}
+        {/* 친구 리스트 정렬 */}
+        {friends.map(({ id, data }) => (
+              <InfoBar
+                key={id}
+                Source={
+                  <Tooltip placement="left" title={data.friendId} arrow>
+                    <Avatar src={data.photoURL} onClick={(event) => handleFriendClick(event, { id, data })} />
+                  </Tooltip>
+                }
+                title={data.friendName}
+                online={true}
+                noTransform={true}
+                className="list"
               />
-            {/*  검색 버튼 */}
-            <IconButton color="inherit" type="submit">
-              <SearchIcon />
-            </IconButton>
-          </form>
-             {/* 유저 정보  */}
-              {users
+            ))}
+        
+        {/* ... 누르면 친구 추가 가능 */}
+        {
+        friendModal && 
+          <div
+            className={'modal-container'}
+            ref={modalBackground}
+            onClick={(e) => {
+              if (e.target === modalBackground.current) {
+                setFriendModal(false);
+              }
+            }}
+          >
+            <div className={'modal-content'}>
+              <form onSubmit={friendSubmit}>
+                <input
+                  className={"search"}
+                  type="text"
+                  placeholder="검색을 입력하세요"
+                  value={friendSearch}
+                  onChange={handleInputChange}
+                />
+                <IconButton color="inherit" type="submit">
+                  <SearchIcon />
+                </IconButton>
+              </form>
+              
+              {filteredUsers
                 .filter((user) => user.data.displayName.includes(friendSearch))
                 .map(({ id, data }) => (
                   <InfoBar
                     key={id}
                     Source={
-                      <Tooltip placement="left" title={data.displayName} arrow>
+                      <Tooltip placement="left" title={data.email} arrow>
                         <Avatar src={data.photoURL} onClick={(event) => handleAvatarClick(event, { id, data })} />
                       </Tooltip>
                     }
@@ -134,9 +184,9 @@ const Contacts = () => {
                     className="list"
                   />
                 ))}
+            </div>
           </div>
-        </div>
-      }
+        }
       </Scrollbars>
       <Popover
         id={id}
@@ -152,11 +202,20 @@ const Contacts = () => {
           horizontal: 'center',
         }}
       >
-        <div>
-          <Button variant="contained" color="primary" onClick={handleAddFriend}>
-            친구 추가
-          </Button>
-        </div>
+        
+        {selectedUser && selectedUser.isFriend ? (
+          <div>
+            <Button variant="contained" color="primary" onClick={handleDeleteFriend}>
+              친구 삭제
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <Button variant="contained" color="primary" onClick={handleAddFriend}>
+              친구 추가
+            </Button>
+          </div>
+        )}
       </Popover>
     </Paper>
   );

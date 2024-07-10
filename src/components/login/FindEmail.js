@@ -104,7 +104,7 @@ const FindEmail = () => {
       </text>
 
       </div>
-      <p style={{ marginTop: '60px', textAlign: 'center' }}>copywrite TTEZO</p>
+      <p style={{ marginTop: '60px', textAlign: 'center' }}>copyright TTEZO</p>
       </Paper>
 
       {/* 팝업 부분 */}

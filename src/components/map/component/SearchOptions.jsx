@@ -18,6 +18,7 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
 
   return (
     <div className="tag-options" style={{ color: '#333', margin: '0' }}>
+  
       {options.map((option, index) => (
         <Button
           key={index}
@@ -42,6 +43,7 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
   return (
     <div className="options-container" style={{ margin: '0' }}>
       <div className="button-options" style={{ margin: '0' }}>
+       
         <Button
           variant={selectedRadius === "" ? 'contained' : 'outlined'}
           color="primary"
@@ -51,6 +53,7 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
             border: '1px solid #ccc', 
             color: '#333', 
             margin: '5px 5px 5px 0' // 
+          
           }}
         >
           전체
@@ -59,6 +62,7 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
           <Button
             key={index}
             variant={selectedRadius === radius ? 'contained' : 'outlined'}
+          
             color="primary"
             onClick={() => handleRadiusButtonClick(radius)}
             style={{ 
@@ -66,6 +70,7 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
               border: '1px solid #ccc', 
               color: '#333', 
               margin: '5px 5px 5px 0' // 
+           
             }}
           >
             {radius}m

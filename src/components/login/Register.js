@@ -124,7 +124,7 @@ const Register = () => {
         </Link>
          
         </div>
-            <p>copywriter TTEZO</p>
+            <p>copyright TTEZO</p>
         {/* classes.about */}
       </Paper>
     </div>

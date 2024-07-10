@@ -86,8 +86,6 @@ const GitpleScriptLoader = () => {
   return null;
 };
 
-
-
 const App = () => {
   const dispatch = useDispatch();
   const { displayName } = useSelector((state) => state.user);

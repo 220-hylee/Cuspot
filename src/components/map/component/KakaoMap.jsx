@@ -4,6 +4,7 @@ import PlaceList from './PlaceList';
 import MapService from '../services/MapService';
 import '../CSS/Map.css';
 
+
 const KakaoMap = () => {
   const mapRef = useRef(null);
   const [keyword, setKeyword] = useState(""); // 검색어 상태 관리
@@ -13,6 +14,8 @@ const KakaoMap = () => {
   const [showPlaceList, setShowPlaceList] = useState(false); // 장소 목록 표시 여부 상태 관리
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
   const resultsPerPage = 5; // 페이지당 결과 수
+
+ 
 
   // 현재 위치 가져오기 함수
   const getCurrentPosition = useCallback(() => {
@@ -24,6 +27,7 @@ const KakaoMap = () => {
       }
     });
   }, []);
+
 
   // 컴포넌트가 마운트될 때 사용자 위치 초기화
   useEffect(() => {
@@ -41,6 +45,7 @@ const KakaoMap = () => {
     };
     initializeUserPosition();
   }, [getCurrentPosition]);
+
 
   // 사용자 위치가 변경될 때마다 지도 초기화
   useEffect(() => {
@@ -63,16 +68,19 @@ const KakaoMap = () => {
     }
   }, [mapService, keyword]);
 
+
   // 검색어 제출 처리 함수
   const handleSearchSubmit = useCallback((searchKeyword, selectedOptions) => {
     setKeyword(searchKeyword); // 검색어 설정
     mapService.searchPlaces(searchKeyword, selectedOptions); // 장소 검색 요청
   }, [mapService]);
 
+
   // 페이지 변경 처리 함수
   const changePage = useCallback((pageNumber) => {
     setCurrentPage(pageNumber); // 현재 페이지 설정
   }, []);
+
 
   // 검색 반경 변경 처리 함수
   const handleRadiusChange = useCallback((radius) => {
@@ -81,6 +89,7 @@ const KakaoMap = () => {
       mapService.searchPlaces(keyword, []); // 장소 검색 요청 (선택된 옵션 초기화)
     }
   }, [mapService, keyword]);
+
 
   // 검색 결과 창 닫기
   const searchClose = useCallback(() => {
@@ -97,6 +106,9 @@ const KakaoMap = () => {
     }
   };
 
+
+
+
   return (
     <div className="map_wrap">
       {/* 지도 컨테이너 */}
@@ -107,6 +119,7 @@ const KakaoMap = () => {
           handleSearchSubmit={handleSearchSubmit} 
           handleRadiusChange={handleRadiusChange} 
         />
+       
         <hr />
         {/* 장소 목록 표시 */}
         {showPlaceList && (
@@ -118,6 +131,7 @@ const KakaoMap = () => {
             {/* 페이지네이션 */}
             <div className="pagination">
               {Array.from({ length: Math.ceil(places.length / resultsPerPage) }, (_, index) => (
+                
                 <button
                   key={index + 1}
                   onClick={() => changePage(index + 1)}
@@ -125,6 +139,7 @@ const KakaoMap = () => {
                 >
                   {index + 1}
                 </button>
+               
               ))}
               {/* 검색결과 창 닫기 */}
               <button onClick={searchClose} className='searchClose'> X</button>
@@ -135,6 +150,7 @@ const KakaoMap = () => {
     </div>
   );
 };
+
 
 export default KakaoMap;
 
