@@ -21,6 +21,7 @@ import Posts from "./components/posts/Posts";
 import CusMap from "./components/map/CusMap"; // 맵 컴포넌트
 import Chat from "./components/chat/GroupChat";
 import Friends from "./components/friends/Friends";
+import PersonalInfo from "./components/personalInfo/PersonalInfo";
 import { LoginAction, LogoutAction } from "./store/actions/auth";
 import { auth } from "./firebase";
 import { lightPrimary } from "./assets/Colors";
@@ -124,6 +125,7 @@ const App = () => {
               <Route path="/chat" element={<Chat />} />
               <Route path="/friends" element={<Friends />} />
               <Route path="/GptResult" element={<GptResult />} />
+              <Route path="/PersonalInfo" element={<PersonalInfo />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           ) : (

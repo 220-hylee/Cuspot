@@ -82,6 +82,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
             handleSearchSubmit={handleSearchSubmit}
             handleCheckboxChange={handleCheckboxChange} 
           />
+          
         </div>
       )}
     </>

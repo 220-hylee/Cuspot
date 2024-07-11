@@ -4,11 +4,6 @@ import { Paper, TextField, Button } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
 import db from "../../firebase"; // assuming this is your Firebase 
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import YouTubeIcon from "@material-ui/icons/YouTube";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import TwitterIcon from "@material-ui/icons/Twitter";
 //로그인 화면 로고 사진 파일
 import Logo from "./../../assets/images/logo_width.png";
 import Style from "./Style";

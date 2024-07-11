@@ -38,6 +38,7 @@ const Header = () => {
     dispatch(ToggleTheme());
   };
   const logout = () => {
+    navigate('/');  
     auth.signOut();
   };
   const navigate = useNavigate();
@@ -45,16 +46,16 @@ const Header = () => {
     navigate('/about');  // 클릭하면 '/about' 페이지로 이동
   };
   const handleHomeClick = () => {
-    navigate('/');  // 클릭하면 '/about' 페이지로 이동
+    navigate('/');  
   };
   const handleGroupChatClick = () => {
-    navigate('/chat');  // 클릭하면 '/about' 페이지로 이동
+    navigate('/chat'); 
   };
   const handleFriendsClick = () => {
-    navigate('/friends');  // 클릭하면 '/about' 페이지로 이동
+    navigate('/friends'); 
   };
   const handleAddClick = () => {
-    navigate('/gptResult');  // 클릭하면 '/about' 페이지로 이동
+    navigate('/PersonalInfo');  
   };
   return (
     <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%"}}>
@@ -97,30 +98,31 @@ const Header = () => {
             {mode ? <Brightness4Icon /> : <BrightnessHighIcon />}
           </div> */}
           <div className={`${classes.nav__links} ${classes.nav__links__specail}`}>
-            <Avatar src={photoURL} onClick={logout} />
+            <Avatar src={photoURL} onClick={handleAddClick} />
           </div>
         </Grid>
 
         {/*----Userinfo and options--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__userinfo} sm={2} md={3}>
+            
+            <Hidden smDown>
+              <div className={classes.userinfo__options}>
+                {/* <AddIcon  onClick={handleAddClick}/> */}
+                {/* <PeopleRoundedIcon /> */}
+                {/* <Badge badgeContent={10} max={9} {...defaultProps} /> */}
+                {/* <ArrowDropDownRoundedIcon /> */}
+              </div>
+            </Hidden>
             <Tooltip
               placement="left"
               TransitionComponent={Zoom}
               TransitionProps={{ timeout: 300 }}
-              title={"logout"}
+              title={"프로필"}
               arrow
             >
-              <Avatar src={photoURL} onClick={logout} />
+              <Avatar src={photoURL} onClick={handleAddClick} />
             </Tooltip>
-            <Hidden smDown>
-              <div className={classes.userinfo__options}>
-                <AddIcon  onClick={handleAddClick}/>
-                <PeopleRoundedIcon />
-                <Badge badgeContent={10} max={9} {...defaultProps} />
-                <ArrowDropDownRoundedIcon />
-              </div>
-            </Hidden>
           </Grid>
         </Hidden>
       </Grid>

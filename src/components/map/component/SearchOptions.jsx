@@ -70,6 +70,7 @@ export const SearchRadiusOptions = ({ selectedRadius, handleRadiusButtonClick })
               margin: '5px 5px 5px 0' // 
             }}
           >
+            
             {radius}m
           </Button>
         ))}
