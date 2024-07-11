@@ -216,11 +216,47 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
             selectedRadius={selectedRadius}
             handleRadiusButtonClick={handleRadiusButtonClick}
           />
-          <SearchOptions
+          {/* 배열상태가 아니면 에러 */}
+          <SearchOptions 
             options={["축구", "배드민턴", "헬스", "야구", "테니스", "배구", "농구"]}
             handleSearchSubmit={handleSearchSubmit}
             handleCheckboxChange={handleOptionChange} 
           />
+          {/* <SearchOptions
+            options={["축구"]}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCheckboxChange={handleOptionChange} 
+          />
+          <SearchOptions
+            options={["배드민턴"]}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCheckboxChange={handleOptionChange} 
+          />
+          <SearchOptions
+            options={["헬스"]}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCheckboxChange={handleOptionChange} 
+          />
+          <SearchOptions
+            options={["야구"]}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCheckboxChange={handleOptionChange} 
+          />
+          <SearchOptions
+            options={["테니스"]}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCheckboxChange={handleOptionChange} 
+          />
+          <SearchOptions
+            options={["배구"]}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCheckboxChange={handleOptionChange} 
+          />
+          <SearchOptions
+            options={["농구"]}
+            handleSearchSubmit={handleSearchSubmit}
+            handleCheckboxChange={handleOptionChange} 
+          /> */}
         </div>
       )}
     </>
