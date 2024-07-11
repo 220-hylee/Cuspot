@@ -297,17 +297,29 @@ export default makeStyles((theme) => ({
     },
   },
 
-  searchEmail_form : {
+  searchEmail_form: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+  },
+  repasswordSorry: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // minHeight: '700',
-    paddingTop: theme.spacing(3), //
-    paddingBottom: theme.spacing(3), //
-
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    textAlign: 'center',
+    marginTop: theme.spacing(2),
+    "& > p" : {
+      fontSize: '10px',
+      textAlign: 'center'
+      
+    }
 
   },
-
   findEmail : {
     width: '100%',
     justifyContent: 'center',
@@ -315,16 +327,6 @@ export default makeStyles((theme) => ({
   },
 
 
-
-  searchEmail_form : {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // minHeight: '700',
-    paddingTop: theme.spacing(3), //
-    paddingBottom: theme.spacing(3), //
-    
-  },
   email_result : {
     textDecoration : 'underline',
     fontSize : 12,

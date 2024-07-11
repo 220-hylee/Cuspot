@@ -68,7 +68,7 @@ const RePassword = () => {
         />
       </div>
       <div className='searchEmail_form'>
-      <h2 style={{ textAlign: 'center' }}>임시 비밀번호</h2>
+      <h2 style={{ textAlign: 'center' }}>Find Password</h2>
       <br/>
         <TextField
         style={{ width: "260px"}}
@@ -100,9 +100,12 @@ const RePassword = () => {
           size = "small"
           color = "primary">✉️비밀번호</Button>
         <Link to="/" className={classes.link_back}>back</Link>
-        <p>Cuspot은 구글 회원가입 </p>
-
-      </div>
+        <div className={classes.repasswordSorry} >
+          <p>Cuspot 홈페이지를 통한 회원가입이 아닌 구글아이디로 우회하여 
+            회원가입한 회원에 대해서 비밀번호 찾기 서비스를 제공하지 않습니다.
+            구글 사이트에 직접 방문하여 비밀번호 찾기를 진행하셔야함을 안내드립니다.</p>
+        </div>
+        </div>
       <p style={{ marginTop: '60px' }}>copyright TTEZO</p>
       </Paper>
       

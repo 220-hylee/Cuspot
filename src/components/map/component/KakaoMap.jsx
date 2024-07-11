@@ -12,7 +12,9 @@ const KakaoMap = () => {
   const [mapService, setMapService] = useState(null); // MapService 인스턴스 상태 관리
   const [showPlaceList, setShowPlaceList] = useState(false); // 장소 목록 표시 여부 상태 관리
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
-  const resultsPerPage = 5; // 페이지당 결과 수
+  const [currentSet, setCurrentSet] = useState(1);
+  const resultsPerPage = 4; // 페이지당 결과 수
+  const pagesPerSet = 5;
 
   // 현재 위치 가져오기 함수
   const getCurrentPosition = useCallback(() => {
@@ -56,6 +58,7 @@ const KakaoMap = () => {
     if (mapService && keywords.length > 0) {
       mapService.searchPlaces(keywords, []); // 초기에는 선택된 옵션이 없음
       setCurrentPage(1); // 페이지 초기화
+      setCurrentSet(1);
       setShowPlaceList(true); // 장소 목록 표시
     } else {
       setShowPlaceList(false); // 장소 목록 숨기기
@@ -87,6 +90,7 @@ const KakaoMap = () => {
     setPlaces([]); // 장소 목록 초기화
     setShowPlaceList(false); // 장소 목록 숨기기
     setCurrentPage(1); // 페이지 초기화
+    setCurrentSet(1);
   }, []);
 
   // 장소 클릭 시 지도 중심 이동 처리 함수
@@ -95,6 +99,12 @@ const KakaoMap = () => {
       mapService.setCenter(place); // 클릭된 장소를 지도의 중심으로 설정
     }
   };
+
+
+  //페이지 이전, 다음
+  const totalPageCount = Math.ceil(places.length / resultsPerPage);
+  const startPage = (currentSet - 1) * pagesPerSet + 1;
+  const endPage = Math.min(currentSet * pagesPerSet, totalPageCount);
 
   return (
     <div className="map_wrap">
@@ -115,18 +125,35 @@ const KakaoMap = () => {
               onPlaceClick={handlePlaceClick} // 장소 클릭 핸들러 전달
             />
             {/* 페이지네이션 */}
+            <div className="pagination-container">
             <div className="pagination">
-              {Array.from({ length: Math.ceil(places.length / resultsPerPage) }, (_, index) => (
+              {startPage > 1 && (
+                <button onClick={() => setCurrentSet(currentSet - 1)}>이전</button>
+              )}
+              {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
+              // {Array.from({ length: Math.ceil(places.length / resultsPerPage) }, (_, index) => (
+                // <button
+                //   key={index + 1}
+                //   onClick={() => changePage(index + 1)}
+                //   className={currentPage === index + 1 ? 'active' : ''}
+                // >
+                //   {index + 1}
+                // </button>
                 <button
-                  key={index + 1}
-                  onClick={() => changePage(index + 1)}
-                  className={currentPage === index + 1 ? 'active' : ''}
-                >
-                  {index + 1}
-                </button>
+                key={startPage + index}
+                onClick={() => changePage(startPage + index)}
+                className={currentPage === startPage + index ? 'active' : ''}
+              >
+                {startPage + index}
+              </button>
               ))}
+
+              {endPage < totalPageCount && (
+                <button onClick={() => setCurrentSet(currentSet + 1)}>다음</button>
+              )}
               {/* 검색결과 창 닫기 */}
-              <button onClick={searchClose} className='searchClose'> 닫기</button>
+              <button onClick={searchClose} className="searchClose"> 접기</button>
+             </div>
             </div>
           </>
         )}

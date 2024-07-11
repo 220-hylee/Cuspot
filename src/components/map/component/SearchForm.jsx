@@ -144,18 +144,19 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChange }) => {
   const classes = useStyles();
+
   const [input, setInput] = useState(""); // 검색어 입력 상태 관리
   const [showOptions, setShowOptions] = useState(false); // 옵션 펼침 상태 관리
   const [selectedRadius, setSelectedRadius] = useState(""); // 선택된 검색 반경 관리
   const [selectedOptions , setSelectedOptions] = useState([]); // 선택된 종목 상태 관리
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // 새로고침을 막아준다.
     handleSearchSubmit(input); // 검색어 전달
   };
 
-  const toggleOptions = () => {
-    setShowOptions(!showOptions);
+  const toggleOptions = () => { 
+    setShowOptions(!showOptions); // 현재 상태의 반대 값을 나타낸다.-
   };
 
   const handleRadiusButtonClick = (radius) => {
@@ -163,17 +164,10 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
     handleRadiusChange(radius);
   };
 
-
-  // const handleOptionChange = (option) => {
-  //   setSelectedOptions(prevOptions => {
-  //     if (prevOptions.includes(option)) {
-  //       return prevOptions.filter(opt => opt !== option);
-  //     } else {
-  //       return [...prevOptions, option];
-  //     }
-  //   });
-  // };  
-
+  // 체크 박스 옵션 변경
+  //1) 옵션이 선택된 상태면, 선택목록에서 제거하고 새로운 목록을 반환
+  //2) 선택된 상태가 아니면, 선택목록에 추가하고, 새로운 목록을 반환
+  // updateInputWithOptions  함수를 호출하여 선택된 옵션에 따라 입력 필드 값을 업데이트
   const handleOptionChange = (option) => {
     setSelectedOptions(prevOptions => {
       if (prevOptions.includes(option)) {
@@ -181,6 +175,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
         updateInputWithOptions(newOptions);
         return newOptions;
       } else {
+
         const newOptions = [...prevOptions, option];
         updateInputWithOptions(newOptions);
         return newOptions;
@@ -201,6 +196,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
           placeholder="운동하시는 장소와 종목을 함께 입력해보세요 :D"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          // {(e) => setInput(e.target.value)}는 입력 필드의 새 값으로 상태 변수 input을 업데이트하는 함수입니다.
         />
         <IconButton aria-label="search" color="inherit" type='submit'>
           <SearchIcon />
@@ -212,51 +208,19 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
 
       {showOptions && (
         <div className="optionsContainer">
+          {/* 반경 */}
           <SearchRadiusOptions
             selectedRadius={selectedRadius}
             handleRadiusButtonClick={handleRadiusButtonClick}
           />
+          <hr/>
+          {/* 종목 */}
           {/* 배열상태가 아니면 에러 */}
           <SearchOptions 
             options={["축구", "배드민턴", "헬스", "야구", "테니스", "배구", "농구"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
+            handleSearchSubmit={handleSearchSubmit}     // 검색어 제출
+            handleCheckboxChange={handleOptionChange}  //체크 박스 변경
           />
-          {/* <SearchOptions
-            options={["축구"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
-          />
-          <SearchOptions
-            options={["배드민턴"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
-          />
-          <SearchOptions
-            options={["헬스"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
-          />
-          <SearchOptions
-            options={["야구"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
-          />
-          <SearchOptions
-            options={["테니스"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
-          />
-          <SearchOptions
-            options={["배구"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
-          />
-          <SearchOptions
-            options={["농구"]}
-            handleSearchSubmit={handleSearchSubmit}
-            handleCheckboxChange={handleOptionChange} 
-          /> */}
         </div>
       )}
     </>
