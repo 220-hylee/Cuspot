@@ -21,7 +21,7 @@ import Posts from "./components/posts/Posts";
 import CusMap from "./components/map/CusMap"; // 맵 컴포넌트
 import Chat from "./components/chat/GroupChat";
 import Friends from "./components/friends/Friends";
-import PersonalInfo from "./components/personalInfo/PersonalInfo";
+import PersonalInfo from "./components/personalInfo/personalInfo";
 import { LoginAction, LogoutAction } from "./store/actions/auth";
 import { auth } from "./firebase";
 import { lightPrimary } from "./assets/Colors";

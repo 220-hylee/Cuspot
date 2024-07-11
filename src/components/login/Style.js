@@ -236,7 +236,14 @@ export default makeStyles((theme) => ({
       textAlign:"Left",
       textDecoration: "underline",
       cursor: "pointer",
-      padding: "10px 10px 30px 10px",
+      padding: "10px 10px 0px 10px",
+  },
+     register_link : {
+      color: "cuspotBlue",
+      textAlign:"Left",
+      textDecoration: "underline",
+      cursor: "pointer",
+      padding: "10px 10px 0px 10px",
   },
 
   about: {
@@ -265,7 +272,7 @@ export default makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "20px 10px 10px 20px",
+        padding: "10px 10px 10px 10px",
         fontSize: 10,
         color: "grey",
       },
@@ -290,17 +297,29 @@ export default makeStyles((theme) => ({
     },
   },
 
-  searchEmail_form : {
+  searchEmail_form: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+  },
+  repasswordSorry: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // minHeight: '700',
-    paddingTop: theme.spacing(3), //
-    paddingBottom: theme.spacing(3), //
-
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    textAlign: 'center',
+    marginTop: theme.spacing(2),
+    "& > p" : {
+      fontSize: '10px',
+      textAlign: 'center'
+      
+    }
 
   },
-
   findEmail : {
     width: '100%',
     justifyContent: 'center',
@@ -308,16 +327,6 @@ export default makeStyles((theme) => ({
   },
 
 
-
-  searchEmail_form : {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // minHeight: '700',
-    paddingTop: theme.spacing(3), //
-    paddingBottom: theme.spacing(3), //
-    
-  },
   email_result : {
     textDecoration : 'underline',
     fontSize : 12,

@@ -11,6 +11,7 @@ import { v4 as uuid } from "uuid";
 import db, { storage } from "../../firebase";
 import Styles from "./Style";
 import swal from "@sweetalert/with-react";
+import { useMutation, useQueryClient } from "react-query";
 
 
 const Form = () => {
@@ -19,7 +20,6 @@ const Form = () => {
   const[ Like, setLike] = useState(0); // 좋아요
   const currentDate = new Date(); // 현재 날짜
   const info = useSelector(state => state.session.info);
-  console.log(info); // sessionInfo를 콘솔에 출력하여 확인
   const[category,setCategory] = useState(""); // 카테고리
   const [uploadData, setUploadData] = useState({
     description: "",
@@ -29,62 +29,106 @@ const Form = () => {
       data: "",
     },
   });
+  const queryClient = useQueryClient();
   const [ progress, setProgress] = useState("");
   const Categorys = (e) => {
     setCategory(e.target.value);
 };
-const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수.
-    // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
-    // uploading to collection called posts
-    // 봄동에 게시글 데이터 보내기
-    db.collection("posts")
-      .add({
+
+//-- 봄동에 데이터를 업로드 하기 위한 코드
+// const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 하는 함수.
+//     // 적어도 봄동에 이 구조로는 되어있어야 저장이 되고 업로드가 됨.
+//     // uploading to collection called posts
+//     // 봄동에 게시글 데이터 보내기
+//     db.collection("posts")
+//       .add({
+//         email: email,
+//         profile: photoURL,
+//         username: displayName,
+//         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+//         description: uploadData.description,
+//         fileType: uploadData.file.type,
+//         fileName: uploadData.file.name,
+//         fileData: fileData,
+//         Like : Like,
+//         category : category
+//       })
+//       .then(() => resetState());
+//     };
+  
+  
+  
+    // const handleSubmitButton = (e) => {
+    // e.preventDefault();
+    // // verify atleast one of the input fields are not empyt
+    // if (uploadData.description || uploadData.file.data) {
+    //   // if file input is true...upload the file to Fire-Store
+    //   if (uploadData.file.data) {
+    //     const id = uuid();
+    //     const uploadTask = storage.ref(`posts/${id}`).putString(uploadData.file.data, "data_url");
+    //     uploadTask.on(
+    //       "state_changed",
+    //       (snapshot) => {
+    //         const value = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    //         setProgress(value);
+    //       },
+    //       (error) => {
+    //         alert(error);
+    //       },
+    //       () => {
+    //         storage
+    //           .ref("posts")
+    //           .child(id)
+    //           .getDownloadURL()
+    //           .then((url) => uploadToFirebaseDB(url));
+    //       }
+    //     );
+    //     // do not go further..
+    //     return;
+    //   }
+    //   // if not file input provided
+    //   uploadToFirebaseDB(uploadData.file.data);
+    // } else {
+    //   swal(":혼란스러운: Input field can not be empty");
+    // }
+  // };
+//--------------------------------------------------------------------------------------------------------
+// 스프링 부트 피드  생성하기
+  const uploadToSpringBoot = async (fileData) => {
+    const response = await fetch("http://localhost:8080/api/createboard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
         email: email,
-        profile: photoURL,
         username: displayName,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        description: uploadData.description,
-        fileType: uploadData.file.type,
-        fileName: uploadData.file.name,
+        content: uploadData.description,
+        profile: photoURL,
         fileData: fileData,
-        Like : Like,
-        category : category
-      })
-      .then(() => resetState());
-  //-----------------------------------------------------------------------------------------
-        // Spring boot board에 게시글 데이터 보내기
-       fetch("http://3.35.205.229:8080/api/createboard", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify({
-          email: email,
-          username: displayName,
-          content: uploadData.description,
-          profile: photoURL,
-          fileData: fileData,
-          fileName: uploadData.file.name,
-          fileType: uploadData.file.type,
-          timestamp: currentDate,
-          Likes : Like,
-          category : info
-        }),
-    })
-        .then(response => {
-            console.log(`response`, response);   
-            // 201은 성공  실패하면 null return
-            if (response.status === 201) {
-                return response.json();     
-            } else {
-                return null;
-            }
-           
-        })
-    };
+        fileName: uploadData.file.name,
+        fileType: uploadData.file.type,
+        timestamp: currentDate,
+        Likes: Like,
+        category: info,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Error creating post');
+    }
+  };
+
+  const mutation = useMutation(uploadToSpringBoot, {
+    onSuccess: () => {
+      // invalidate and refetch
+      queryClient.invalidateQueries('board');
+      resetState();
+    },
+  });
   const handleSubmitButton = (e) => {
     e.preventDefault();
-    // verify atleast one of the input fields are not empyt
+    // verify at least one of the input fields are not empty
     if (uploadData.description || uploadData.file.data) {
       // if file input is true...upload the file to Fire-Store
       if (uploadData.file.data) {
@@ -104,18 +148,19 @@ const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 �
               .ref("posts")
               .child(id)
               .getDownloadURL()
-              .then((url) => uploadToFirebaseDB(url));
+              .then((url) => mutation.mutate(url));
           }
         );
         // do not go further..
         return;
       }
       // if not file input provided
-      uploadToFirebaseDB(uploadData.file.data);
+      mutation.mutate(uploadData.file.data);
     } else {
       swal(":혼란스러운: Input field can not be empty");
     }
   };
+ 
   // if file name is too long.. compress it
   const fileNameCompressor = (str, limit) => { // 파일명 압축 함수.
     // 파일명이 너무 길 경우, 지정한 길이로 압축하여 반환합니다.
@@ -279,10 +324,6 @@ const uploadToFirebaseDB = (fileData) => { //봄동에 데이터를 업로드 �
           <PhotoRoundedIcon style={{ color: "green" }} />
           <h4>Photo</h4>
         </label>
-        <div className={classes.media__options}>
-          <EmojiEmotionsOutlinedIcon style={{ color: "orange" }} />
-          <h4>Feeling/Activity</h4>
-        </div>
       </div>
     </Paper>
   );

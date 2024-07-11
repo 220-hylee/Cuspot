@@ -107,8 +107,8 @@ const Register = () => {
           type="text"
           label = "phone"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
           required
+          onChange={(e) => setPhone(e.target.value)}
         />
         <br/>
           <Button 
@@ -122,7 +122,6 @@ const Register = () => {
         <Link to="/" className={classes.register_link}>
           뒤로가기
         </Link>
-         
         </div>
             <p>copyright TTEZO</p>
         {/* classes.about */}

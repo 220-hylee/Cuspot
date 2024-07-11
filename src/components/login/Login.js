@@ -79,12 +79,12 @@ const Login = () => {
           {/* 이메일 입력 */}
           <br/>
           <TextField
-           style={{ width: "270px"}}
+            style={{ width: "270px"}}
             type="email"
             label = "email"
             value={email}
             onChange={handleEmailChange}
-            required 
+            // required 
           />
           {/* 비밀번호 입력 */}
           <TextField
@@ -92,7 +92,7 @@ const Login = () => {
             label = "password"
             value={password}
             onChange={handlePasswordChange}
-            required
+            // required
           /><br/>
           {/* 로그인 버튼 */}
           <Button type="submit"  className="loginBt"
@@ -124,8 +124,6 @@ const Login = () => {
             <Link to="/rePassword" className={classes.login_link}>비밀번호 찾기</Link>
          </div>
             <p>copyright TTEZO</p>
-        </div>
-        <div className={classes.about}>
         </div>
         <div className={classes.about}>
         </div>

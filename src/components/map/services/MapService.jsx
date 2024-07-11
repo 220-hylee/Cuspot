@@ -5,12 +5,10 @@ import baseball from "../../../assets/images/baseball.png"; // 야구
 import tennis from "../../../assets/images/tennis.png"; // 테니스 
 import basketball from "../../../assets/images/basketball.png";
 import volleyball from "../../../assets/images/volleyball.png";
-// import basketball from "../../../assets/images/basketball.png";
-import run from "../../../assets/images/run.png";
-
+import basic from "../../../assets/images/basicR.png";
 
 class MapService {
-  constructor(mapContainer, userPosition, setPlaces) {
+  constructor(mapContainer, userPosition, setPlaces, initialKeyword = ["축구"]) {
     this.mapContainer = mapContainer;  // 지도를 표시할 HTML 요소의 참조
     this.userPosition = userPosition;  // 사용자의 현재 위치 좌표
     this.setPlaces = setPlaces;        // 검색 결과 장소들을 설정할 상태 업데이트 함수
@@ -21,10 +19,11 @@ class MapService {
     this.ps = null;                    // Kakao 장소 검색 서비스 객체
     this.infowindow = null;            // Kakao 인포윈도우 객체
     this.currentRadius = null;         // 현재 선택된 검색 반경
-    this.keyword = "";
+    this.keywords = initialKeyword;    // 초기 검색 키워드 배열
+    this.selectedPlaces = [];          // Array to store selected places
+    this.searchPosition = null;        // 사용자가 검색한 위치를 저장할 변수
   }
 
-  // 지도 초기화 메서드
   initMap() {
     if (!this.kakao || !this.kakao.maps) {
       console.error('Kakao 지도 API가 로드되지 않았습니다.');
@@ -45,9 +44,11 @@ class MapService {
     if (this.userPosition) {
       this.addUserMarker(this.userPosition);
     }
+
+    // 초기 검색 키워드로 장소 검색
+    this.searchPlaces(this.keywords);
   }
 
-  // 사용자 위치 업데이트 메서드
   updateUserPosition(position) {
     this.userPosition = position;
     if (this.map) {
@@ -57,7 +58,14 @@ class MapService {
     }
   }
 
-  // 사용자 마커 추가 메서드
+  updateSearchPosition(position) {
+    this.searchPosition = position;
+    if (this.map) {
+      const newCenter = new this.kakao.maps.LatLng(position.lat, position.lng);
+      this.map.setCenter(newCenter);
+    }
+  }
+
   addUserMarker(position) {
     if (this.userMarker) {
       this.userMarker.setMap(null);
@@ -70,7 +78,6 @@ class MapService {
     this.userMarker = marker;
   }
 
-  // 검색 반경 설정 메서드
   setRadius(radius) {
     if (radius > 0) {
       this.currentRadius = radius;
@@ -79,37 +86,65 @@ class MapService {
     }
   }
 
-  // 장소 검색 메서드
-  searchPlaces(keyword, selectedOptions) {
-    this.keyword = keyword;
-    if (!this.userPosition) {
+  searchPlaces(keywords, selectedOptions, searchPosition = null) {
+    if (searchPosition) {
+      this.updateSearchPosition(searchPosition);  // 검색 위치 업데이트
+    }
+
+    // Ensure keywords is an array
+    if (!Array.isArray(keywords)) {
+      keywords = [keywords];
+    }
+
+    const searchLoc = this.searchPosition || this.userPosition;
+    if (!searchLoc) {
       alert('사용자 위치를 먼저 설정해주세요.');
       return;
     }
-  
-    const options = {
-      location: new this.kakao.maps.LatLng(this.userPosition.lat, this.userPosition.lng),
-      radius: this.currentRadius
-    };
 
-    this.ps.keywordSearch(keyword, (data, status, pagination) => {
-      // 사용자가 선택한 검색 태그를 옵션으로 추가
-      if (status === this.kakao.maps.services.Status.OK) {
-        const sortedPlaces = this.sortPlacesByDistance(data);
-        this.setPlaces(sortedPlaces);
-        this.displayPlaces(sortedPlaces);
-        this.displayPagination(pagination);
-      } else if (status === this.kakao.maps.services.Status.ZERO_RESULT) {
-        alert('검색 결과가 존재하지 않습니다.');
-        this.setPlaces([]);
-      } else if (status === this.kakao.maps.services.Status.ERROR) {
-        alert('검색 중 오류가 발생했습니다.');
-        this.setPlaces([]);
-      }
-    }, options);
+    this.removeMarker(); // 이전 마커 제거
+
+    const allResults = [];
+    let completedRequests = 0;
+
+    keywords.forEach((keyword) => {
+      const options = {
+        location: new this.kakao.maps.LatLng(searchLoc.lat, searchLoc.lng),
+        radius: this.currentRadius
+      };
+
+      this.ps.keywordSearch(keyword, (data, status) => {
+        completedRequests++;
+        if (status === this.kakao.maps.services.Status.OK) {
+          const keywordResults = data.map(place => ({ ...place, keyword })); // 키워드를 포함한 데이터
+          allResults.push(...keywordResults);
+        }
+
+        // 모든 검색 요청이 완료된 후 결과 처리
+        if (completedRequests === keywords.length) {
+          const uniqueResults = this.getUniqueResults(allResults);
+          const sortedPlaces = this.sortPlacesByDistance(uniqueResults);
+          this.setPlaces(sortedPlaces);
+          this.displayPlaces(sortedPlaces); // 키워드 전달
+        }
+      }, options);
+    });
   }
-  
-  // 클릭된 장소를 지도의 중심으로 설정하는 메서드
+
+  getUniqueResults(results) {
+    const uniquePlaces = [];
+    const placeIds = new Set();
+
+    results.forEach((place) => {
+      if (!placeIds.has(place.id)) {
+        placeIds.add(place.id);
+        uniquePlaces.push(place);
+      }
+    });
+
+    return uniquePlaces;
+  }
+
   setCenter(place) {
     const position = new this.kakao.maps.LatLng(place.y, place.x);
     this.map.setCenter(position);
@@ -117,22 +152,19 @@ class MapService {
       position: position,
       map: this.map,
       image: new this.kakao.maps.MarkerImage(
-        'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png', 
-        new this.kakao.maps.Size(1, 1), // 마커 이미지 크기 조정
+        'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
+        new this.kakao.maps.Size(1, 1),
         {
-          offset: new this.kakao.maps.Point(12, 35) // 마커 이미지의 좌표 위치 조정
+          offset: new this.kakao.maps.Point(12, 35)
         }
       ),
       zIndex: -100
-
-
-
     }), place);
   }
 
   sortPlacesByDistance(places) {
     const sortedPlaces = places.map(place => {
-      const distance = this.calculateDistance(this.userPosition, { lat: place.y, lng: place.x });
+      const distance = this.calculateDistance(this.searchPosition || this.userPosition, { lat: place.y, lng: place.x });
       return { ...place, distance };
     }).sort((a, b) => a.distance - b.distance);
 
@@ -145,15 +177,15 @@ class MapService {
     return Math.sqrt(latDiff ** 2 + lngDiff ** 2);
   }
 
-  // 마커 및 장소 목록 표시 메서드
   displayPlaces(places) {
     const bounds = new this.kakao.maps.LatLngBounds();
 
     this.removeMarker();
 
-    places.forEach((place, index) => {
+    places.forEach((place) => {
       const position = new this.kakao.maps.LatLng(place.y, place.x);
-      const marker = this.addMarker(position, index);
+      const keyword = place.keyword; // place 객체에 저장된 키워드 사용
+      const marker = this.addMarker(position, keyword || "기타"); // 키워드 전달
 
       this.kakao.maps.event.addListener(marker, 'click', () => {
         this.displayInfowindow(marker, place);
@@ -165,24 +197,23 @@ class MapService {
     this.map.setBounds(bounds);
   }
 
-  //마커 추가
-  addMarker(position, index) {
-    let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png';
+  addMarker(position, keyword) {
+    let imageSrc = basic;
     let imageSize = new this.kakao.maps.Size(36, 37);
 
-    if (this.keyword.match("축구")) {
-      imageSrc = sccoer; 
-    } else if (this.keyword.match("배드민턴")) {
+    if (keyword.includes("축구")) {
+      imageSrc = sccoer;
+    } else if (keyword.includes("배드민턴")) {
       imageSrc = badminton;
-    } else if (this.keyword.match("야구")) {
+    } else if (keyword.includes("야구")) {
       imageSrc = baseball;
-    } else if (this.keyword.match("테니스")) {
+    } else if (keyword.includes("테니스")) {
       imageSrc = tennis;
-    } else if (this.keyword.match("헬스")) {
+    } else if (keyword.includes("헬스")) {
       imageSrc = fitness;
-    } else if (this.keyword.match("농구")) {
+    } else if (keyword.includes("농구")) {
       imageSrc = basketball;
-    } else if (this.keyword.match("배구")) {
+    } else if (keyword.includes("배구")) {
       imageSrc = volleyball;
     }
 
@@ -199,14 +230,10 @@ class MapService {
     return marker;
   }
 
-  // 마커 초기화 메서드
   removeMarker() {
     this.markers.forEach(marker => marker.setMap(null));
     this.markers = [];
   }
-
-
-  
 
   displayPagination(pagination) {
     const paginationEl = document.getElementById('pagination');
@@ -234,7 +261,6 @@ class MapService {
     }
   }
 
- //인포윈도우 표시 메서드
   displayInfowindow(marker, place) {
     const content = `
       <div class="info-window">
@@ -245,7 +271,7 @@ class MapService {
         <div class="info-window-body">
           <div class="info-window-details">
             <p class="info-window-address">${place.road_address_name || place.address_name}</p>
-            <a href="${place.place_url}" target="_blank" class="info-window-link">홈페이지</a>
+            <a href="${place.place_url}" target="_blank" class="info-window-link">상세보기</a>
           </div>
         </div>
       </div>
@@ -254,7 +280,6 @@ class MapService {
     this.infowindow.open(this.map, marker);
     this.map.setCenter(marker.getPosition());
 
-    // 인포윈도우 안의 닫기 버튼에 클릭 이벤트 리스너 추가
     const infowindowCloseButton = document.querySelector('.info-window-close');
     if (infowindowCloseButton) {
       infowindowCloseButton.addEventListener('click', () => {
@@ -265,3 +290,4 @@ class MapService {
 }
 
 export default MapService;
+

@@ -70,7 +70,7 @@ const FindEmail = () => {
       <br/>
       <TextField
        style={{ width: "260px"}}
-       required 
+      //  required 
         label="name"
         type="text"
         value={displayName}
@@ -84,7 +84,7 @@ const FindEmail = () => {
         type="text"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
-        placeholder="phone 입력">
+        placeholder="phone">
         </TextField>
         <br/>
 
@@ -118,7 +118,7 @@ const FindEmail = () => {
           <Typography variant="h5" id="simple-modal-title">
             {result ? 'E-mail Found' : 'Error'}
           </Typography><br/>
-          <Typography variant="h6" id="simple-modal-description">
+          <Typography variant="body4" id="simple-modal-description">
             {result ? `이메일: ${result}` : error}
           </Typography>
             <Button onClick={handleClose} 
