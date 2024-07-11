@@ -11,6 +11,8 @@ import Style from "./Style";
 import CommentPopup from "./CommentPopup"; // CommentPopup 컴포넌트 가져오기
 import Love from "../../../assets/images/love.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 
 
@@ -22,48 +24,69 @@ const fetchLikes = async (postId) => {
   return data.likesCount;
 };
 
-const fetchUserLikeStatus = async (postId, userId) => {
-  const response = await fetch(`/api/posts/${postId}/likes/${userId}`);
-  const data = await response.json();
-  return data.liked;
-};
+// const fetchUserLikeStatus = async (postId, userId) => {
+//   const response = await fetch(`/api/posts/${postId}/likes/${userId}`);
+//   const data = await response.json();
+//   return data.liked;
+// };
 
-const updateLikes = async (postId, newLikesCount, userId, liked,email) => {
-  await fetch(`/api/posts/${postId}/likes`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ likesCount: newLikesCount, userId, liked }),
-  });
-  //스프링부트
-  // 좋아요 갯수  업데이트
-  await axios.post(`http://3.35.205.229:8080/api/updateLike/${postId}/${newLikesCount}`, {
-  });
 
-};
+// const updateLikes = async (postId, newLikesCount, userId, liked) => {
+//   await fetch(`/api/posts/${postId}/likes`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ likesCount: newLikesCount, userId, liked }),
+//   });
+// };
+
+
+// const fetchLikes = async (postId) => {
+//   const response = await axios.get(`http://localhost:8080/api/getLikes/${postId}`);
+//   return response.data.likesCount;
+// };
+
 
 const Post = forwardRef(
-  ({ postId, profile, username, timestamp, description, fileType, fileData, userId,like,email }, ref) => {
+  ({ postId, profile, username, timestamp, description, fileType, fileData, userId,like,userEmail}, ref) => {
     const classes = Style();
-
     // 좋아요 갯수
-    const [likesCount, setLikesCount] = useState(like);
+    const { data: likesCount = like } = useQuery(["likes", postId], () => fetchLikes(postId));
     // 좋아요 상태 Like or Unlike
     const [liked, setLiked] = useState(false);
+    const { email } = useSelector((state) => state.user);
+    const queryClient = useQueryClient();
     // 댓글
     const [comments, setComments] = useState([]);
-    const [sharesCount, setSharesCount] = useState(1);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    // 피드 
-    const[board,setBoard] = useState([]);
-    // 댓글 갯수
-    const[commentCount,setCommentCount] = useState(0);
+    // toggle에 필요한 옵션
+    const [show, setShow] = useState(false); // 수정 삭제 옵션 표시 상태 추가
 
+    // 피드 삭제하기
+    // 삭제 버튼 누를시 동작
+    const deleteBoard = async  () => {
+      try {
+        await deleteBoardMutation.mutateAsync();
+      } catch (error) {
+        console.error('Error deleting comment:', error);
+      }
+    }
+    
+    const deleteBoardMutation = useMutation(
+      async () => {
+        await axios.delete(`http://localhost:8080/api/deleteBoard/${postId}`)
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries('board'); // 쿼리 캐시 무효화
+        },
+      }
+    )
 
        // // 좋아요 상태 가져오기
        useEffect(() => {
-        axios.get(`http://3.35.205.229:8080/api/getLiked/${postId}/${email}`)
+        axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`)
           .then(response => {
             setLiked(response.data);
           })
@@ -71,65 +94,34 @@ const Post = forwardRef(
             console.error('Error fetching data:', error);
           });
       }, []); 
-
-    useEffect(() => {
-      const loadLikes = async () => {
-        const initialLikesCount = await fetchLikes(postId);
-        const userLiked = await fetchUserLikeStatus(postId, userId);
-        setLikesCount(initialLikesCount);
-        setLiked(userLiked);
-      };
-      loadLikes();
-    }, [postId, userId]);
-   
-    // 댓글들 가져오기
-    useEffect(() => {
-      axios.get('http://3.35.205.229:8080/api/getCommentsList')
-        .then(response => {
-          setComments(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        });
-    }, []);
-    
-    const handleLike = async () => {
-      const newLikesCount = liked ? likesCount - 1 : likesCount + 1;
-      setLikesCount(newLikesCount);
-      setLiked(!liked);
-      await updateLikes(postId, newLikesCount, userId, !liked,email);
-         // 해당 게시판  좋아요를 누르면  Heart 테이블에 해당 유저의 좋아요 상태 만들기
-        // Spring boot heart에  데이터 보내기
-        if(liked === false){
-          fetch("http://3.35.205.229:8080/api/insertLike", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8",
-            },
-            body: JSON.stringify({
-              email: email,
-              boardid:postId
-            }),
-        })
-            .then(response => {
-                console.log(`response`, response);   
-                // 201은 성공  실패하면 null return
-                if (response.status === 201) {
-                    return response.json();     
-                } else {
-                    return null;
-                }
-               
-            })
-          }
-           // 해당 게시판  unLike를 누르면  Heart 테이블 삭제
-           else if (liked === true) {
-            axios.delete(`http://3.35.205.229:8080/api/deleteLike/${postId}/${email}`)
-          };
-        };
         
+    const updateLikes = useMutation(
+      async ({ postId, newLikesCount, email }) => {
+        setLiked(!liked);
+        // 좋아요 갯수 업데이트
+        await axios.post(`http://localhost:8080/api/updateLike/${postId}/${newLikesCount}`);
+        // 좋아요 삭제하기
+        if (liked) {
+          await axios.delete(`http://localhost:8080/api/deleteLike/${postId}/${email}`);
+        } else {
+          // 좋아요 생성하기
+          await axios.post("http://localhost:8080/api/insertLike", {
+            email: email,
+            boardid: postId,
+          });
+        }
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries('board');
+        },
+      }
+    );
 
-    
+    const handleLike = () => {
+      const newLikesCount = liked ? likesCount - 1 : likesCount + 1;
+      updateLikes.mutate({ postId, newLikesCount, email });
+    };
 
     const handleCommentClick = () => {
       setIsPopupOpen(true);
@@ -143,6 +135,12 @@ const Post = forwardRef(
       setComments([...comments, comment]);
     };
 
+    // 아이콘 누를시 작동
+    const toggleOptions = () => {
+      setShow(!show);
+    };
+
+
     const Reactions = () => (
       
       <div className={classes.footer__stats}>
@@ -150,16 +148,12 @@ const Post = forwardRef(
         <div>
           <img src={Love} alt="love-icon" />
         </div>
+        {/* 좋아요 갯수 */}
         <h4>{likesCount}</h4>
         <section>
           <h4>
-            <TextsmsRoundedIcon className="icon-small" />
-            
-            {comments.length} Comments
-          </h4>
-          <h4>
-            <ShareRoundedIcon className="icon-small" />
-            {sharesCount} Shares
+            {/* <TextsmsRoundedIcon className="icon-small" /> */}
+            {/* {comments.length} Comments */}
           </h4>
         </section>
         <div></div>
@@ -176,7 +170,23 @@ const Post = forwardRef(
               <ReactTimeago date={new Date(timestamp?.toDate()).toUTCString()} units="minute" />
             </p>
           </div>
-          <MoreHorizOutlinedIcon />
+          
+          {userEmail === email && (
+              show && (
+                <div className={classes.post__options}>
+                  {/* 수정 옵션 */}
+                  {/* <div  onClick={() => {  }}>
+                    <h4>수정</h4>
+                  </div> */}
+                  {/* 삭제 옵션 */}
+                  <div onClick={() => {deleteBoard()}}>
+                    <h4>삭제</h4>
+                  </div>
+                </div>
+                )
+              )}
+          <MoreHorizOutlinedIcon onClick={toggleOptions} />
+       
         </div>
         <div className={classes.post__body}>
           <div className={classes.body__description}>
@@ -203,10 +213,7 @@ const Post = forwardRef(
               <TextsmsRoundedIcon className="icon_small" />
               <h4>Comment</h4>
             </div>
-            <div className={classes.action__icons}>
-              <ShareRoundedIcon className="icon_small" style={{ transform: "scaleX(-1)" }} />
-              <h4>Share</h4>
-            </div>
+        
           </div>
         </div>
         {isPopupOpen && <CommentPopup comments={comments} addComment={addComment} onClose={handleClosePopup} profile={profile} username={username} postId={postId}/>}

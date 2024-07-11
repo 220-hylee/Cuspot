@@ -61,6 +61,11 @@ export default makeStyles((theme) => ({
     flexDirection: "column",
   },
 
+  // 피드 토글 버튼
+  post__options : {
+       cursor: 'pointer'
+  },
+
   body__description: {
     display: "flex",
     alignItems: "center",
@@ -233,6 +238,12 @@ export default makeStyles((theme) => ({
     marginRight: "10px",
   },
 
+  // 댓글
+  //삭제 버튼
+  comment__delete: {
+    textAlign: "right",
+      cursor: 'pointer', 
+  },
   comment__details: {
     display: "flex",
     flexDirection: "column",

@@ -5,6 +5,7 @@ import Post from "./post/Post";
 import db from "../../firebase";
 import axios from 'axios';
 import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
 const Posts = () => {
   const classes = Style();
   // 이메일 정보 가져오기
@@ -23,34 +24,32 @@ const Posts = () => {
   //   return unsubscribe;
   // }, []);
 
-  useEffect(() => {
-
-  },[]);
 //------------------------------------------------------------
-  //스프링 부트에서 데이터 가져오기
-  // 전체 피드 목록 가져오기
-  useEffect(() => {
-     axios
-     .get('http://3.35.205.229:8080/api/getBoardList')
-      .then(response => {
-        setBoard(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-    }, []);
-  useEffect(() => {
-     axios
-     .get('http://3.35.205.229:8080/api/getBoardList')
-      .then(response => {
-        setBoard(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-    }, []);
+    // 스프링부트 전체 피드 가져오기
+    const fetchData = async () => {
+      
+      try {
+        const response = await axios.get('http://localhost:8080/api/getBoardList');
+       
+        if(response == null){
+          response.data = "";
+        }
+        
+        return response.data;
+      
+      
+      } catch (error) {
+        throw new Error('Error fetching data');
+      }
+    };
+    useQuery("board", fetchData, {
+      onSuccess: (data) => setBoard(data),
+      
+    });
+    
+    
   
-  return (
+    return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
         
@@ -82,6 +81,7 @@ const Posts = () => {
            like={board.likes}
            email={board.email}
            category={board.category}
+           userEmail={board.email}
            />
         ))}
       </FlipMove>
