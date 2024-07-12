@@ -79,7 +79,7 @@ const Login = () => {
           {/* 이메일 입력 */}
           <br/>
           <TextField
-            style={{ width: "270px"}}
+            style={{ width: "250px"}}
             type="email"
             label = "email"
             value={email}
@@ -88,6 +88,7 @@ const Login = () => {
           />
           {/* 비밀번호 입력 */}
           <TextField
+            style={{ width: "250px"}}
             type="password"
             label = "password"
             value={password}

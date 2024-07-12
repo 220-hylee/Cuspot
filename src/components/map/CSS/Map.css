@@ -65,12 +65,12 @@ html, body {
   width: 100%;
   z-index: 1000;
   background: #fff;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 /* 검색바 */
 .search-bar {
-  top: 0;
+  /* top: 20px; */
   display: flex;
   align-items: center;
   width: 100%;

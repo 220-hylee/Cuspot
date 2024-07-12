@@ -209,11 +209,11 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
       {showOptions && (
         <div className="optionsContainer">
           {/* 반경 */}
-          <SearchRadiusOptions
+          {/* <SearchRadiusOptions
             selectedRadius={selectedRadius}
             handleRadiusButtonClick={handleRadiusButtonClick}
           />
-          <hr/>
+          <hr/> */}
           {/* 종목 */}
           {/* 배열상태가 아니면 에러 */}
           <SearchOptions 

@@ -12,12 +12,12 @@ body {
   border-bottom: 1px solid #888;
   overflow: hidden;
   cursor: pointer;
-  min-height: 65px;
+  min-height: 60px;
 }
 
 #placesList, .item, span {
   display: block;
-  margin-top: 4px;
+  /* margin-top: px; */
 }
 
 #placesList .item h5,
@@ -28,7 +28,7 @@ body {
 }
 
 #placesList .item .info {
-  padding: 10px 0 10px 55px;
+  padding: 10px 0 10px 0px;
 }
 
 #placesList .info .gray {
@@ -70,7 +70,7 @@ html, body {
 
 /* 검색바 */
 .search-bar {
-  top: 0;
+  /* top: 0; */
   display: flex;
   align-items: center;
   width: 100%;
@@ -139,7 +139,7 @@ html, body {
     height: 100%;
     position: absolute;
     /* top: 94px; */
-    border-top: 100xp;
+    /* border-top: 100px; */
   }
 
   #menu_wrap {
@@ -171,7 +171,7 @@ html, body {
     top: 0;
     z-index: 1000;
     background: #fff;
-    font-size: 11px; /*플레이 리스트 폰트 크기*/
+    font-size: 9px; /*장소리스트 폰트 크기*/
   }
 
 

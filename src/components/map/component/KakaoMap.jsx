@@ -3,6 +3,7 @@ import SearchForm from './SearchForm';
 import PlaceList from './PlaceList';
 import MapService from '../services/MapService';
 import '../CSS/Map.css';
+import Pagination from '@material-ui/lab/Pagination';
 
 const KakaoMap = () => {
   const mapRef = useRef(null);
@@ -125,34 +126,26 @@ const KakaoMap = () => {
               onPlaceClick={handlePlaceClick} // 장소 클릭 핸들러 전달
             />
             {/* 페이지네이션 */}
-            <div className="pagination-container">
-            <div className="pagination">
-              {startPage > 1 && (
-                <button onClick={() => setCurrentSet(currentSet - 1)}>이전</button>
-              )}
-              {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
-              // {Array.from({ length: Math.ceil(places.length / resultsPerPage) }, (_, index) => (
-                // <button
-                //   key={index + 1}
-                //   onClick={() => changePage(index + 1)}
-                //   className={currentPage === index + 1 ? 'active' : ''}
-                // >
-                //   {index + 1}
-                // </button>
-                <button
-                key={startPage + index}
-                onClick={() => changePage(startPage + index)}
-                className={currentPage === startPage + index ? 'active' : ''}
-              >
-                {startPage + index}
-              </button>
-              ))}
-
-              {endPage < totalPageCount && (
-                <button onClick={() => setCurrentSet(currentSet + 1)}>다음</button>
-              )}
-              {/* 검색결과 창 닫기 */}
-              <button onClick={searchClose} className="searchClose"> 접기</button>
+    {/* 페이지네이션 */}
+    <div className="pagination-container">
+      <div className="pagination">
+        {startPage > 1 && (
+          <button onClick={() => setCurrentSet(currentSet - 1)}>이전</button>
+        )}
+        {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
+          <button
+            key={startPage + index}
+            onClick={() => changePage(startPage + index)}
+            className={currentPage === startPage + index ? 'active' : ''}
+          >
+            {startPage + index}
+          </button>
+        ))}
+        {endPage < totalPageCount && (
+          <button onClick={() => setCurrentSet(currentSet + 1)}>다음</button>
+        )}
+        {/* 검색결과 창 닫기 */}
+        <button onClick={searchClose} className="pagination">접기</button>
              </div>
             </div>
           </>
