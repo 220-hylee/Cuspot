@@ -303,23 +303,19 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    paddingBottom: theme.spacing(1),
   },
   repasswordSorry: {
     display: 'flex',
+    width: '400px',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    textAlign: 'center',
     marginTop: theme.spacing(2),
-    "& > p" : {
-      fontSize: '10px',
-      textAlign: 'center'
-      
-    }
-
+    paddingTop: theme.spacing(1),
+    textAlign: 'center',
+    fontSize: '7px'
   },
+
   findEmail : {
     width: '100%',
     justifyContent: 'center',

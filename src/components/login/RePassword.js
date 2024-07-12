@@ -98,15 +98,13 @@ const RePassword = () => {
           onClick={searchPwd}
           variant="contained"
           size = "small"
-          color = "primary">✉️비밀번호</Button>
+          color = "primary">SEARCH</Button>
         <Link to="/" className={classes.link_back}>back</Link>
-        <div className={classes.repasswordSorry} >
-          <p>Cuspot 홈페이지를 통한 회원가입이 아닌 구글아이디로 우회하여 
-            회원가입한 회원에 대해서 비밀번호 찾기 서비스를 제공하지 않습니다.
-            구글 사이트에 직접 방문하여 비밀번호 찾기를 진행하셔야함을 안내드립니다.</p>
+          <p style={{ marginTop: '55px', textAlign:'center'}}>copyright TTEZO</p>
         </div>
-        </div>
-      <p style={{ marginTop: '60px' }}>copyright TTEZO</p>
+        {/* <div className={classes.repasswordSorry} >
+          <p>구글로 로그인한 유저는 아이디 및 비밀번호 찾기를 제공해드리기 않습니다.</p>
+        </div> */}
       </Paper>
       
       <Modal

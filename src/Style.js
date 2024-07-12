@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
   // 헤더
   app__header: {
     height: "8vh",
-    borderBottom: "1px solid rgba(212, 212, 212,0.2)",
+    // borderBottom: "1px solid #1C1209",
     zIndex: 100,
   },
   app__body: {
