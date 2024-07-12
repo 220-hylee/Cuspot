@@ -95,7 +95,7 @@ const Form = () => {
 //--------------------------------------------------------------------------------------------------------
 // 스프링 부트 피드  생성하기
   const uploadToSpringBoot = async (fileData) => {
-    const response = await fetch("http://192.168.123.26:8080/api/createboard", {
+    const response = await fetch("http://localhost:8080/api/createboard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
