@@ -98,8 +98,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from "@material-ui/core/styles";
 import { SearchOptions, SearchRadiusOptions } from "./SearchOptions";
 // import Map from "./Map";
-
-
+import Style from "./Style";
 const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
@@ -143,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChange }) => {
-  const classes = useStyles();
+  const classes = Style();
 
   const [input, setInput] = useState(""); // 검색어 입력 상태 관리
   const [showOptions, setShowOptions] = useState(false); // 옵션 펼침 상태 관리
@@ -192,7 +191,7 @@ const SearchForm = ({ handleSearchSubmit, handleRadiusChange, handleCheckboxChan
     <>
       <form onSubmit={handleSubmit} className="search-bar">
         <input
-          className={classes.searchBar}
+          className={classes.search__bar}
           placeholder="운동하시는 장소와 종목을 함께 입력해보세요 :D"
           value={input}
           onChange={(e) => setInput(e.target.value)}

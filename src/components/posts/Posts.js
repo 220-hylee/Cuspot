@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 const Posts = () => {
   const classes = Style();
-  // 이메일 정보 가져오기
+  
 
   const [posts, setPosts] = useState([]);
   // 게시판 정보 담기
@@ -51,6 +51,7 @@ const Posts = () => {
   
     return (
     <div className={classes.posts}>
+     <h2>{info ? info : "Health Info"}</h2>
       <FlipMove style={{ width: "100%" }}>
         
         {/* 봄동에서 가져온 데이터 출력 */}
