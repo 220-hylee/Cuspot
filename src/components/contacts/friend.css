@@ -16,7 +16,7 @@
   background-color: #fefefe;
   border: 1px solid #888;
   padding: 20px;
-  width: 70%;
+  width: 100%;
   max-height: 80%; /* 모달이 화면을 벗어나지 않도록 최대 높이 설정 */
   overflow-y: auto; /* 내용물이 많을 때 스크롤 가능하게 설정 */
 }
@@ -41,14 +41,5 @@
   padding: 10px;
 }
 
-.search {
-  top: 0;
 
-  align-items: center;
-  width: 84%;
-  height: 26px;
-  background: linear-gradient(to bottom, #fff 0%, #32463d 250%);
-  color: #000;
-  z-index: 1000;
-}
 

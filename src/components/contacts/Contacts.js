@@ -141,7 +141,6 @@ const Contacts = () => {
                 className="list"
               />
             ))}
-        
         {/* ... 누르면 친구 추가 가능 */}
         {
         friendModal && 
@@ -154,8 +153,10 @@ const Contacts = () => {
               }
             }}
           >
+           
+       
             <div className={'modal-content'}>
-              <form onSubmit={friendSubmit}>
+              <form className={classes.header__form} onSubmit={friendSubmit}>
                 <input
                   className={"search"}
                   type="text"
@@ -185,6 +186,7 @@ const Contacts = () => {
                   />
                 ))}
             </div>
+        
           </div>
         }
       </Scrollbars>
