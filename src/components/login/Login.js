@@ -100,8 +100,6 @@ const Login = () => {
             variant="contained"
             size = "small"
             color = "primary" >Login</Button><br/>
-         
-         
         </form>
     
     
@@ -114,19 +112,18 @@ const Login = () => {
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
-
-            
-
-            
           />
           <div className={classes.linkContainer}>
             <Link to="/register" className={classes.login_link}>회원가입</Link>
-            <Link to="/findEmail" className={classes.login_link}>ID찾기</Link>
+            <Link to="/findEmail" className={classes.login_link}>아이디 찾기</Link>
             <Link to="/rePassword" className={classes.login_link}>비밀번호 찾기</Link>
-         </div>
-            <p>copyright TTEZO</p>
+          </div>
         </div>
-        <div className={classes.about}>
+        <p style={{ marginTop: '10px', textAlign:'center'}}>copyright TTEZO</p>
+        <div className={classes.repasswordSorry} >
+          <p>구글로 로그인한 유저는 아이디 및 비밀번호 찾기를 제공해드리기 않습니다.</p>
+        </div>
+          <div className={classes.about}>
         </div>
       </Paper>
     </div>

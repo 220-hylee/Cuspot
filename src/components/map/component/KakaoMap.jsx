@@ -144,8 +144,8 @@ const KakaoMap = () => {
         {endPage < totalPageCount && (
           <button onClick={() => setCurrentSet(currentSet + 1)}>다음</button>
         )}
-        {/* 검색결과 창 닫기 */}
         <button onClick={searchClose} className="pagination">접기</button>
+        {/* 검색결과 창 닫기 */}
              </div>
             </div>
           </>

@@ -135,7 +135,7 @@ html, body {
 @media (min-width: 768px) {
 
   .map_wrap {
-    width: calc(100% + 400px); /* 사이드바 너비를 뺀 나머지 너비 */
+    width: calc(100% - 400px);
     height: 100%;
     position: absolute;
     /* top: 94px; */
