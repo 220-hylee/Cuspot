@@ -83,17 +83,8 @@ const Post = forwardRef(
         },
       }
     )
-
-       // // 좋아요 상태 가져오기
-       useEffect(() => {
-        axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`)
-          .then(response => {
-            setLiked(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
-      }, []); 
+      
+  
         
     const updateLikes = useMutation(
       async ({ postId, newLikesCount, email }) => {
@@ -159,6 +150,24 @@ const Post = forwardRef(
         <div></div>
       </div>
     );
+
+      // // 좋아요 상태 가져오기
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`);
+          // 여기서 response.data를 적절히 가공하여 true/false 값을 추출하거나 계산
+          
+      
+          return response.data; // true/false 반환
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          throw new Error('Error fetching data');
+        }
+      };
+      
+      useQuery("Heart", fetchData, {
+        onSuccess: (data) => setLiked(data),
+      });
 
     return (
       <Paper ref={ref} className={classes.post}>
