@@ -1,3 +1,5 @@
+
+
 import React, { useEffect } from 'react';
 import '../Map.css';
 
@@ -25,7 +27,7 @@ const MapContainer = React.forwardRef(({ userPosition, keyword }, ref) => {
     return () => {
       if (marker) marker.setMap(null); // 마커 제거
     };
-  }, [userPosition]);
+  }, [...userPosition]);
 
   return <div id="map" style={{ width: '100%', height: '500px' }} ref={ref}></div>;
 });

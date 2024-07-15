@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { TextField, Chip, Paper, Divider, LinearProgress } from "@material-ui/core";
+import { TextField, Chip, Paper, Divider, LinearProgress, Button } from "@material-ui/core";
 import imageCompression from "browser-image-compression";
 import Avatar from "@material-ui/core/Avatar";
 import VideocamRoundedIcon from "@material-ui/icons/VideocamRounded";
@@ -12,6 +12,7 @@ import db, { storage } from "../../firebase";
 import Styles from "./Style";
 import swal from "@sweetalert/with-react";
 import { useMutation, useQueryClient } from "react-query";
+// import SendRoundedIcon from '@mui/icons-material/SendRounded';
 
 
 const Form = () => {
@@ -291,6 +292,13 @@ const Form = () => {
             
           
           <button type="submit" >올리기</button>
+
+          {/* POST버튼 */}
+          {/* <Button
+              type="submit"
+              variant="contained"
+              endIcon={<SendRoundedIcon />}
+            ></Button> */}
           {/* POST버튼 */}
         
         </form>

@@ -4,6 +4,7 @@ import PlaceList from './PlaceList';
 import MapService from '../services/MapService';
 import '../CSS/Map.css';
 import Pagination from '@material-ui/lab/Pagination';
+import { Button } from '@material-ui/core';
 
 const KakaoMap = () => {
   const mapRef = useRef(null);
@@ -78,12 +79,12 @@ const KakaoMap = () => {
   }, []);
 
   // 검색 반경 변경 처리 함수
-  const handleRadiusChange = useCallback((radius) => {
-    if (mapService) {
-      mapService.setRadius(radius); // 검색 반경 설정
-      mapService.searchPlaces(keywords, []); // 장소 검색 요청 (선택된 옵션 초기화)
-    }
-  }, [mapService, keywords]);
+  // const handleRadiusChange = useCallback((radius) => {
+  //   if (mapService) {
+  //     mapService.setRadius(radius); // 검색 반경 설정
+  //     mapService.searchPlaces(keywords, []); // 장소 검색 요청 (선택된 옵션 초기화)
+  //   }
+  // }, [mapService, keywords]);
 
   // 검색 결과 창 닫기
   const searchClose = useCallback(() => {
@@ -102,10 +103,21 @@ const KakaoMap = () => {
   };
 
 
+
   //페이지 이전, 다음
   const totalPageCount = Math.ceil(places.length / resultsPerPage);
   const startPage = (currentSet - 1) * pagesPerSet + 1;
   const endPage = Math.min(currentSet * pagesPerSet, totalPageCount);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+    const newSet = Math.ceil(value / pagesPerSet);
+    if (newSet !== currentSet) {
+      setCurrentSet(newSet);
+    }
+  };
+
+
 
   return (
     <div className="map_wrap">
@@ -115,38 +127,34 @@ const KakaoMap = () => {
       <div id="menu_wrap">
         <SearchForm 
           handleSearchSubmit={handleSearchSubmit} 
-          handleRadiusChange={handleRadiusChange} 
+          // handleRadiusChange={handleRadiusChange} 
         />
         <hr />
         {/* 장소 목록 표시 */}
-        {showPlaceList && (
+        {places.length > 0 && (
           <>
             <PlaceList
               places={places.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage)}
               onPlaceClick={handlePlaceClick} // 장소 클릭 핸들러 전달
             />
             {/* 페이지네이션 */}
-    {/* 페이지네이션 */}
-    <div className="pagination-container">
-      <div className="pagination">
-        {startPage > 1 && (
-          <button onClick={() => setCurrentSet(currentSet - 1)}>이전</button>
-        )}
-        {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
-          <button
-            key={startPage + index}
-            onClick={() => changePage(startPage + index)}
-            className={currentPage === startPage + index ? 'active' : ''}
-          >
-            {startPage + index}
-          </button>
-        ))}
-        {endPage < totalPageCount && (
-          <button onClick={() => setCurrentSet(currentSet + 1)}>다음</button>
-        )}
-        <button onClick={searchClose} className="pagination">접기</button>
-        {/* 검색결과 창 닫기 */}
-             </div>
+            <div className="pagination-container">
+              <Pagination
+                count={totalPageCount}
+                page={currentPage}
+                size="small"
+                onChange={handlePageChange}
+                color="primary"
+              />
+              <Button onClick={searchClose} className="pagination-button"
+              style={{
+                margin: '5px',
+                borderRadius: '50px',
+                padding: '5px',
+                fontWeight: 'bold',
+                textTransform: 'none'
+              }}>접기</Button>
+              {/* 검색결과 창 닫기 */}
             </div>
           </>
         )}

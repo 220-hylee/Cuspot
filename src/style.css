@@ -6,15 +6,21 @@
   box-sizing: border-box;
 }
 
+/* @font-face {
+  font-family: 'NanumBarunpenR';
+  src: url("./font/NanumBarunpenR.otf") format('woff');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+@font-face {
+  font-family: 'Jal_Haru';
+  src: url("./font/Jal_Haru.ttf") format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  @font-face {
-    font-family: 'GangwonEdu_OTFBoldA';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-  
   .login__container{
     width: 100%;
     height: 100vh;
@@ -23,5 +29,8 @@ body {
     align-items: center;
     background-color: #000000;
   }
+
+  /* font-family: "NanumBarunpenR"; */
+  font-family: "Jal_Haru";
 }
 

@@ -7,7 +7,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Login from "./components/login/Login";
 import GptResult from "./components/gptResult/GptResult";
 import Register from "./components/login/Register";
-import RePassword from './components/login/RePassword';
+import FindPassword from './components/login/FindPassword';
 import FindEmail from './components/login/FindEmail';
 
 import Header from "./components/header/Header";
@@ -133,7 +133,7 @@ const App = () => {
               <Route path="/" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/findEmail" element={<FindEmail />} />
-              <Route path="/rePassword" element={<RePassword />} />
+              <Route path="/findPassword" element={<FindPassword />} />
             </Routes>
           )}
           <GitpleScriptLoader />

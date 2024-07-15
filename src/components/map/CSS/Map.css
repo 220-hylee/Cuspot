@@ -70,13 +70,11 @@ html, body {
 
 /* 검색바 */
 .search-bar {
-  /* top: 20px; */
   display: flex;
   align-items: center;
   width: 100%;
   background: linear-gradient(to bottom, #000000 0%, #8a7665 250%);
   color: #fff;
-  /* z-index: 1000; */
 }
 
 
@@ -84,37 +82,23 @@ html, body {
 
 /* 페이징 */
 
-/* 페이지네이션과 닫기 버튼의 컨테이너 */
-.pagination-container {
+/* 페이지네이션 스타일 */
+.map_wrap .pagination-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
-/* 페이지네이션 스타일 */
-.pagination {
-  display: flex;
-  align-items: center;
-  margin: 0 auto; /* Center the pagination div */
+.map_wrap .pagination-button {
+  margin-left: 20px;
+  /* margin: '5px'; */
+  border-radius: '100px';
+  /* padding: '5px'; */
+  font-weight: 'bold';
+  text-transform: 'none';
 }
 
-.pagination button, .pagination-close-button {
-  margin: 0 2px;
-  padding: 5px 10px;
-  border: none;
-  background: #eee;
-  cursor: pointer;
-}
-
-.pagination button.active, .pagination-close-button.active {
-  background: #333;
-  color: white;
-}
-
-.pagination button:hover, .pagination-close-button:hover {
-  background: #ddd;
-}
 
 /* 닫기 버튼 스타일 */
 .pagination-close-button {
@@ -284,3 +268,17 @@ html, body {
   text-decoration: underline;
 }
 
+@keyframes drop {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.marker-animation {
+  animation: drop 0.5s ease-out;
+}

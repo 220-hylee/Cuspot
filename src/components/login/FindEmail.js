@@ -74,6 +74,7 @@ const FindEmail = () => {
         label="name"
         type="text"
         value={displayName}
+        autoComplete='name'
         onChange={(e) => setDisplayName(e.target.value)}
         placeholder="name" >
        </TextField>
@@ -90,21 +91,20 @@ const FindEmail = () => {
 
         <Button className={classes.findEmail_bt} 
           onClick={searchEmail}
-          size = "small"
           variant="contained"
           color = "primary"
         >Search</Button>
 
           <div className={classes.linkContainer}>
-            <Link to="/" className={classes.link_back}>back</Link> <br/>
-            <Link to="/rePassword" className={classes.link_back}>pwd찾기</Link>
+            <Link to="/" className={classes.link_back}>login</Link> <br/>
+            <Link to="/FindPassword" className={classes.link_back}>pwd찾기</Link>
          </div>
       
       <text className={classes.email_result}>
       </text>
 
       </div>
-      <p style={{ marginTop: '60px', textAlign: 'center' }}>copyright TTEZO</p>
+      <p style={{ marginTop: '64.5px', textAlign: 'center' }}>copyright TTEZO</p>
       </Paper>
 
       {/* 팝업 부분 */}

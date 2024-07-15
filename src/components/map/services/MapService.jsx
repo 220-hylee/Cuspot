@@ -11,6 +11,7 @@ class MapService {
   constructor(mapContainer, userPosition, setPlaces, initialKeyword = ["축구"]) {
     this.mapContainer = mapContainer;  // 지도를 표시할 HTML 요소의 참조
     this.userPosition = userPosition;  // 사용자의 현재 위치 좌표
+    // this.searchKeyword = searchKeyword;  // 사용자의 현재 위치 좌표
     this.setPlaces = setPlaces;        // 검색 결과 장소들을 설정할 상태 업데이트 함수
     this.kakao = window.kakao;         // Kakao 지도 API 객체
     this.markers = [];                 // 지도에 표시할 마커들을 관리할 배열
@@ -185,7 +186,7 @@ class MapService {
     places.forEach((place) => {
       const position = new this.kakao.maps.LatLng(place.y, place.x);
       const keyword = place.keyword; // place 객체에 저장된 키워드 사용
-      const marker = this.addMarker(position, keyword || "기타"); // 키워드 전달
+      const marker = this.addMarker(position, keyword || "축구"); // 키워드 전달
 
       this.kakao.maps.event.addListener(marker, 'click', () => {
         this.displayInfowindow(marker, place);

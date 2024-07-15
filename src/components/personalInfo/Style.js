@@ -113,11 +113,11 @@ export default makeStyles((theme) => ({
   // },
   
   // 버튼~
-  // fullWidthButtonGroup: {
-  //   width: '100%', // 100% 너비 설정
-  //   marginLeft: theme.spacing(4), // 여�� 설정L: theme.spacing(5), // 여�� 설정
-  //   marginRight: theme.spacing(4), // 여�� 설정L: theme.spacing(5), // 여�� 설정
-  // },
+  fullWidthButtonGroup: {
+    marginTop: theme.spacing(2), // 여�� 설정L: theme.spacing(5), // 여�� 설정
+  },
+
+  
   linkButton: {
     textDecoration: 'none',
     width: '50%', // 두 개의 버튼이 있을 경우 각각 50% 너비 설정

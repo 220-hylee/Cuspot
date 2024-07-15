@@ -11,6 +11,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     marginLeft: 10,
+    marginBottom: 10,
     borderRadius: 999,
     backgroundColor: theme.palette.type === "dark" ? darkSecondary : "#F3F3F3",
     overflow: "hidden",
@@ -47,6 +48,7 @@ export default makeStyles((theme) => ({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     padding: 8,
+
     borderRadius: 0,
     overflowY: "auto",
     overflowX: "hidden",

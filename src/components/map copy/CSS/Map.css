@@ -1,0 +1,284 @@
+
+body {
+  overflow: hidden;
+}
+/* 검색 결과 목록 */
+#placesList li {
+  list-style: none;
+}
+
+#placesList .item {
+  position: relative;
+  border-bottom: 1px solid #888;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 60px;
+}
+
+#placesList, .item, span {
+  display: block;
+  /* margin-top: 0px; */
+}
+
+#placesList .item h5,
+#placesList .item .info {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#placesList .item .info {
+  padding: 10px 0 10px 55px;
+}
+
+#placesList .info .gray {
+  color: #8a8a8a;
+}
+
+#placesList .info .jibun {
+  padding-left: 26px;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
+}
+
+#placesList .info .tel {
+  color: #340ce4;
+}
+
+
+/* 지도 */
+html, body {
+  height: 100%; /* HTML과 body 요소의 높이를 100%로 설정 */
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+}
+
+.map{
+  width: 100%;
+  height: 1200px;
+}
+
+
+/* 검색 창 */
+#menu_wrap {
+  position: absolute;
+  display: "flex";
+  width: 100%;
+  z-index: 1000;
+  background: #fff;
+  font-size: 10px;
+}
+
+/* 검색바 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(to bottom, #000000 0%, #8a7665 250%);
+  color: #fff;
+}
+
+
+
+
+/* 페이징 */
+
+/* 페이지네이션 스타일 */
+.map_wrap .pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.map_wrap .pagination-button {
+  margin-left: 20px;
+  /* margin: '5px'; */
+  border-radius: '100px';
+  /* padding: '5px'; */
+  font-weight: 'bold';
+  text-transform: 'none';
+}
+
+
+/* 닫기 버튼 스타일 */
+.pagination-close-button {
+  background-color: #eee; /* 배경을 pagination 버튼과 동일하게 설정 */
+  border: none; /* 테두리 제거 */
+  color: black; /* 텍스트 색상을 pagination 버튼과 동일하게 설정 */
+  padding: 5px 10px; /* 여백을 pagination 버튼과 동일하게 설정 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  text-decoration: none; /* 밑줄 제거 */
+  display: inline-block; /* 인라인 블록으로 표시 */
+  font-size: 16px; /* 글꼴 크기 증가 */
+  margin: 4px 2px; /* 여백을 pagination 버튼과 동일하게 설정 */
+  cursor: pointer; /* 호버 시 커서 포인터로 변경 */
+  border-radius: 4px; /* 모서리 반경을 pagination 버튼과 동일하게 설정 */
+  transition: background-color 0.3s; /* 호버 시 부드러운 전환 */
+}
+
+.pagination-close-button:hover {
+  background-color: #ddd; /* 호버 시 배경을 pagination 버튼과 동일하게 설정 */
+}
+
+.pagination-close-button:focus {
+  outline: none; /* 포커스 시 테두리 제거 */
+  box-shadow: 0 0 3px #d32f2f; /* 포커스 시 그림자 추가 */
+}
+
+
+/* 미디어 쿼리: 768px 이상일 때 사이드바 적용 */
+@media (min-width: 768px) {
+
+  .map_wrap {
+    width: calc(100% + 400px);
+    /* 사이드바 너비를 뺀 나머지 너비 */
+    height: 100%;
+    position: absolute;
+    /* top: 0; */
+  }
+
+  #menu_wrap {
+    width: 23%; /* 사이드바 너비 */
+    height: 100%;
+    /* position: absolute; */
+    font-size: 10px; 
+    /* left: 0; */
+    top: 0;
+    /* z-index: 1000; */
+    /* background: #fff; */
+    /* overflow-y: auto; 내용이 길어지면 스크롤 */
+    /* overflow: hidden */
+  }
+}
+
+/* 미디어 쿼리: 768px 이하일 상단 검색바 */
+@media (max-width: 767px) {
+  .map_wrap {
+    width: calc(100%); /* 사이드바 너비를 뺀 나머지 너비 */
+    height: 100%;
+    position: absolute;
+  }
+  #menu_wrap {
+    position: absolute;
+    display: "flex";
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    font-size: 11px; /*플레이 리스트 폰트 크기*/
+    
+  }
+
+
+@keyframes init{}
+.options_container {
+  position: absolute;
+  top: 100%; 
+  left: -2px;
+  background-color: #fff;
+  border: 2px solid #d4d4d4;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  width: 100%; /* 검색 폼 너비에 맞게 설정 */
+  display: flex; /* Flexbox 사용 */
+  /* flex-wrap: wrap; 필요 시 여러 줄로 나눌 수 있습니다 */
+  justify-content: space-around; /* 각 요소 사이의 간격을 설정합니다 */
+}
+
+/* Map.css */
+
+.info-window {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  font-size: 14 px;
+}
+
+
+}
+/* info-window CSS */
+.info-window {
+  width: 250px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+
+
+.info-window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2453B3;
+  padding: 10px;
+}
+
+.info-window-title {
+  margin: 0;
+  font-size: 14px;
+  /* text-align: center; */
+  /* font-weight: bold; */
+  color: white;
+}
+
+.info-window-close {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 연결url */
+.info-window-body {
+  display: flex;
+  padding: 10px;
+}
+
+.info-window-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.info-window-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-window-address,
+.info-window-postcode {
+  margin: 0;
+  font-size: 12px;
+}
+
+.info-window-link {
+  font-size: 12px;
+  color: blue;
+  text-decoration: none;
+  margin-top: 5px;
+}
+
+.info-window-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes drop {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.marker-animation {
+  animation: drop 0.5s ease-out;
+}

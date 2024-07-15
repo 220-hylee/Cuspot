@@ -1,36 +1,46 @@
-
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid, Paper,Hidden } from "@material-ui/core";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Button, Grid, Paper, Hidden } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import { setSessionInfo } from "../../store/actions/session"; // 새로 추가된 부분
+import { setSessionInfo } from "../../store/actions/session";
 import Style from "./Style";
+
 const Category = () => {
   const classes = Style();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleButtonClick = (info, path) => {
+  const [selectedSport, setSelectedSport] = useState(null);
+
+  const handleButtonClick = (info, path, sport) => {
     dispatch(setSessionInfo(info));
+    setSelectedSport(sport);
     navigate(path);
   };
+
   return (
-<Paper
+    <Paper
       elevation={0}
       style={{ borderRadius: 0, width: "100%", height: "100%" }}
     >
       <Grid container className={classes.header}>
         <Grid item className={classes.header__nav} xs={12} sm={8} md={12}>
-          <div className={classes.nav__links} onClick={() => handleButtonClick(null, '/')}>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick(null, '/', 'Health')}
+            variant={selectedSport === 'Health' ? 'contained' : ''}
+            color={selectedSport === 'Health' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <path d="M0 0h24v24H0V0z" fill="none"/>
               <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/>
             </svg>
             &nbsp;
             <Hidden xsDown>
-                  <div>Health</div>
+              <div>Health</div>
             </Hidden>
-          </div>
-          <div className={classes.nav__links} onClick={() => handleButtonClick('Soccer Info', '/')}>
+          </Button>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick('Soccer Info', '/', 'Soccer')}
+            variant={selectedSport === 'Soccer' ? 'contained' : ''}
+            color={selectedSport === 'Soccer' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <g><rect fill="none" height="24" width="24"/></g>
               <g>
@@ -41,10 +51,13 @@ const Category = () => {
             </svg>
             &nbsp;
             <Hidden xsDown>
-            <div>Soccer</div>
+              <div>Soccer</div>
             </Hidden>
-          </div>
-          <div className={classes.nav__links} onClick={() => handleButtonClick('Baseball Info', '/')}>
+          </Button>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick('Baseball Info', '/', 'Baseball')}
+            variant={selectedSport === 'Baseball' ? 'contained' : ''}
+            color={selectedSport === 'Baseball' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <g><rect fill="none" height="24" width="24"/></g>
               <g>
@@ -53,32 +66,39 @@ const Category = () => {
             </svg>
             &nbsp;
             <Hidden xsDown>
-            <div>Baseball</div>
+              <div>Baseball</div>
             </Hidden>
-            
-          </div>
-          <div className={classes.nav__links} onClick={() => handleButtonClick('Tennis Info', '/')}>
+          </Button>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick('Tennis Info', '/', 'Tennis')}
+            variant={selectedSport === 'Tennis' ? 'contained' : ''}
+            color={selectedSport === 'Tennis' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <g><rect fill="none" height="24" width="24"/></g>
-                <path d="M19.52,2.49c-2.34-2.34-6.62-1.87-9.55,1.06c-1.6,1.6-2.52,3.87-2.54,5.46c-0.02,1.58,0.26,3.89-1.35,5.5l-4.24,4.24 l1.42,1.42l4.24-4.24c1.61-1.61,3.92-1.33,5.5-1.35s3.86-0.94,5.46-2.54C21.38,9.11,21.86,4.83,19.52,2.49z M10.32,11.68 c-1.53-1.53-1.05-4.61,1.06-6.72s5.18-2.59,6.72-1.06c1.53,1.53,1.05,4.61-1.06,6.72S11.86,13.21,10.32,11.68z"/><path d="M18,17c0.53,0,1.04,0.21,1.41,0.59c0.78,0.78,0.78,2.05,0,2.83C19.04,20.79,18.53,21,18,21s-1.04-0.21-1.41-0.59 c-0.78-0.78-0.78-2.05,0-2.83C16.96,17.21,17.47,17,18,17 M18,15c-1.02,0-2.05,0.39-2.83,1.17c-1.56,1.56-1.56,4.09,0,5.66 C15.95,22.61,16.98,23,18,23s2.05-0.39,2.83-1.17c1.56-1.56,1.56-4.09,0-5.66C20.05,15.39,19.02,15,18,15L18,15z"/>
+              <path d="M19.52,2.49c-2.34-2.34-6.62-1.87-9.55,1.06c-1.6,1.6-2.52,3.87-2.54,5.46c-0.02,1.58,0.26,3.89-1.35,5.5l-4.24,4.24 l1.42,1.42l4.24-4.24c1.61-1.61,3.92-1.33,5.5-1.35s3.86-0.94,5.46-2.54C21.38,9.11,21.86,4.83,19.52,2.49z M10.32,11.68 c-1.53-1.53-1.05-4.61,1.06-6.72s5.18-2.59,6.72-1.06c1.53,1.53,1.05,4.61-1.06,6.72S11.86,13.21,10.32,11.68z"/><path d="M18,17c0.53,0,1.04,0.21,1.41,0.59c0.78,0.78,0.78,2.05,0,2.83C19.04,20.79,18.53,21,18,21s-1.04-0.21-1.41-0.59 c-0.78-0.78-0.78-2.05,0-2.83C16.96,17.21,17.47,17,18,17 M18,15c-1.02,0-2.05,0.39-2.83,1.17c-1.56,1.56-1.56,4.09,0,5.66 C15.95,22.61,16.98,23,18,23s2.05-0.39,2.83-1.17c1.56-1.56,1.56-4.09,0-5.66C20.05,15.39,19.02,15,18,15L18,15z"/>
             </svg>
             &nbsp;
             <Hidden xsDown>
-            <div>Tennis</div>
+              <div>Tennis</div>
             </Hidden>
-            
-          </div>
-          <div className={classes.nav__links} onClick={() => handleButtonClick('Badminton Info', '/')}>
+          </Button>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick('Badminton Info', '/', 'Badminton')}
+            variant={selectedSport === 'Badminton' ? 'contained' : ''}
+            color={selectedSport === 'Badminton' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <rect fill="none" height="24" width="24"/>
               <path d="M19,5h-2V3H7v2H5C3.9,5,3,5.9,3,7v1c0,2.55,1.92,4.63,4.39,4.94c0.63,1.5,1.98,2.63,3.61,2.96V19H7v2h10v-2h-4v-3.1 c1.63-0.33,2.98-1.46,3.61-2.96C19.08,12.63,21,10.55,21,8V7C21,5.9,20.1,5,19,5z M5,8V7h2v3.82C5.84,10.4,5,9.3,5,8z M12,14 c-1.65,0-3-1.35-3-3V5h6v6C15,12.65,13.65,14,12,14z M19,8c0,1.3-0.84,2.4-2,2.82V7h2V8z"/>
             </svg>
             &nbsp;
             <Hidden xsDown>
-            <div>Badminton</div>
+              <div>Badminton</div>
             </Hidden>
-          </div>
-          <div className={classes.nav__links} onClick={() => handleButtonClick('Basketball Info', '/')}>
+          </Button>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick('Basketball Info', '/', 'Basketball')}
+            variant={selectedSport === 'Basketball' ? 'contained' : ''}
+            color={selectedSport === 'Basketball' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <g><rect fill="none" height="24" width="24"/></g>
               <g>
@@ -89,40 +109,41 @@ const Category = () => {
             </svg>
             &nbsp;
             <Hidden xsDown>
-            <div>Basketball</div>
+              <div>Basketball</div>
             </Hidden>
-            
-          </div>
-          <div className={classes.nav__links} onClick={() => handleButtonClick('Running Info', '/')}>
+          </Button>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick('Running Info', '/', 'Running')}
+            variant={selectedSport === 'Running' ? 'contained' : ''}
+            color={selectedSport === 'Running' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <path d="M0 0h24v24H0V0z" fill="none"/>
               <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/>
             </svg>
             &nbsp;
             <Hidden xsDown>
-            <div>Running</div>
+              <div>Running</div>
             </Hidden>
-            
-          </div>
-          <div className={classes.nav__links} onClick={() => handleButtonClick('ETC Info', '/')}>
+          </Button>
+          <Button className={classes.nav__links} onClick={() => handleButtonClick('ETC Info', '/', 'ETC')}
+            variant={selectedSport === 'ETC' ? 'contained' : ''}
+            color={selectedSport === 'ETC' ? '#FBFBFB' : 'default'}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#999999">
               <path d="M0 0h24v24H0V0z" fill="none"/>
               <path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.97.89 1.66.89H22c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14z"/><circle cx="9" cy="12" r="1.5"/><circle cx="14" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>
             </svg>
             &nbsp;
             <Hidden xsDown>
-            <div>E.T.C</div>
+              <div>E.T.C</div>
             </Hidden>
-            
-          </div>
+          </Button>
         </Grid>
       </Grid>
     </Paper>
   );
-    
- 
 };
-  
+
 export default Category;
 
 

@@ -89,18 +89,21 @@ const PersonalInfo = () => {
                   />
                 </div>
                 <div className="info" style={{ textAlign: "center" }}>
-                    <h4>{displayName}님 안녕하세요. </h4><br/>
-                    오늘 하루도 즐거운 하루 되세요~<br/>
-                    기존에 진행하신 AI맞춤 운동 추천 결과를 확인하실 수 있어요~<br/>
+                    <h4>{displayName}님 안녕하세요:D </h4><br/>
+                    오늘 하루도 즐겁고 행복한 하루 되세요~<br/><br/><br/>
+
+                    저는 사용자에게 맞춤 운동을 추천해주는 Cuspot입니다🤖<br/>
+                    기존에 진행하신 AI맞춤 운동 추천 결과를 확인하실 수 있어요~<br/><br/><br/>
+
+                    ⬇️아래에서 클릭
                 </div>
-                <Box display="flex" justifyContent="center" mt={4} className={classes.fullWidthButtonGroup}>
-                  
+                <Box display="flex" justifyContent="center" mt={1} className={classes.fullWidthButtonGroup}>
                   <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" className={classes.fullWidthButtonGroup}>
                     <Link to="/gptResult" className={classes.linkButton}>
                       <Button className={classes.gpt_button} style={{ minWidth: '100px' }}>😉 AI 맞춤 운동 추천 결과</Button>
                     </Link>
                     <Link to="/"className={classes.linkButton}>
-                      <Button className={classes.gpt_button} style={{ minWidth: '180px' }} onClick={logout}>LogOut</Button>
+                      <Button className={classes.gpt_button} style={{ minWidth: '180px' }} onClick={logout}>🖐🏻LogOut</Button>
                     </Link>
                   </ButtonGroup>
                   

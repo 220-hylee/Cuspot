@@ -78,9 +78,9 @@ const Register = () => {
         <TextField
           type="text"
           label = "name"
+          required
           value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
-          required
         />
         <TextField
           type="email"
@@ -111,19 +111,12 @@ const Register = () => {
           onChange={(e) => setPhone(e.target.value)}
         />
         <br/>
-          <Button 
-            className={classes.loginBt}
-            type="submit" 
+        <Button type="submit"  className={classes.loginBt}
             variant="contained"
-            size="small"
-           >Sign Up</Button><br/>
+            color = "primary" >sign IN</Button><br/>
+        <Link to="/" className={classes.link_back}>login</Link>
         </form>
-        <div className={classes.Register_link}>
-        <Link to="/" className={classes.register_link}>
-          뒤로가기
-        </Link>
-        </div>
-            <p>copyright TTEZO</p>
+        <p style={{textAlign:'center'}}>copyright TTEZO</p>
         {/* classes.about */}
       </Paper>
     </div>

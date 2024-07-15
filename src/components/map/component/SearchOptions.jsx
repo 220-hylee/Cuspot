@@ -38,23 +38,23 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
   return (
     <div className="tag-options" style={{ margin: '0' }}>
       {options.map((option, index) => ( 
-        <Button
-          key={index}       // 각 버튼에 고유한 key를 부여하기 위해 index를 사용합니다.
-          color="primary"
-          variant={selectedOptions.includes(option) ? 'contained' : 'primary'}
-          onClick={() => handleOptionButtonClick(option)} 
-          style={{ 
-            backgroundColor: "white", 
-            color: "black", 
-            margin: '5px 5px 5px 5px', 
-            borderRadius: '50px', 
-            padding: '5px 15px',  
-            fontWeight: 'bold',   
-            textTransform: 'none' 
-          }}
-        >
-          {option}
-        </Button>
+      <Button
+        key={index}  // 각 버튼에 고유한 key를 부여하기 위해 index를 사용합니다.
+        variant={selectedOptions.includes(option) ? 'contained' : ''}
+        color={selectedOptions.includes(option) ? 'primary' : 'disabled'}
+        onClick={() => handleOptionButtonClick(option)}
+        style={{
+          // backgroundColor: selectedOptions.includes(option) ? 'cuspotBlue' : 'transparent',
+          // color: selectedOptions.includes(option) ? 'black' : 'primary',
+          margin: '5px',
+          borderRadius: '50px',
+          padding: '5px 15px',
+          fontWeight: 'bold',
+          textTransform: 'none'
+        }}
+      >
+        {option}
+      </Button>
       ))}
     </div>
   );

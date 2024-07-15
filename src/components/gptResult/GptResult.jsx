@@ -88,7 +88,8 @@ const GptResult = () => {
                     alt="linked-in-logo"
                   />
                 </div>
-                <div id="data" className={classes.gpt_paper}>
+                <div id="data" className={classes.gpt_paper}
+                 style={{margin:'10px'}}>
                   {loading ? (
                     <div className={classes.loadingContainer}>
                       <CircularProgress />
@@ -120,13 +121,19 @@ const GptResult = () => {
                     )
                   )}
                 </div>
-                <Box display="flex" justifyContent="center" mt={4} className={classes.fullWidthButtonGroup}>
+                <Box display="flex" justifyContent="center" mt={1} className={classes.fullWidthButtonGroup}>
                   <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" className={classes.fullWidthButtonGroup}>
                     <Link to="/chat" className={classes.linkButton}>
-                      <Button className={classes.gpt_button} style={{ minWidth: '100px' }}>😉 CHAT</Button>
+                      <Button className={classes.gpt_button} 
+                        varient = "contained"
+                        // color = "primary"
+                        style={{ minWidth: '100px' }}>😉 채팅</Button>
                     </Link>
                     <Link to="/about" className={classes.linkButton}>
-                      <Button className={classes.gpt_button} style={{ minWidth: '180px' }}>🗺️ MAP</Button>
+                      <Button className={classes.gpt_button} 
+                      varient = "contained" 
+                      // color = "primary"
+                      style={{ minWidth: '100px' }}>🗺️ 지도</Button>
                     </Link>
                   </ButtonGroup>
                   

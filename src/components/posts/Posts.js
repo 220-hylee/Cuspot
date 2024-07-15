@@ -51,7 +51,7 @@ const Posts = () => {
   
     return (
     <div className={classes.posts}>
-     <h2>{info ? info : "Health Info"}</h2>
+   
       <FlipMove style={{ width: "100%" }}>
         
         {/* 봄동에서 가져온 데이터 출력 */}

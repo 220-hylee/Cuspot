@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+
     minHeight: '100vh',
     padding: theme.spacing(4), // Unified vertical padding
     // paddingBottom: theme.spacing(4), // Unified vertical padding
@@ -133,16 +134,6 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
-    //로그인 버튼
-    "& > Button": {
-      height: 30,
-      border: "1px solid lightgrey",
-      borderRadius: 4,
-      color: "white",
-      fontSize: 14,
-      fontWeight: 600,
-      backgroundColor: cuspotBlue,
-    },
   },
 
   form_register: {
@@ -151,22 +142,12 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
-    //로그인 버튼
-    "& > Button": {
-      height: 30,
-      borderRadius: 4,
-      color: "white",
-      fontSize: 14,
-      fontWeight: 600,
-      backgroundColor: cuspotBlue,
-    },
   },
   //버튼 관리 
   loginBt : {
-    marginBottom : 10,
-    fontSize: '14',
     width: '100%',
-
+    fontSize: '15',
+    fontWeight : 'bold',
   },
 
   findEmail_bt : {
@@ -205,6 +186,7 @@ export default makeStyles((theme) => ({
         padding: "0 10px",
         "& > div": {
           flex: 1,
+          width: "100%",
           height: 1,
           display: "flex",
           justifyContent: "center",
@@ -331,7 +313,6 @@ export default makeStyles((theme) => ({
   },
 
   link_back : {
-    marginBottom : 40,
     marginTop :0,
     // fontWeight : 600,
     // fontSize : 14,
