@@ -4,15 +4,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import Avatar from "@material-ui/core/Avatar";
 import ReactTimeago from 'react-timeago';
 import Style from './Style';
-
-
-
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-
 const CommentPopup = ({ onClose, comments, addComment, profile, username,postId }) => {
-
   const { displayName, photoURL, email } = useSelector((state) => state.user);
   const classes = Style();
   const [comment, setComment] = useState('');
@@ -20,13 +15,10 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
   const [list, setList] = useState([]);
   const handleCommentChange = (e) => {
     setComment(e.target.value);
-    
- 
   };
-
   // 댓글 생성 하기
   const uploadComments = async (postId) => {
-    const response = await fetch("http://localhost:8080/api/insertComments", {
+    const response = await fetch("http://3.35.205.229:8080/api/insertComments", {
       method: "POST",
       headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -39,22 +31,14 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
         profile: photoURL,
         createDate: new Date(),
       }),
-     
     });
-
   };
-
-
   const mutation = useMutation(uploadComments, {
     onSuccess: () => {
       // invalidate and refetch
       queryClient.invalidateQueries('comments');
     },
   });
-
-
-
-
   const handleCommentSubmit = async() => {
     if (comment.trim()) {
       const newComment = {
@@ -66,39 +50,25 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
         timestamp: new Date(),
       };
       addComment(newComment);
-      setComment('');   
-      
+      setComment('');
       mutation.mutate(postId);
-    
     }
-   
-
   };
-
-
   // 댓글 목록 가져오기
   const fetchData = async () => {
-      
       try {
-        const response = await axios.get(`http://localhost:8080/api/getCommentsList/${postId}`);
-       
+        const response = await axios.get(`http://3.35.205.229:8080/api/getCommentsList/${postId}`);
         if(response == null){
           response.data = "";
         }
-        
         return response.data;
-      
-      
       } catch (error) {
         throw new Error('Error fetching data');
       }
-      
   };
   useQuery("comments", fetchData, {
     onSuccess: (data) => setList(data),
-      
   });
-  
 // 댓글 삭제하기
 // 삭제 버튼 누를시
 const deleteComment = async (commentId) => {
@@ -110,7 +80,7 @@ const deleteComment = async (commentId) => {
 };
  const deleteCommentMutation = useMutation(
   async (commentId) => {
-    await axios.delete(`http://localhost:8080/api/deleteComments/${postId}/${email}/${commentId}`);
+    await axios.delete(`http://3.35.205.229:8080/api/deleteComments/${postId}/${email}/${commentId}`);
   },
   {
     onSuccess: () => {
@@ -136,7 +106,6 @@ return ReactDOM.createPortal(
               </div>
             </div>
           ))}  */}
-          
           {/*  스프링부트 댓글 목록 */}
           {list.map(item => (
                 <div key={item.id} className={classes.comment}>
@@ -151,7 +120,6 @@ return ReactDOM.createPortal(
                   </div>
                 </div>
 ))}
-          
           <textarea
             value={comment}
             onChange={handleCommentChange}
@@ -161,12 +129,10 @@ return ReactDOM.createPortal(
           <button onClick={handleCommentSubmit} className={classes.comment__submit}>
             댓글 달기
           </button>
-          
         </div>
       </div>
     </div>,
     document.getElementById('popup-root')
   );
 };
-
 export default CommentPopup;

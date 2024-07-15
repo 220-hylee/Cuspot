@@ -13,12 +13,12 @@
   font-style: normal;
 } */
 
-@font-face {
+/* @font-face {
   font-family: 'Jal_Haru';
   src: url("./font/Jal_Haru.ttf") format('ttf');
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 body {
   .login__container{
@@ -28,9 +28,9 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #000000;
+    font-family: 'Roboto', sans-serif;
   }
-
   /* font-family: "NanumBarunpenR"; */
-  font-family: "Jal_Haru";
+  /* font-family: "Jal_Haru"; */
 }
 

@@ -43,7 +43,7 @@ const fetchLikes = async (postId) => {
 
 
 // const fetchLikes = async (postId) => {
-//   const response = await axios.get(`http://localhost:8080/api/getLikes/${postId}`);
+//   const response = await axios.get(`http://192.168.123.20:8080/api/getLikes/${postId}`);
 //   return response.data.likesCount;
 // };
 
@@ -75,7 +75,7 @@ const Post = forwardRef(
     
     const deleteBoardMutation = useMutation(
       async () => {
-        await axios.delete(`http://localhost:8080/api/deleteBoard/${postId}`)
+        await axios.delete(`http://192.168.123.20:8080/api/deleteBoard/${postId}`)
       },
       {
         onSuccess: () => {
@@ -86,7 +86,7 @@ const Post = forwardRef(
 
        // // 좋아요 상태 가져오기
        useEffect(() => {
-        axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`)
+        axios.get(`http://192.168.123.20:8080/api/getLiked/${postId}/${email}`)
           .then(response => {
             setLiked(response.data);
           })
@@ -99,13 +99,13 @@ const Post = forwardRef(
       async ({ postId, newLikesCount, email }) => {
         setLiked(!liked);
         // 좋아요 갯수 업데이트
-        await axios.post(`http://localhost:8080/api/updateLike/${postId}/${newLikesCount}`);
+        await axios.post(`http://192.168.123.20:8080/api/updateLike/${postId}/${newLikesCount}`);
         // 좋아요 삭제하기
         if (liked) {
-          await axios.delete(`http://localhost:8080/api/deleteLike/${postId}/${email}`);
+          await axios.delete(`http://192.168.123.20:8080/api/deleteLike/${postId}/${email}`);
         } else {
           // 좋아요 생성하기
-          await axios.post("http://localhost:8080/api/insertLike", {
+          await axios.post("http://192.168.123.20:8080/api/insertLike", {
             email: email,
             boardid: postId,
           });

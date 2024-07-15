@@ -100,7 +100,7 @@ const PersonalInfo = () => {
                 <Box display="flex" justifyContent="center" mt={1} className={classes.fullWidthButtonGroup}>
                   <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" className={classes.fullWidthButtonGroup}>
                     <Link to="/gptResult" className={classes.linkButton}>
-                      <Button className={classes.gpt_button} style={{ minWidth: '100px' }}>😉 AI 맞춤 운동 추천 결과</Button>
+                      <Button className={classes.gpt_button} style={{ minWidth: '100px' }}>😉 AI 운동 추천 결과</Button>
                     </Link>
                     <Link to="/"className={classes.linkButton}>
                       <Button className={classes.gpt_button} style={{ minWidth: '180px' }} onClick={logout}>🖐🏻LogOut</Button>
