@@ -23,8 +23,8 @@ const PersonalInfo = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const sheetId = '1iCCfFgbT43iVt0f_0cwUALr3i2-oLU8jn9brUc_3HMA';
-      const apiKey = 'AIzaSyBP5KnUzW6BJaOgfeOjWA8RJhAiawg7Br0';
+      const sheetId = '1ecyazOxlyShPivuMocPheTT-QC5rjkBzenIB5s6CwbQ';
+      const apiKey = 'AIzaSyAQaujikl991lboO2kNia_EnJWodHLoTOk';
 
       console.log("Fetched userId from Redux session info:", email); // userId 값을 콘솔에 출력
 

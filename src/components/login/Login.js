@@ -72,7 +72,8 @@ const Login = () => {
             type="email"
             label="email"
             value={email}
-            autoComplete="email"
+            // autoComplete="email"
+            required
             onChange={handleEmailChange}
           />
           <TextField
@@ -80,6 +81,7 @@ const Login = () => {
             type={showPassword ? "text" : "password"}
             label="password"
             value={password}
+            required
             onChange={handlePasswordChange}
             InputProps={{
               endAdornment: (

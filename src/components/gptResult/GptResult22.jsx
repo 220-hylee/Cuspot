@@ -22,7 +22,7 @@ const GptResult = () => {
   const [error, setError] = useState(null);
 
   const addDataToSheet = async (id) => {
-    const sheetId = '1iCCfFgbT43iVt0f_0cwUALr3i2';
+    const sheetId = '1ecyazOxlyShPivuMocPheTT-QC5rjkBzenIB5s6CwbQ';
     const range = 'DB!A:A';
     const apiKey = 'AIzaSyBP5KnUzW6BJaOgfeOjWA8RJhAiawg7Br0';
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}:append?valueInputOption=RAW&key=${apiKey}`;

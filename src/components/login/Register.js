@@ -116,7 +116,7 @@ const Register = () => {
             color = "primary" >sign IN</Button><br/>
         <Link to="/" className={classes.link_back}>login</Link>
         </form>
-        <p style={{textAlign:'center'}}>copyright TTEZO</p>
+        <p style={{textAlign:'center', fontSize:"12px"}}>copyright TTEZO</p>
         {/* classes.about */}
       </Paper>
     </div>

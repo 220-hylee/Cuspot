@@ -77,6 +77,7 @@ const FindEmail = () => {
         autoComplete='name'
         onChange={(e) => setDisplayName(e.target.value)}
         placeholder="name" >
+          
        </TextField>
         <br/>
       <TextField
