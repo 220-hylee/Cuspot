@@ -152,22 +152,29 @@ const Post = forwardRef(
     );
 
       // // 좋아요 상태 가져오기
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`);
-          // 여기서 response.data를 적절히 가공하여 true/false 값을 추출하거나 계산
-          
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            console.log(postId);
+            console.log(email);
+            console.log(liked);
       
-          return response.data; // true/false 반환
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          throw new Error('Error fetching data');
-        }
-      };
+            const response = await axios.get(`http://localhost:8080/api/getLiked/${postId}/${email}`);
+            // 여기서 response.data를 적절히 가공하여 true/false 값을 추출하거나 계산
+            const data = response.data; // true/false 값을 추출
       
-      useQuery("Heart", fetchData, {
-        onSuccess: (data) => setLiked(data),
-      });
+            setLiked(data); // 상태 업데이트
+          } catch (error) {
+            console.error('Error fetching data:', error);
+            // 에러 처리
+          }
+        };
+      
+        fetchData(); // 함수 호출
+      
+      }, []);
+      
+  
 
     return (
       <Paper ref={ref} className={classes.post}>
