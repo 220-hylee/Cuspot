@@ -69,10 +69,12 @@ export default makeStyles((theme) => ({
   linkButton: {
     textDecoration: 'none',
     width: '50%', // 두 개의 버튼이 있을 경우 각각 50% 너비 설정
+    
   },
   gpt_button: {
     width: '100%', // 버튼이 부모 요소의 너비를 채우도록 설정
     minWidth: '120px',
+    
   }
 
 }));

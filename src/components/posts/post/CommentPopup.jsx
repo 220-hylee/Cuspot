@@ -18,7 +18,7 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
   };
   // 댓글 생성 하기
   const uploadComments = async (postId) => {
-    const response = await fetch("http://3.35.205.229:8080/api/insertComments", {
+    const response = await fetch("http://192.168.123.20:8080/api/insertComments", {
       method: "POST",
       headers: {
           "Content-Type": "application/json;charset=utf-8",
@@ -57,7 +57,8 @@ const CommentPopup = ({ onClose, comments, addComment, profile, username,postId 
   // 댓글 목록 가져오기
   const fetchData = async () => {
       try {
-        const response = await axios.get(`http://3.35.205.229:8080/api/getCommentsList/${postId}`);
+        const response = await axios.get(`http://192.168.123.20:8080/api/getCommentsList/${postId}`);
+       
         if(response == null){
           response.data = "";
         }
@@ -80,7 +81,7 @@ const deleteComment = async (commentId) => {
 };
  const deleteCommentMutation = useMutation(
   async (commentId) => {
-    await axios.delete(`http://3.35.205.229:8080/api/deleteComments/${postId}/${email}/${commentId}`);
+    await axios.delete(`http://192.168.123.20:8080/api/deleteComments/${postId}/${email}/${commentId}`);
   },
   {
     onSuccess: () => {

@@ -19,7 +19,7 @@ class MapService {
     this.map = null;                   // Kakao 지도 객체
     this.ps = null;                    // Kakao 장소 검색 서비스 객체
     this.infowindow = null;            // Kakao 인포윈도우 객체
-    this.currentRadius = null;         // 현재 선택된 검색 반경
+    this.currentRadius = 10000;         // 현재 선택된 검색 반경
     this.keywords = initialKeyword;    // 초기 검색 키워드 배열
     this.selectedPlaces = [];          // Array to store selected places
     this.searchPosition = null;        // 사용자가 검색한 위치를 저장할 변수
@@ -86,7 +86,13 @@ class MapService {
       this.currentRadius = null;
     }
   }
-
+  // setRadius(radius) {
+  //   if (radius > 0) {
+  //     this.currentRadius = radius;
+  //   } else {
+  //     this.currentRadius = null;
+  //   }
+  // }
   searchPlaces(keywords, selectedOptions, searchPosition = null) {
     if (searchPosition) {
       this.updateSearchPosition(searchPosition);  // 검색 위치 업데이트
@@ -111,7 +117,7 @@ class MapService {
     keywords.forEach((keyword) => {
       const options = {
         location: new this.kakao.maps.LatLng(searchLoc.lat, searchLoc.lng),
-        radius: this.currentRadius
+        radius: 10000
       };
 
       this.ps.keywordSearch(keyword, (data, status) => {
@@ -131,6 +137,7 @@ class MapService {
       }, options);
     });
   }
+
 
   getUniqueResults(results) {
     const uniquePlaces = [];

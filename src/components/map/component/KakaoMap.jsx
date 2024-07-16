@@ -68,9 +68,9 @@ const KakaoMap = () => {
   }, [mapService, keywords]);
 
   // 검색어 제출 처리 함수 ( 배열로 받은 키워드를 복수로 받을 수 있게 수정)
-  const handleSearchSubmit = useCallback((searchKeywords, selectedOptions) => {
+  const handleSearchSubmit = useCallback((searchKeywords, selectedOptions, searchPosition = null) => {
     setKeywords(searchKeywords.split(", ")); // 검색어 배열로 설정
-    mapService.searchPlaces(searchKeywords.split(", "), selectedOptions); // 장소 검색 요청
+    mapService.searchPlaces(searchKeywords, selectedOptions, searchPosition); // 장소 검색 요청
   }, [mapService]);
 
   // 페이지 변경 처리 함수
@@ -79,12 +79,12 @@ const KakaoMap = () => {
   }, []);
 
   // 검색 반경 변경 처리 함수
-  // const handleRadiusChange = useCallback((radius) => {
-  //   if (mapService) {
-  //     mapService.setRadius(radius); // 검색 반경 설정
-  //     mapService.searchPlaces(keywords, []); // 장소 검색 요청 (선택된 옵션 초기화)
-  //   }
-  // }, [mapService, keywords]);
+  const handleRadiusChange = useCallback((radius) => {
+    if (mapService) {
+      mapService.setRadius(radius); // 검색 반경 설정
+      mapService.searchPlaces(keywords, []); // 장소 검색 요청 (선택된 옵션 초기화)
+    }
+  }, [mapService, keywords]);
 
   // 검색 결과 창 닫기
   const searchClose = useCallback(() => {
@@ -117,7 +117,7 @@ const KakaoMap = () => {
     }
   };
 
-
+  
 
   return (
     <div className="map_wrap">

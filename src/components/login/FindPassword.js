@@ -97,7 +97,7 @@ const FindPassword = () => {
                         variant="contained"
                         color="primary">SEARCH</Button>
                     <Link to="/" className={classes.link_back}>login</Link>
-                    <p style={{ marginTop: '20px', textAlign: 'center' }}>copyright TTEZO</p>
+                    <p style={{ marginTop: '17.5px', textAlign: 'center', fontSize:"12px" }}>copyright TTEZO</p>
                 </div>
             </Paper>
 

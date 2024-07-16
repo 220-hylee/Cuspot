@@ -113,7 +113,7 @@ const Login = () => {
             <Link to="/FindPassword" className={classes.login_link} variant="body1">비밀번호 찾기</Link>
           </div>
         </div>
-        <p style={{ marginTop: '10px', textAlign: 'center' }}>copyright TTEZO</p>
+        <p style={{ marginTop: '5px', textAlign: 'center', fontSize:"12px"}}>copyright TTEZO</p>
         <div className={classes.repasswordSorry}>
           <p>구글로 로그인한 유저는 아이디 및 비밀번호 찾기를 제공해드리기 않습니다.</p>
         </div>

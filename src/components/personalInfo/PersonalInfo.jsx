@@ -103,7 +103,7 @@ const PersonalInfo = () => {
                       <Button className={classes.gpt_button} style={{ minWidth: '100px' }}>😉 AI 운동 추천 결과</Button>
                     </Link>
                     <Link to="/"className={classes.linkButton}>
-                      <Button className={classes.gpt_button} style={{ minWidth: '180px' }} onClick={logout}>🖐🏻LogOut</Button>
+                      <Button className={classes.gpt_button} style={{ minWidth: '180px' }} onClick={logout}>LogOut🖐🏻</Button>
                     </Link>
                   </ButtonGroup>
                   

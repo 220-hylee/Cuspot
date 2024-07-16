@@ -268,9 +268,8 @@ const Form = () => {
             placeholder={`오늘은 어떤 내용을 공유할까요, ${displayName}님?`}
             value={uploadData.description}
             onChange={(e) => setUploadData({ ...uploadData, description: e.target.value })}
-          /> 
-
-
+            style={{ fontStyle: 'italic' }}
+            /> 
 
           {/* 위 input은 피드 TEXT입력 부분 */}
           <input

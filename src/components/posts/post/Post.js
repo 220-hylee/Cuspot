@@ -83,17 +83,8 @@ const Post = forwardRef(
         },
       }
     )
-
-       // // 좋아요 상태 가져오기
-       useEffect(() => {
-        axios.get(`http://192.168.123.20:8080/api/getLiked/${postId}/${email}`)
-          .then(response => {
-            setLiked(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
-      }, []); 
+      
+  
         
     const updateLikes = useMutation(
       async ({ postId, newLikesCount, email }) => {
@@ -159,6 +150,25 @@ const Post = forwardRef(
         <div></div>
       </div>
     );
+
+    // // 좋아요 상태 가져오기
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          console.log(postId);
+          console.log(email);
+          console.log(liked);
+          const response = await axios.get(`http://192.168.123.20:8080/api/getLiked/${postId}/${email}`);
+          // 여기서 response.data를 적절히 가공하여 true/false 값을 추출하거나 계산
+          const data = response.data; // true/false 값을 추출
+          setLiked(data); // 상태 업데이트
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          // 에러 처리
+        }
+      };
+      fetchData(); // 함수 호출
+    }, []);
 
     return (
       <Paper ref={ref} className={classes.post}>
