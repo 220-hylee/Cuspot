@@ -29,7 +29,7 @@ const Posts = () => {
     const fetchData = async () => {
       
       try {
-        const response = await axios.get('http://localhost:8080/api/getBoardList');
+        const response = await axios.get('http://192.168.123.20:8080/api/getBoardList');
        
         if(response == null){
           response.data = "";

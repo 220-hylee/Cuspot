@@ -96,7 +96,7 @@ const Form = () => {
 //--------------------------------------------------------------------------------------------------------
 // 스프링 부트 피드  생성하기
   const uploadToSpringBoot = async (fileData) => {
-    const response = await fetch("http://localhost:8080/api/createboard", {
+    const response = await fetch("http://192.168.123.20:8080/api/createboard", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -268,9 +268,8 @@ const Form = () => {
             placeholder={`오늘은 어떤 내용을 공유할까요, ${displayName}님?`}
             value={uploadData.description}
             onChange={(e) => setUploadData({ ...uploadData, description: e.target.value })}
-          /> 
-
-
+            style={{ fontStyle: 'italic' }}
+            /> 
 
           {/* 위 input은 피드 TEXT입력 부분 */}
           <input

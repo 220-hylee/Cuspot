@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from "@material-ui/core";
 import '../CSS/Map.css';
-import { cuspotBlue } from '../../../assets/Colors';
+// import { cuspotBlue } from '../../../assets/Colors';
 
 // SearchOptions 컴포넌트를 정의하고, options, handleSearchSubmit, handleCheckboxChange, cuspotBlue를 props로 받습니다.
 export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChange, cuspotBlue }) => {
@@ -18,8 +18,8 @@ export const SearchOptions = ({ options, handleSearchSubmit, handleCheckboxChang
       const newSelectedOptions = selectedOptions.filter(item => item !== option);//filter는 selectedOptions 각 요소(item)를 반복- item과 option이 같지 않으면 새 배열에 item을 포함시킴
                                                                                 // 클릭한 옵션을 제외한 새로운 배열이 탄생하는 것
       setSelectedOptions(newSelectedOptions); // 새로운 selectedOptions 배열을 문자열로 결합하여 검색을 수행합니다.
-      handleSearchSubmit(newSelectedOptions.join(', ')); // 새로운 selectedOptions 배열을 문자열로 결합하여 inputValue 상태를 업데이트합니다.
       setInputValue(newSelectedOptions.join(', '));
+      handleSearchSubmit(newSelectedOptions.join(', ')); // 새로운 selectedOptions 배열을 문자열로 결합하여 inputValue 상태를 업데이트합니다.
     
     
       // 옵션이 선택되지 않은 경우
