@@ -57,7 +57,7 @@ const Register = () => {
       // 회원가입 후 추가 작업 또는 페이지 이동
 
     } catch (error) {
-      console.error("Error signing up:", error.message);
+      alert(error.message); // alert를 사용하여 에러 메시지 표시
       // 사용자에게 오류 메시지 표시 등
     }
   };
