@@ -55,7 +55,7 @@ const Login = () => {
       dispatch(LoginAction(user));
     } catch (error) {
       console.error("Error logging in with email and password", error);
-      alert("이메일 또는 비밀번호가 잘못 입력되었습니다.");
+      alert("Your email or password was entered incorrectly.");
     }
   };
 
