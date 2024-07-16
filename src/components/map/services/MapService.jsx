@@ -8,7 +8,7 @@ import volleyball from "../../../assets/images/volleyball.png";
 import basic from "../../../assets/images/basicR.png";
 
 class MapService {
-  constructor(mapContainer, userPosition, setPlaces, initialKeyword = ["축구"]) {
+  constructor(mapContainer, userPosition, setPlaces, initialKeyword = []) {
     this.mapContainer = mapContainer;  // 지도를 표시할 HTML 요소의 참조
     this.userPosition = userPosition;  // 사용자의 현재 위치 좌표
     // this.searchKeyword = searchKeyword;  // 사용자의 현재 위치 좌표
