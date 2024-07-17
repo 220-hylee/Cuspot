@@ -104,7 +104,7 @@ const KakaoMap = () => {
 
 
 
-  // 페이지 이전, 다음
+  //페이지 이전, 다음
   const totalPageCount = Math.ceil(places.length / resultsPerPage);
   const startPage = (currentSet - 1) * pagesPerSet + 1;
   const endPage = Math.min(currentSet * pagesPerSet, totalPageCount);
@@ -117,25 +117,7 @@ const KakaoMap = () => {
     }
   };
 
-  // 화면 크기 변경 시 장소 목록 초기 상태 설정
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 767) {
-        setShowPlaceList(false);
-      } else {
-        setShowPlaceList(true);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // 초기 상태 설정
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  
 
   return (
     <div className="map_wrap">
@@ -149,7 +131,7 @@ const KakaoMap = () => {
         />
         <hr />
         {/* 장소 목록 표시 */}
-        {showPlaceList  && places.length > 0 && (
+        {places.length > 0 && (
           <>
             <PlaceList
               places={places.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage)}

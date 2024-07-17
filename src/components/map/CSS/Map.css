@@ -158,6 +158,7 @@ html, body {
     height: 100%;
     position: absolute;
   }
+
   #menu_wrap {
     position: absolute;
     display: "flex";
@@ -169,6 +170,9 @@ html, body {
     
   }
 
+  #placesList .pagination-container {
+    display: none; /* 초기에는 숨기기 */
+  }
 
 @keyframes init{}
 .options_container {
@@ -266,19 +270,4 @@ html, body {
 
 .info-window-link:hover {
   text-decoration: underline;
-}
-
-@keyframes drop {
-  from {
-    transform: translateY(-100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.marker-animation {
-  animation: drop 0.5s ease-out;
 }
